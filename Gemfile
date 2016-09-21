@@ -44,7 +44,7 @@ group :development do
   gem 'capistrano-bundler', '~> 1.1.4'
   gem 'capistrano-rails', '~> 1.1.8'
   gem 'capistrano-rvm', github: "capistrano/rvm"
-
+  gem 'capistrano-passenger'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
