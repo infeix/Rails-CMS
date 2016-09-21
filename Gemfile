@@ -1,11 +1,5 @@
 source 'https://rubygems.org'
 
-# Add this if you're using rbenv
-# gem 'capistrano-rbenv', github: "capistrano/rbenv"
-
-# Add this if you're using rvm
-gem 'capistrano-rvm', github: "capistrano/rvm"
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'
 # Use postgresql as the database for Active Record
@@ -49,6 +43,7 @@ group :development do
   gem 'capistrano', '~> 3.6.1'
   gem 'capistrano-bundler', '~> 1.1.4'
   gem 'capistrano-rails', '~> 1.1.8'
+  gem 'capistrano-rvm', github: "capistrano/rvm"
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
