@@ -1,0 +1,11 @@
+%p{ id: "notice"}= notice
+
+%p
+  %h1= @article.title
+
+%p
+  = @article.text
+
+- unless @article.picture.nil?
+  %p
+    %img{ src: @article.picture }
