@@ -17,7 +17,7 @@ require "capistrano/deploy"
 
 require 'capistrano/rvm'
 set :rvm_type, :user                     # Defaults to: :auto
-set :rvm_ruby_version, '2.3.1'      # Defaults to: 'default'
+set :rvm_ruby_version, '2.3.3'      # Defaults to: 'default'
 #
 # require 'capistrano/rvm'
 # require 'capistrano/chruby'
