@@ -1,0 +1,35 @@
+LineLength:
+  Max: 100
+
+MethodLength:
+  Max: 20
+
+Metrics/ClassLength:
+  Max: 300
+
+# When using conditionals in assignment, the `end` should align with the
+# beginning of the variable, not the `if`
+EndAlignment:
+  AlignWith: variable
+
+# Not a part of our coding conventions -- yet
+Documentation:
+  Enabled: false
+
+Rails:
+  Enabled: true
+
+Rails/HasAndBelongsToMany:
+  Enabled: false
+
+AllCops:
+  TargetRubyVersion: 2.3
+  DisplayCopNames: true
+  Exclude:
+    - spec/**/*
+    - config/**/*
+    - bin/**/*
+    - db/**/*
+    - script/**/*
+    - vendor/assets/**/*
+    - vendor/bundle/**/*
