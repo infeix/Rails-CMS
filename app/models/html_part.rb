@@ -1,0 +1,2 @@
+class HtmlPart < PagePart
+end

@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @template.title
+%p
+  %b CSS:
+  = @template.css
+%p
+  %b Html begin:
+  = @template.html_begin
+%p
+  %b Html end:
+  = @template.html_end
+
+= link_to 'Edit', edit_template_path(@template)
+\|
+= link_to 'Back', templates_path

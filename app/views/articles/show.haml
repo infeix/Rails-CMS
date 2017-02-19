@@ -1,1 +1,18 @@
-= raw @article.render
+%p#notice= notice
+
+%p
+  %b Title:
+  = @article.title
+%p
+  %b Page id:
+  = @article.page_id
+%p
+  %b Text:
+  = @article.text
+%p
+  %b Code:
+  = @article.code
+
+= link_to 'Edit', edit_article_path(@article)
+\|
+= link_to 'Back', articles_path

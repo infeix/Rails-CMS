@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
+  resources :css_parts
+  resources :html_parts
+  resources :html_parts
   resources :templates
   resources :articles
-  root 'articles#show', id: 'index'
+  resources :pages
+  resources :overviews, only: [:index]
+  root 'pages#show', id: 'index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

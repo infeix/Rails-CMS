@@ -1,0 +1,2 @@
+class CssPart < PagePart
+end

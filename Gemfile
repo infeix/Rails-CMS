@@ -24,6 +24,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'haml-rails'
 
+gem 'pure-css-rails'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -41,6 +43,13 @@ end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
+
+  gem 'pry-rails'
+  gem 'pry-rescue'
+  gem 'pry-remote'
+  gem 'pry-byebug'
+  gem 'pry-doc'
+  gem 'pry-stack_explorer'
 
   gem 'capistrano', '~> 3.6.1'
   gem 'capistrano-bundler', '~> 1.1.4'

@@ -1,11 +1,12 @@
 class CreateTemplates < ActiveRecord::Migration
   def change
     create_table :templates do |t|
-      t.string :name
-      t.text :html_begin
-      t.text :html_end
+      t.string :title
 
       t.timestamps null: false
     end
+    add_reference :page_parts, :template, index: true, foreign_key: true
+    add_reference :pages, :template, index: true, foreign_key: true
+    add_reference :articles, :template, index: true, foreign_key: true
   end
 end
