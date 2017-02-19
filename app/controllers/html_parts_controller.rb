@@ -1,4 +1,11 @@
 class HtmlPartsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :authenticate_admin!
+
+  def authenticate_admin!
+    redirect_to user_session_path unless current_user.is_admin?
+  end
+
   before_action :set_html_part, only: [:show, :edit, :update, :destroy]
 
   # GET /html_parts

@@ -10,8 +10,12 @@ class Template < ActiveRecord::Base
     html_parts.find_by is_last: true
   end
 
+  def flash_messages
+    '<p class="notice"><%= notice %></p><p class="alert"><%= alert %></p>'
+  end
+
   def render(arts = [])
-    "#{render_css} <body> #{render_articles(arts)} #{last_html_part} </body>"
+    "#{render_css} <body> #{flash_messages} #{render_articles(arts)} #{last_html_part} </body>"
   end
 
   def render_css

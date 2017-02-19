@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :users
+  resources :users
   resources :css_parts
   resources :html_parts
   resources :html_parts

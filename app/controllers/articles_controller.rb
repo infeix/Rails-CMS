@@ -1,18 +1,19 @@
 # frozen_string_literal: true
 
 class ArticlesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :authenticate_admin!
+
+  def authenticate_admin!
+    redirect_to user_session_path unless current_user.is_admin?
+  end
+
   before_action :set_article, only: [:show, :edit, :update, :destroy]
 
   # GET /articles
   # GET /articles.json
   def index
     @articles = Article.all
-  end
-
-  # GET /articles/1
-  # GET /articles/1.json
-  def show_index
-    @article = Article.find(path: 'index')
   end
 
   # GET /articles/1

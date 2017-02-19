@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Lang:
+  = @user.lang
+%p
+  %b Name:
+  = @user.name
+
+= link_to 'Edit', edit_user_path(@user)
+\|
+= link_to 'Back', users_path
