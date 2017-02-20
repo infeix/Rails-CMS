@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170219095413) do
+ActiveRecord::Schema.define(version: 20170219175537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,14 @@ ActiveRecord::Schema.define(version: 20170219095413) do
 
   add_index "articles", ["page_id"], name: "index_articles_on_page_id", using: :btree
   add_index "articles", ["template_id"], name: "index_articles_on_template_id", using: :btree
+
+  create_table "messages", force: :cascade do |t|
+    t.text     "msg"
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "page_parts", force: :cascade do |t|
     t.string   "title"

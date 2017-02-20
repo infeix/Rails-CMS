@@ -1,1 +1,10 @@
-= raw @page.render
+= raw @page.render_head
+%body
+  .pure-menu-fixed.notice
+    = if notice.present?
+      %p.notice
+        = notice
+    = if alert.present?
+      %p.alert
+        = alert
+  = raw @page.render

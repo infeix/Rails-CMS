@@ -5,6 +5,10 @@ class Page < ActiveRecord::Base
   has_many :articles
   validates :path, presence: true
 
+  def render_head
+    template.present? ? template.render_head : text
+  end
+
   def render
     template.present? ? template.render(articles.all) : text
   end
