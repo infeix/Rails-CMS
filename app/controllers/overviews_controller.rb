@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OverviewsController < ApplicationController
   before_action :authenticate_user!
   before_action :authenticate_admin!
@@ -12,5 +14,7 @@ class OverviewsController < ApplicationController
     @articles = Article.all
     @html_parts = HtmlPart.all
     @css_parts = CssPart.all
+    @messages = Message.all
+    @users = User.all
   end
 end

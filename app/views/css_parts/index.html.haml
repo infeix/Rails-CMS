@@ -4,8 +4,6 @@
   %thead
     %tr
       %th Index
-      %th Text
-      %th Is last
       %th
       %th
       %th
@@ -14,8 +12,6 @@
     - @css_parts.each do |css_part|
       %tr
         %td= css_part.index
-        %td= css_part.text
-        %td= css_part.is_last
         %td= link_to 'Show', css_part
         %td= link_to 'Edit', edit_css_part_path(css_part)
         %td= link_to 'Destroy', css_part, :method => :delete, :data => { :confirm => 'Are you sure?' }

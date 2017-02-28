@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token, only: :create
 
   # GET /messages
   # GET /messages.json
@@ -27,10 +30,8 @@ class MessagesController < ApplicationController
     @message = Message.new(message_params)
     respond_to do |format|
       if @message.save
-        binding.pry
         format.html { redirect_to root_path, notice: 'Die Nachricht wurde erfolgreich gesendet.' }
       else
-        binding.pry
         format.html { redirect_to root_path, notice: 'Die Nachricht wurde nicht gesendet.' }
       end
     end

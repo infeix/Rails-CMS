@@ -1,3 +1,5 @@
+= link_to('Logout', destroy_user_session_path, :method => :delete)
+
 %h1 Listing pages
 
 %table
@@ -100,8 +102,6 @@
   %thead
     %tr
       %th Index
-      %th Text
-      %th Is last
       %th
       %th
       %th
@@ -110,8 +110,6 @@
     - @css_parts.each do |css_part|
       %tr
         %td= css_part.index
-        %td= css_part.text
-        %td= css_part.is_last
         %td= link_to 'Show', css_part
         %td= link_to 'Edit', edit_css_part_path(css_part)
         %td= link_to 'Destroy', css_part, :method => :delete, :data => { :confirm => 'Are you sure?' }
@@ -145,3 +143,29 @@
 %br
 
 = link_to 'New Message', new_message_path
+
+%h1 Listing users
+
+%table
+  %thead
+    %tr
+      %th Lang
+      %th Name
+      %th Mail
+      %th
+      %th
+      %th
+
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= user.lang
+        %td= user.name
+        %td= user.email
+        %td= link_to 'Show', user
+        %td= link_to 'Edit', edit_user_path(user)
+        %td= link_to 'Destroy', user, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New User', new_user_path
