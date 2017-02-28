@@ -1,3 +1,4 @@
+lock '3.4.0'
 # config valid only for current versiorequire 'capistrano/ext/multistage'n of Capistrano
 set :application, 'Rails-CMS'
 set :repo_url, 'git@github.com:infeix/Rails-CMS.git'
