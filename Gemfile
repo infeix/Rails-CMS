@@ -27,7 +27,7 @@ gem 'haml-rails'
 gem 'pure-css-rails'
 
 gem 'devise'
-
+gem 'passenger'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -58,6 +58,7 @@ group :development do
   gem 'capistrano-rails', '~> 1.1.8'
   gem 'capistrano-rvm', github: "capistrano/rvm"
   gem 'capistrano-passenger'
+  gem 'capistrano-rails-console'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
