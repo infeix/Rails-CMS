@@ -1,8 +1,5 @@
 set :stage, :staging
 
-
-
-
 server 'dj-duo-jobe.de',
        user: 'deploy',
        roles: [:app, :web, :cron, :db],
