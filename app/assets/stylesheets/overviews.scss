@@ -1,0 +1,14 @@
+.overviews-page {
+  table, td, th {
+    border: 1px solid black;
+    padding: 5px;
+  }
+  .cell-big {
+    width: 25vw;
+  }
+  .cell-important {
+    background-color: yellow;
+    font-weight: bold;
+  }
+  margin: 3vh;
+}

@@ -35,11 +35,9 @@ class CssPartsController < ApplicationController
 
     respond_to do |format|
       if @css_part.save
-        format.html { redirect_to @css_part, notice: 'Css part was successfully created.' }
-        format.json { render :show, status: :created, location: @css_part }
+        format.html { redirect_to overviews_path, notice: 'Css part was successfully created.' }
       else
         format.html { render :new }
-        format.json { render json: @css_part.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -49,11 +47,9 @@ class CssPartsController < ApplicationController
   def update
     respond_to do |format|
       if @css_part.update(css_part_params)
-        format.html { redirect_to @css_part, notice: 'Css part was successfully updated.' }
-        format.json { render :show, status: :ok, location: @css_part }
+        format.html { redirect_to overviews_path, notice: 'Css part was successfully updated.' }
       else
         format.html { render :edit }
-        format.json { render json: @css_part.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -63,8 +59,7 @@ class CssPartsController < ApplicationController
   def destroy
     @css_part.destroy
     respond_to do |format|
-      format.html { redirect_to css_parts_url, notice: 'Css part was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html { redirect_to overviews_path, notice: 'Css part was successfully destroyed.' }
     end
   end
 

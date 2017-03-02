@@ -35,11 +35,9 @@ class HtmlPartsController < ApplicationController
 
     respond_to do |format|
       if @html_part.save
-        format.html { redirect_to @html_part, notice: 'Html part was successfully created.' }
-        format.json { render :show, status: :created, location: @html_part }
+        format.html { redirect_to overviews_path, notice: 'Html part was successfully created.' }
       else
         format.html { render :new }
-        format.json { render json: @html_part.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -49,11 +47,9 @@ class HtmlPartsController < ApplicationController
   def update
     respond_to do |format|
       if @html_part.update(html_part_params)
-        format.html { redirect_to @html_part, notice: 'Html part was successfully updated.' }
-        format.json { render :show, status: :ok, location: @html_part }
+        format.html { redirect_to overviews_path, notice: 'Html part was successfully updated.' }
       else
         format.html { render :edit }
-        format.json { render json: @html_part.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -63,8 +59,7 @@ class HtmlPartsController < ApplicationController
   def destroy
     @html_part.destroy
     respond_to do |format|
-      format.html { redirect_to html_parts_url, notice: 'Html part was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html { redirect_to overviews_path, notice: 'Html part was successfully destroyed.' }
     end
   end
 

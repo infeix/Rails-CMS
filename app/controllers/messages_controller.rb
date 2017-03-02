@@ -32,7 +32,7 @@ class MessagesController < ApplicationController
       if @message.save
         format.html { redirect_to root_path, notice: 'Die Nachricht wurde erfolgreich gesendet.' }
       else
-        format.html { redirect_to root_path, notice: 'Die Nachricht wurde nicht gesendet.' }
+        format.html { redirect_to root_path, notice: 'Die Nachricht konnte nicht gesendet werden.' }
       end
     end
   end
@@ -42,11 +42,9 @@ class MessagesController < ApplicationController
   def update
     respond_to do |format|
       if @message.update(message_params)
-        format.html { redirect_to @message, notice: 'Message was successfully updated.' }
-        format.json { render :show, status: :ok, location: @message }
+        format.html { redirect_to overviews_path, notice: 'Message was successfully updated.' }
       else
         format.html { render :edit }
-        format.json { render json: @message.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -56,7 +54,7 @@ class MessagesController < ApplicationController
   def destroy
     @message.destroy
     respond_to do |format|
-      format.html { redirect_to messages_url, notice: 'Message was successfully destroyed.' }
+      format.html { redirect_to overviews_path, notice: 'Message was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

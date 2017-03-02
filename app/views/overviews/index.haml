@@ -1,171 +1,180 @@
-= link_to('Logout', destroy_user_session_path, :method => :delete)
+.overviews-page
 
-%h1 Listing pages
+  = link_to('Logout', destroy_user_session_path, method: :delete, 'class': 'pure-button')
 
-%table
-  %thead
-    %tr
-      %th Title
-      %th Path
-      %th
-      %th
-      %th
+  .pure-g
+    .pure-u-1
+      %h1 Listing messages
 
-  %tbody
-    - @pages.each do |page|
-      %tr
-        %td= page.title
-        %td= page.path
-        %td= link_to 'Show', page
-        %td= link_to 'Edit', edit_page_path(page)
-        %td= link_to 'Destroy', page, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %table
+        %thead
+          %tr
+            %th.cell.cell-big Msg
+            %th.cell.cell-big Name
+            %th.cell.cell-big Email
+            %th.cell
+            %th.cell
+            %th.cell
 
-%br
+        %tbody
+          - @messages.each do |message|
+            %tr
+              %td.cell.cell-important= message.msg
+              %td.cell.cell-important= message.name
+              %td.cell.cell-important= message.email
+              %td.cell.cell-important= link_to 'Show', message, 'class': 'pure-button'
+              %td.cell.cell-important= link_to 'Edit', edit_message_path(message), 'class': 'pure-button'
+              %td.cell.cell-important= link_to 'Destroy', message, :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
 
-= link_to 'New page', new_page_path
+      %br
 
-%h1 Listing articles
+      = link_to 'New Message', new_message_path, 'class': 'pure-button'
+    .pure-u-1.pure-u-md-1-2
+      %h1 Listing pages
 
-%table
-  %thead
-    %tr
-      %th Title
-      %th Page
-      %th
-      %th
-      %th
+      %table
+        %thead
+          %tr
+            %th.cell Title
+            %th.cell Path
+            %th.cell
+            %th.cell
+            %th.cell
 
-  %tbody
-    - @articles.each do |article|
-      %tr
-        %td= article.title
-        %td= article.page_id
-        %td= link_to 'Show', article
-        %td= link_to 'Edit', edit_article_path(article)
-        %td= link_to 'Destroy', article, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %tbody
+          - @pages.each do |page|
+            %tr
+              %td.cell= page.title
+              %td.cell= page.path
+              %td.cell= link_to 'Show', page, 'class': 'pure-button'
+              %td.cell= link_to 'Edit', edit_page_path(page), 'class': 'pure-button'
+              %td.cell= link_to 'Destroy', page, method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
 
-%br
+      %br
 
-= link_to 'New article', new_article_path
+      = link_to 'New page', new_page_path, 'class': 'pure-button'
 
-%h1 Listing templates
+    .pure-u-1.pure-u-md-1-2
+      %h1 Listing articles
 
-%table
-  %thead
-    %tr
-      %th Title
-      %th
-      %th
-      %th
+      %table
+        %thead
+          %tr
+            %th Title
+            %th Page
+            %th
+            %th
+            %th
 
-  %tbody
-    - @templates.each do |template|
-      %tr
-        %td= template.title
-        %td= link_to 'Show', template
-        %td= link_to 'Edit', edit_template_path(template)
-        %td= link_to 'Destroy', template, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %tbody
+          - @articles.each do |article|
+            %tr
+              %td.cell= article.title
+              %td.cell= article.page_id
+              %td.cell= link_to 'Show', article, 'class': 'pure-button'
+              %td.cell= link_to 'Edit', edit_article_path(article), 'class': 'pure-button'
+              %td.cell= link_to 'Destroy', article, method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
 
-%br
+      %br
 
-= link_to 'New Template', new_template_path
+      = link_to 'New article', new_article_path, 'class': 'pure-button'
 
-%h1 Listing html_parts
+    .pure-u-1.pure-u-md-1-2
+      %h1 Listing templates
 
-%table
-  %thead
-    %tr
-      %th Index
-      %th Text
-      %th Is last
-      %th
-      %th
-      %th
+      %table
+        %thead
+          %tr
+            %th Title
+            %th
+            %th
+            %th
 
-  %tbody
-    - @html_parts.each do |html_part|
-      %tr
-        %td= html_part.index
-        %td= html_part.text
-        %td= html_part.is_last
-        %td= link_to 'Show', html_part
-        %td= link_to 'Edit', edit_html_part_path(html_part)
-        %td= link_to 'Destroy', html_part, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %tbody
+          - @templates.each do |template|
+            %tr
+              %td.cell= template.title
+              %td.cell= link_to 'Show', template, 'class': 'pure-button'
+              %td.cell= link_to 'Edit', edit_template_path(template), 'class': 'pure-button'
+              %td.cell= link_to 'Destroy', template, :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
 
-%br
+      %br
 
-= link_to 'New Html part', new_html_part_path
+      = link_to 'New Template', new_template_path, 'class': 'pure-button'
 
-%h1 Listing css_parts
+    .pure-u-1.pure-u-md-1-2
+      %h1 Listing html_parts
 
-%table
-  %thead
-    %tr
-      %th Index
-      %th
-      %th
-      %th
+      %table
+        %thead
+          %tr
+            %th Index
+            %th Text
+            %th Is last
+            %th
+            %th
+            %th
 
-  %tbody
-    - @css_parts.each do |css_part|
-      %tr
-        %td= css_part.index
-        %td= link_to 'Show', css_part
-        %td= link_to 'Edit', edit_css_part_path(css_part)
-        %td= link_to 'Destroy', css_part, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %tbody
+          - @html_parts.each do |html_part|
+            %tr
+              %td.cell= html_part.index
+              %td.cell= html_part.text
+              %td.cell= html_part.is_last
+              %td.cell= link_to 'Show', html_part, 'class': 'pure-button'
+              %td.cell= link_to 'Edit', edit_html_part_path(html_part), 'class': 'pure-button'
+              %td.cell= link_to 'Destroy', html_part, :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
 
-%br
+      %br
 
-= link_to 'New Css part', new_css_part_path
+      = link_to 'New Html part', new_html_part_path, 'class': 'pure-button'
 
-%h1 Listing messages
+    .pure-u-1.pure-u-md-1-2
+      %h1 Listing css_parts
 
-%table
-  %thead
-    %tr
-      %th Msg
-      %th Name
-      %th Email
-      %th
-      %th
-      %th
+      %table
+        %thead
+          %tr
+            %th Index
+            %th
+            %th
+            %th
 
-  %tbody
-    - @messages.each do |message|
-      %tr
-        %td= message.msg
-        %td= message.name
-        %td= message.email
-        %td= link_to 'Show', message
-        %td= link_to 'Edit', edit_message_path(message)
-        %td= link_to 'Destroy', message, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %tbody
+          - @css_parts.each do |css_part|
+            %tr
+              %td.cell= css_part.index
+              %td.cell= link_to 'Show', css_part, 'class': 'pure-button'
+              %td.cell= link_to 'Edit', edit_css_part_path(css_part), 'class': 'pure-button'
+              %td.cell= link_to 'Destroy', css_part, :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
 
-%br
+      %br
 
-= link_to 'New Message', new_message_path
+      = link_to 'New Css part', new_css_part_path, 'class': 'pure-button'
 
-%h1 Listing users
+    .pure-u-1.pure-u-md-1-2
+      %h1 Listing users
 
-%table
-  %thead
-    %tr
-      %th Lang
-      %th Name
-      %th Mail
-      %th
-      %th
-      %th
+      %table
+        %thead
+          %tr
+            %th Lang
+            %th Name
+            %th Mail
+            %th
+            %th
+            %th
 
-  %tbody
-    - @users.each do |user|
-      %tr
-        %td= user.lang
-        %td= user.name
-        %td= user.email
-        %td= link_to 'Show', user
-        %td= link_to 'Edit', edit_user_path(user)
-        %td= link_to 'Destroy', user, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %tbody
+          - @users.each do |user|
+            %tr
+              %td.cell= user.lang
+              %td.cell= user.name
+              %td.cell= user.email
+              %td.cell= link_to 'Show', user, 'class': 'pure-button'
+              %td.cell= link_to 'Edit', edit_user_path(user), 'class': 'pure-button'
+              %td.cell= link_to 'Destroy', user, :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
 
-%br
+      %br
 
-= link_to 'New User', new_user_path
+      = link_to 'New User', new_user_path, 'class': 'pure-button'
