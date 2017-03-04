@@ -11,17 +11,21 @@ class Template < ActiveRecord::Base
   end
 
   def render_head
-    render_css
+    "#{render_css}#{reder_meta}</head>\n"
   end
 
   def render(arts = [])
     "#{render_articles(arts)} #{last_html_part}"
   end
 
+  def reder_meta
+    meta if meta.present?
+  end
+
   def render_css
     html = ''
     css_parts.each do |css|
-      html += "<style>\n#{css}\n</style></head>\n"
+      html += "<style>\n#{css}\n</style>"
     end
     html
   end

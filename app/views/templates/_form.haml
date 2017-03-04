@@ -10,13 +10,7 @@
     = f.label :title
     = f.text_field :title
   .field
-    = f.label :css
-    = f.text_area :css, rows: 9, class: "edit_template"
-  .field
-    = f.label :html_begin
-    = f.text_area :html_begin, rows: 9, class: "edit_template"
-  .field
-    = f.label :html_end
-    = f.text_area :html_end, rows: 9, class: "edit_template"
+    = f.label :meta
+    = f.text_area :meta, rows: 9, class: "edit_template"
   .actions
     = f.submit 'Save'
