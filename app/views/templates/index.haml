@@ -3,6 +3,7 @@
 %table
   %thead
     %tr
+      %th ID
       %th Title
       %th
       %th
@@ -11,6 +12,7 @@
   %tbody
     - @templates.each do |template|
       %tr
+        %td= template.id
         %td= template.title
         %td= link_to 'Show', template
         %td= link_to 'Edit', edit_template_path(template)
