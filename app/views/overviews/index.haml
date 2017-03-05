@@ -85,6 +85,7 @@
       %table
         %thead
           %tr
+            %th ID
             %th Title
             %th
             %th
@@ -93,6 +94,7 @@
         %tbody
           - @templates.each do |template|
             %tr
+              %td.cell= template.id
               %td.cell= template.title
               %td.cell= link_to 'Show', template, 'class': 'pure-button'
               %td.cell= link_to 'Edit', edit_template_path(template), 'class': 'pure-button'
