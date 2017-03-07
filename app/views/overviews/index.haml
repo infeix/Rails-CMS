@@ -35,6 +35,7 @@
       %table
         %thead
           %tr
+            %th.cell ID
             %th.cell Title
             %th.cell Path
             %th.cell
@@ -44,6 +45,7 @@
         %tbody
           - @pages.each do |page|
             %tr
+              %td.cell= page.id
               %td.cell= page.title
               %td.cell= page.path
               %td.cell= link_to 'Show', page, 'class': 'pure-button'
