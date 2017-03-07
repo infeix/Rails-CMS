@@ -6,11 +6,50 @@
         - @template.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :title
-    = f.text_field :title
-  .field
-    = f.label :meta
-    = f.text_area :meta, rows: 9, class: "edit_template"
+  .pure-g
+    .field.pure-u-1.pure-u-md-1-5
+      = f.label :title
+      %br
+      = f.text_field :title
+    .field.pure-u-1.pure-u-md-3-5
+      = f.label :meta
+      %br
+      = f.text_area :meta, rows: 6, cols: 100, class: "edit_template"
+
+
+
+  = f.fields_for :css_parts do |ff|
+    - if ff.object.id.present?
+      = ff.hidden_field :id
+      .pure-g
+        .field.pure-u-1.pure-u-md-1-5
+          = ff.label :index
+          %br
+          = ff.number_field :index
+        .field.pure-u-1.pure-u-md-3-5
+          = ff.label :text
+          %br
+          = ff.text_area :text, rows: 6, cols: 100
+        .field.pure-u-1.pure-u-md-1-5
+          = ff.label :is_last
+          %br
+          = ff.check_box :is_last
+
+  = f.fields_for :html_parts do |ff|
+    - if ff.object.id.present?
+      = ff.hidden_field :id
+      .pure-g
+        .field.pure-u-1.pure-u-md-1-5
+          = ff.label :index
+          %br
+          = ff.number_field :index
+        .field.pure-u-1.pure-u-md-3-5
+          = ff.label :text
+          %br
+          = ff.text_area :text, rows: 6, cols: 100
+        .field.pure-u-1.pure-u-md-1-5
+          = ff.label :is_last
+          %br
+          = ff.check_box :is_last
   .actions
     = f.submit 'Save'

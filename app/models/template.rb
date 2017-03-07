@@ -6,6 +6,9 @@ class Template < ActiveRecord::Base
   has_many :html_parts
   has_many :css_parts
 
+  accepts_nested_attributes_for :html_parts
+  accepts_nested_attributes_for :css_parts
+
   def last_html_part
     html_parts.find_by is_last: true
   end
