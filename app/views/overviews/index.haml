@@ -111,8 +111,7 @@
         %thead
           %tr
             %th Index
-            %th Text
-            %th Is last
+            %th Template
             %th
             %th
             %th
@@ -121,8 +120,7 @@
           - @html_parts.each do |html_part|
             %tr
               %td.cell= html_part.index
-              %td.cell= html_part.text
-              %td.cell= html_part.is_last
+              %td.cell= html_part.template_id
               %td.cell= link_to 'Show', html_part, 'class': 'pure-button'
               %td.cell= link_to 'Edit', edit_html_part_path(html_part), 'class': 'pure-button'
               %td.cell= link_to 'Destroy', html_part, :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
@@ -138,6 +136,7 @@
         %thead
           %tr
             %th Index
+            %th Template
             %th
             %th
             %th
@@ -146,6 +145,7 @@
           - @css_parts.each do |css_part|
             %tr
               %td.cell= css_part.index
+              %td.cell= css_part.template_id
               %td.cell= link_to 'Show', css_part, 'class': 'pure-button'
               %td.cell= link_to 'Edit', edit_css_part_path(css_part), 'class': 'pure-button'
               %td.cell= link_to 'Destroy', css_part, :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'

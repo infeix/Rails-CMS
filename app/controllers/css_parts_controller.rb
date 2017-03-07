@@ -71,6 +71,6 @@ class CssPartsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def css_part_params
-      params.require(:css_part).permit(:index, :text, :is_last)
+      params.require(:css_part).permit(:index, :template_id, :text, :is_last)
     end
 end

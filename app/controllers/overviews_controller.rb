@@ -12,8 +12,8 @@ class OverviewsController < ApplicationController
     @pages = Page.all
     @templates = Template.all
     @articles = Article.all
-    @html_parts = HtmlPart.all
-    @css_parts = CssPart.all
+    @html_parts = HtmlPart.all.sort_by_index
+    @css_parts = CssPart.all.sort_by_index
     @messages = Message.all
     @users = User.all
   end

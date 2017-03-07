@@ -3,8 +3,8 @@
 class Template < ActiveRecord::Base
   has_many :pages
   has_many :articles
-  has_many :html_parts
-  has_many :css_parts
+  has_many :html_parts, -> { sort_by_index }
+  has_many :css_parts, -> { sort_by_index }
 
   accepts_nested_attributes_for :html_parts
   accepts_nested_attributes_for :css_parts

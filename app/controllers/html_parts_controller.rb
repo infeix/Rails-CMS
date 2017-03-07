@@ -71,6 +71,6 @@ class HtmlPartsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def html_part_params
-      params.require(:html_part).permit(:index, :text, :is_last)
+      params.require(:html_part).permit(:index, :template_id, :text, :is_last)
     end
 end
