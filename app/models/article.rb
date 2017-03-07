@@ -2,6 +2,7 @@
 
 class Article < ActiveRecord::Base
   belongs_to :template
+  scope :sort_by_index, -> { order(index: :asc) }
 
   def render
     template.present? ? "#{template.html_begin} #{text} #{template.html_end}" : text

@@ -60,6 +60,7 @@
       %table
         %thead
           %tr
+            %th Index
             %th Title
             %th Page
             %th
@@ -69,6 +70,7 @@
         %tbody
           - @articles.each do |article|
             %tr
+              %td.cell= article.index
               %td.cell= article.title
               %td.cell= article.page_id
               %td.cell= link_to 'Show', article, 'class': 'pure-button'
