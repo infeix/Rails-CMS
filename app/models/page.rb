@@ -2,7 +2,7 @@
 
 class Page < ActiveRecord::Base
   belongs_to :template
-  has_many :articles
+  has_many :articles, -> { order(index: :asc) }
   validates :path, presence: true
 
   def render_head
