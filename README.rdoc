@@ -1,15 +1,5 @@
 == README
 
-get the application up and running:
-* `git checkout`
-* `bundle install`
-* `bundle exec rails server`
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
 * Ruby version 2.3.1
 
 * Database creation
@@ -21,3 +11,8 @@ Things you may want to cover:
 
 * How to run the test suite
   * not tests jet
+
+get the application up and running:
+* git checkout
+* bundle install
+* bundle exec rails server
