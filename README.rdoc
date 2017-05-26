@@ -13,11 +13,11 @@ Things you may want to cover:
 * Ruby version 2.3.1
 
 * Database creation
- * be rake db:create
- * be rake db:migrate
+  * be rake db:create
+  * be rake db:migrate
 
 * Database initialization
- * be rake db:seed
+  * be rake db:seed
 
 * How to run the test suite
- * not tests jet
+  * not tests jet
