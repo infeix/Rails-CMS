@@ -2,17 +2,23 @@
 
 %p
   %b Title:
-  = @template.title
+  %span.title= @template.title
 %p
-  %b CSS:
-  = @template.css
-%p
-  %b Html begin:
-  = @template.html_begin
-%p
-  %b Html end:
-  = @template.html_end
+  %b Meta:
+  %span.meta= @template.meta
+
+-@template.css_parts.each do |css_part|
+  %p
+    %b= "CSS Part ##{css_part.id}"
+    %br
+    %span.css_part= css_part
+
+-@template.html_parts.each do |html_part|
+  %p
+    %b= "Html Part ##{html_part.id}"
+    %br
+    %span.html_part= html_part
 
 = link_to 'Edit', edit_template_path(@template)
 \|
-= link_to 'Back', templates_path
+= link_to 'Back', overviews_path

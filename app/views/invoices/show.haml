@@ -1,0 +1,26 @@
+%p
+  %b Number:
+  = @invoice.number
+%p
+  %b From:
+  = @invoice.from.name
+%p
+  %b To:
+  = @invoice.to.name
+%p
+  = render partial: 'common/services', locals: { services: @invoice.services }
+%p
+  %b Template: 
+  = link_to 'edit Template', edit_document_template_path(@invoice.document_template)
+
+= link_to "download", invoice_path(@invoice,:format => :pdf)
+%br
+%br
+%div#pdf
+  %object#pdf_content{ 'width'=> '900', 'height' => '450', 'type' => 'application/pdf', 'data' => invoice_path(@invoice, :format => :pdf) }
+    %p
+      = 'Insert your error message here, if the PDF cannot be displayed.'
+%br
+= link_to 'Edit', edit_invoice_path(@invoice)
+\|
+= link_to 'Back', invoices_path

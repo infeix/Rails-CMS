@@ -16,5 +16,12 @@ class OverviewsController < ApplicationController
     @css_parts = CssPart.all.sort_by_index
     @messages = Message.all
     @users = User.all
+
+    @invoices = Invoice.all
+    @document_templates = DocumentTemplate.all
+    @contacts = Contact.all
+    @services = Service.all
+    @transactions = Transaction.all
+    @accounts = Account.all
   end
 end

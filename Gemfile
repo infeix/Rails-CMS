@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.7.1'
+gem 'rails', '4.2.8'
 # Use postgresql as the database for Active Record
-gem 'pg'
+gem 'pg', '~> 0.20.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -40,6 +40,17 @@ gem 'passenger'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'factory_girl_rails'
+  gem 'faker'
+  gem 'poltergeist'
+  gem 'selenium-webdriver'
+  gem 'rspec_candy'
+  gem 'rspec-its'
+  gem 'rspec_junit_formatter'
+  gem 'database_cleaner'
+  gem 'simplecov', require: false
 end
 
 group :development do
@@ -52,6 +63,9 @@ group :development do
   gem 'pry-byebug'
   gem 'pry-doc'
   gem 'pry-stack_explorer'
+  gem 'rspec-pretty_fail_formatter'
+  gem 'shoulda', require: false
+  gem 'shoulda-matchers', require: false
 
   gem 'capistrano'
   gem 'capistrano-rails'
@@ -60,4 +74,3 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
-

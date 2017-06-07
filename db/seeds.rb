@@ -68,7 +68,7 @@ art_impressum.text = '
 </p>'
 art_impressum.save!
 
-user = User.find_or_create_by(is_admin: true, email: 'test@test.de')
+user = User.find_or_create_by(is_admin: true, email: 'admin@example.com')
 user.password = 'secret42'
 user.password_confirmation = 'secret42'
 user.save!

@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Index:
+  = @css_part.index
+%p
+  %b Text:
+  = @css_part.text
+%p
+  %b Is last:
+  = @css_part.is_last
+
+= link_to 'Edit', edit_template_css_part_path(@template, @css_part)
+\|
+= link_to 'Back', overviews_path

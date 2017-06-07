@@ -1,0 +1,153 @@
+- contacts = local_assigns.fetch(:contacts)
+- invoices = local_assigns.fetch(:invoices)
+- document_templates = local_assigns.fetch(:document_templates)
+- accounts = local_assigns.fetch(:accounts)
+- transactions = local_assigns.fetch(:transactions)
+
+.contacts
+  %h1 Kontakte
+
+  %table
+    %thead
+      %tr
+        %th ID
+        %th Name
+        %th Street
+        %th City
+        %th Phone
+        %th Mail
+        %th Bank account nr
+        %th Bank name
+        %th Tax nr
+        %th
+        %th
+        %th
+
+    %tbody
+      - contacts.each do |contact|
+        %tr
+          %td= contact.id
+          %td= contact.name
+          %td= contact.street
+          %td= contact.city
+          %td= contact.phone
+          %td= contact.mail
+          %td= contact.bank_account_nr
+          %td= contact.bank_name
+          %td= contact.tax_nr
+          %td= link_to 'Show', contact, 'class': 'pure-button'
+          %td= link_to 'Edit', edit_contact_path(contact), 'class': 'pure-button'
+          %td= link_to 'Destroy', contact, :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+  %br
+
+  = link_to 'New Contact', new_contact_path, 'class': 'pure-button'
+
+.invoices
+  %h1 Rechnungen
+
+  %table
+    %thead
+      %tr
+        %th ID
+        %th Number
+        %th
+        %th
+        %th
+
+    %tbody
+      - invoices.each do |invoice|
+        %tr
+          %td= invoice.id
+          %td= invoice.number
+          %td= link_to 'Show', invoice, 'class': 'pure-button'
+          %td= link_to 'Edit', edit_invoice_path(invoice), 'class': 'pure-button'
+          %td= link_to 'Destroy', invoice, :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+  %br
+
+  = link_to 'New Invoice', new_invoice_path, 'class': 'pure-button'
+
+.document-templates
+  %h1 Templates
+
+  %table
+    %thead
+      %tr
+        %th ID
+        %th
+        %th
+        %th
+
+    %tbody
+      - document_templates.each do |document_template|
+        %tr
+          %td= document_template.id
+          %td= link_to 'Show', document_template, 'class': 'pure-button'
+          %td= link_to 'Edit', edit_document_template_path(document_template), 'class': 'pure-button'
+          %td= link_to 'Destroy', document_template, :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+  %br
+
+  = link_to 'New Document template', new_document_template_path, 'class': 'pure-button'
+
+.accounts
+  %h1 Accounts
+
+  %table
+    %thead
+      %tr
+        %th ID
+        %th Starting level
+        %th Current level
+        %th Name
+        %th
+        %th
+        %th
+
+    %tbody
+      - accounts.each do |account|
+        %tr
+          %td= account.id
+          %td= account.starting_level
+          %td= account.current_level
+          %td= account.name
+          %td= link_to 'Show', account, 'class': 'pure-button'
+          %td= link_to 'Edit', edit_account_path(account), 'class': 'pure-button'
+          %td= link_to 'Destroy', account, :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+  %br
+
+  = link_to 'New Account', new_account_path, 'class': 'pure-button'
+  = link_to 'New Transaction', new_transaction_path, 'class': 'pure-button'
+
+.transactions
+  %h1 Transactions
+
+  %table
+    %thead
+      %tr
+        %th Date
+        %th Total
+        %th Name
+        %th From
+        %th To
+        %th
+        %th
+        %th
+
+    %tbody
+      - @transactions.each do |transaction|
+        %tr
+          %td= transaction.invoice_date
+          %td= transaction.total
+          %td= transaction.name
+          %td= transaction.from.name
+          %td= transaction.to.name
+          %td= link_to 'Show', transaction, 'class': 'pure-button'
+          %td= link_to 'Edit', edit_transaction_path(transaction), 'class': 'pure-button'
+          %td= link_to 'Destroy', transaction, :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+  %br
+
+  = link_to 'New Transaction', new_transaction_path, 'class': 'pure-button'

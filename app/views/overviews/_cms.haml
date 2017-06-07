@@ -1,0 +1,191 @@
+- messages = local_assigns.fetch(:messages)
+- pages = local_assigns.fetch(:pages)
+- articles = local_assigns.fetch(:articles)
+- templates = local_assigns.fetch(:templates)
+- html_parts = local_assigns.fetch(:html_parts)
+- css_parts = local_assigns.fetch(:css_parts)
+- users = local_assigns.fetch(:users)
+
+.pure-g
+  .pure-u-1.messages
+    %h1 Listing messages
+
+    %table
+      %thead
+        %tr
+          %th.cell.cell-big Msg
+          %th.cell.cell-big Name
+          %th.cell.cell-big Email
+          %th.cell
+          %th.cell
+          %th.cell
+
+      %tbody
+        - messages.each do |message|
+          %tr
+            %td.cell.cell-important= message.msg
+            %td.cell.cell-important= message.name
+            %td.cell.cell-important= message.email
+            %td.cell.cell-important= link_to 'Show', message, 'class': 'pure-button'
+            %td.cell.cell-important= link_to 'Edit', edit_message_path(message), 'class': 'pure-button'
+            %td.cell.cell-important= link_to 'Destroy', message, :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+    %br
+
+    = link_to 'New Message', new_message_path, 'class': 'pure-button new-message-button'
+  .pure-u-1.pure-u-md-1-2.pages
+    %h1 Listing pages
+
+    %table
+      %thead
+        %tr
+          %th.cell ID
+          %th.cell Title
+          %th.cell Path
+          %th.cell
+          %th.cell
+          %th.cell
+
+      %tbody
+        - pages.each do |page|
+          %tr
+            %td.cell= page.id
+            %td.cell= page.title
+            %td.cell= page.path
+            %td.cell= link_to 'Show', page, 'class': 'pure-button'
+            %td.cell= link_to 'Edit', edit_page_path(page), 'class': 'pure-button'
+            %td.cell= link_to 'New article', new_page_article_path(page.id), 'class': 'pure-button'
+            %td.cell= link_to 'Destroy', page, method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+    %br
+
+    = link_to 'New page', new_page_path, 'class': 'pure-button new-page-button'
+
+  .pure-u-1.pure-u-md-1-2.articles
+    %h1 Listing articles
+
+    %table
+      %thead
+        %tr
+          %th Index
+          %th Title
+          %th Page
+          %th
+          %th
+          %th
+
+      %tbody
+        - articles.each do |article|
+          %tr
+            %td.cell= article.index
+            %td.cell= article.title
+            %td.cell= article.page_id
+            %td.cell= link_to 'Show', page_article_path(article.page_id, article), 'class': 'pure-button'
+            %td.cell= link_to 'Edit', edit_page_article_path(article.page_id, article), 'class': 'pure-button'
+            %td.cell= link_to 'Destroy', page_article_path(article.page_id, article), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+    %br
+
+  .pure-u-1.pure-u-md-1-2.templates
+    %h1 Listing templates
+
+    %table
+      %thead
+        %tr
+          %th ID
+          %th Title
+          %th
+          %th
+          %th
+          %th
+          %th
+
+      %tbody
+        - templates.each do |template|
+          %tr
+            %td.cell= template.id
+            %td.cell= template.title
+            %td.cell= link_to 'Show', template, 'class': 'pure-button'
+            %td.cell= link_to 'Edit', edit_template_path(template), 'class': 'pure-button'
+            %td.cell= link_to 'New Html', new_template_html_part_path(template), 'class': 'pure-button'
+            %td.cell= link_to 'New Css', new_template_css_part_path(template), 'class': 'pure-button'
+            %td.cell= link_to 'Destroy', template, :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+    %br
+
+    = link_to 'New Template', new_template_path, 'class': 'pure-button new-template-button'
+
+  .pure-u-1.pure-u-md-1-2.html_parts
+    %h1 Listing html_parts
+
+    %table
+      %thead
+        %tr
+          %th Index
+          %th Template
+          %th
+          %th
+          %th
+
+      %tbody
+        - html_parts.each do |html_part|
+          %tr
+            %td.cell= html_part.index
+            %td.cell= html_part.template_id
+            %td.cell= link_to 'Show', template_html_part_path(html_part.template, html_part), 'class': 'pure-button'
+            %td.cell= link_to 'Edit', edit_template_html_part_path(html_part.template, html_part.template, html_part), 'class': 'pure-button'
+            %td.cell= link_to 'Destroy', template_html_part_path(html_part.template, html_part), :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+    %br
+
+
+  .pure-u-1.pure-u-md-1-2.css_parts
+    %h1 Listing css_parts
+
+    %table
+      %thead
+        %tr
+          %th Index
+          %th Template
+          %th
+          %th
+          %th
+
+      %tbody
+        - css_parts.each do |css_part|
+          %tr
+            %td.cell= css_part.index
+            %td.cell= css_part.template_id
+            %td.cell= link_to 'Show', template_css_part_path(css_part.template, css_part), 'class': 'pure-button'
+            %td.cell= link_to 'Edit', edit_template_css_part_path(css_part.template, css_part), 'class': 'pure-button'
+            %td.cell= link_to 'Destroy', template_css_part_path(css_part.template, css_part), :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+    %br
+
+
+  .pure-u-1.pure-u-md-1-2.users
+    %h1 Listing users
+
+    %table
+      %thead
+        %tr
+          %th Lang
+          %th Name
+          %th Mail
+          %th
+          %th
+          %th
+
+      %tbody
+        - users.each do |user|
+          %tr
+            %td.cell= user.lang
+            %td.cell= user.name
+            %td.cell= user.email
+            %td.cell= link_to 'Show', user, 'class': 'pure-button'
+            %td.cell= link_to 'Edit', edit_user_path(user), 'class': 'pure-button'
+            %td.cell= link_to 'Destroy', user, :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+    %br
+
+    = link_to 'New User', new_user_path, 'class': 'pure-button new-user-button'

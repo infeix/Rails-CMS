@@ -2,6 +2,7 @@
 
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def authenticate_admin!
     if current_user.is_admin?
@@ -12,10 +13,6 @@ class UsersController < ApplicationController
     end
   end
 
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-
-  # GET /users
-  # GET /users.json
   def index
     @users = if current_user.is_admin?
       User.all
@@ -24,23 +21,17 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users/1
-  # GET /users/1.json
   def show
   end
 
-  # GET /users/new
   def new
     return unless authenticate_admin!
     @user = User.new
   end
 
-  # GET /users/1/edit
   def edit
   end
 
-  # POST /users
-  # POST /users.json
   def create
     return unless authenticate_admin!
     @user = User.new(user_params)
@@ -54,8 +45,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /users/1
-  # PATCH/PUT /users/1.json
   def update
     return unless authenticate_admin!
     respond_to do |format|
@@ -67,8 +56,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.json
   def destroy
     return unless authenticate_admin!
     @user.destroy
@@ -79,7 +66,6 @@ class UsersController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_user
     @user = if current_user.is_admin?
       User.find(params[:id])
@@ -88,7 +74,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
     params.require(:user).permit(:lang, :name)
   end

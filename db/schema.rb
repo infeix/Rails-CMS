@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170304152853) do
+ActiveRecord::Schema.define(version: 20170422191713) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
+    t.float    "starting_level"
+    t.string   "name"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -29,6 +36,35 @@ ActiveRecord::Schema.define(version: 20170304152853) do
 
   add_index "articles", ["page_id"], name: "index_articles_on_page_id", using: :btree
   add_index "articles", ["template_id"], name: "index_articles_on_template_id", using: :btree
+
+  create_table "contacts", force: :cascade do |t|
+    t.string   "name"
+    t.string   "street"
+    t.string   "city"
+    t.string   "phone"
+    t.string   "mail"
+    t.string   "bank_account_nr"
+    t.string   "bank_name"
+    t.string   "tax_nr"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  create_table "document_templates", force: :cascade do |t|
+    t.text     "template"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.string   "number"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "to_id"
+    t.integer  "from_id"
+    t.integer  "document_template_id"
+    t.date     "send_date"
+  end
 
   create_table "messages", force: :cascade do |t|
     t.text     "msg"
@@ -62,12 +98,35 @@ ActiveRecord::Schema.define(version: 20170304152853) do
 
   add_index "pages", ["template_id"], name: "index_pages_on_template_id", using: :btree
 
+  create_table "services", force: :cascade do |t|
+    t.integer  "amount"
+    t.string   "unit"
+    t.string   "description"
+    t.float    "price_per_unit"
+    t.integer  "invoice_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
   create_table "templates", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text     "meta"
   end
+
+  create_table "transactions", force: :cascade do |t|
+    t.float    "total"
+    t.string   "name"
+    t.date     "invoice_date"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "from_id"
+    t.integer  "to_id"
+  end
+
+  add_index "transactions", ["from_id"], name: "index_transactions_on_from_id", using: :btree
+  add_index "transactions", ["to_id"], name: "index_transactions_on_to_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "lang"
@@ -94,4 +153,6 @@ ActiveRecord::Schema.define(version: 20170304152853) do
   add_foreign_key "articles", "templates"
   add_foreign_key "page_parts", "templates"
   add_foreign_key "pages", "templates"
+  add_foreign_key "transactions", "accounts", column: "from_id"
+  add_foreign_key "transactions", "accounts", column: "to_id"
 end

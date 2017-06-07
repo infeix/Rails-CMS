@@ -2,6 +2,7 @@
 
 class Article < ActiveRecord::Base
   belongs_to :template
+  belongs_to :page
   scope :sort_by_index, -> { order(index: :asc) }
 
   def render

@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Amount:
+  = @service.amount
+%p
+  %b Unit:
+  = @service.unit
+%p
+  %b Description:
+  = @service.description
+%p
+  %b Price per unit:
+  = @service.price_per_unit
+
+= link_to 'Edit', edit_service_path(@service)
+\|
+= link_to 'Back', overviews_path

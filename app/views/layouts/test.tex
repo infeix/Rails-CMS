@@ -1,0 +1,157 @@
+\documentclass
+  [fontsize=11pt,%%          Schriftgroesse
+   paper=a4,%%               Papierformat
+   %enlargefirstpage=on,%%    Erste Seite anders
+   %pagenumber=footmiddle,%%   Seitenzahl oben mittig
+   headsepline=off,%%         Linie unter der Seitenzahl
+   parskip=half,%%           Abstand zwischen Absaetzen
+   fromalign=right,%%        Plazierung des Briefkopfs
+   fromphone=on,%%           Telefonnummer im Absender
+   fromrule=aftername,%%     Linie im Absender (aftername, afteraddress)
+   fromfax=off,%%            Faxnummer
+   fromemail=on,%%           Emailadresse
+   fromurl=off,%%            Homepage
+   fromlogo=on,%%            Firmenlogo
+   addrfield=on,%%           Adressfeld fuer Fensterkuverts
+   backaddress=on,%%         ...und Absender im Fenster
+   subject=beforeopening,%%  Plazierung der Betreffzeile
+   locfield=narrow,%%        zusaetzliches Feld fuer Absender
+   foldmarks=on,%%           Faltmarken setzen
+   numericaldate=off,%%      Datum numerisch ausgeben
+   refline=narrow,%%         Geschaeftszeile im Satzspiegel
+   firstfoot=on,%%           Footerbereich
+   draft=off%%                Entwurfsmodus
+]{scrlttr2}
+\usepackage[a4paper]{geometry}
+\usepackage[english, ngerman]{babel}
+\usepackage{url}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage{tabularx}
+\usepackage{colortbl}
+% symbols: (cell)phone, email
+\RequirePackage{marvosym} % for gray color in header
+%\RequirePackage{color} % for gray color in header
+\usepackage[T1]{fontenc}
+% Schriften werden hier definiert
+\definecolor{mygray}{gray}{.55}
+\renewcommand*\familydefault{\sfdefault} % Latin Modern Sans
+\setkomafont{fromname}{\sffamily\color{mygray}\LARGE}
+\setkomafont{pagenumber}{\sffamily\color{mygray}\LARGE}
+\setkomafont{subject}{\mdseries}
+\setkomafont{backaddress}{\mdseries}
+\setkomafont{fromaddress}{\small\sffamily\mdseries\color{mygray}}
+\begin{document}
+% Briefstil und Position des Briefkopfs
+\LoadLetterOption{DIN} %% oder: DINmtext, SN, SNleft, KOMAold.
+\makeatletter
+\@setplength{sigbeforevskip}{17mm} % Abstand der Signatur von dem closing
+\@setplength{firstheadvpos}{10mm} % Abstand des Absenderfeldes vom Top
+\@setplength{refhpos}{25mm} % Abstand von links
+\@setplength{toaddrhpos}{25mm} % Abstand von links
+\@setplength{firstheadhpos}{25mm} % Abstand von links
+\@setplength{firstfootvpos}{268mm} % Abstand des Footers von oben
+\@setplength{firstheadwidth}{\paperwidth}
+\@setplength{locwidth}{70mm}   % Breite des Locationfeldes
+\@setplength{locvpos}{65mm}    % Abstand des Locationfeldes von oben
+
+\@addtoplength[-2]{firstheadwidth}{\useplength{toaddrhpos}}
+%\@addtoplength[2]{firstheadwidth}{\useplength{toaddrhpos}}
+
+\@setplength{foldmarkhpos}{6.5mm}
+\makeatother
+% Farben werden hier definiert
+% define gray for header
+\definecolor{mygray}{gray}{.55}
+% define blue for address
+\definecolor{myblue}{rgb}{0.25,0.45,0.75}
+
+% Absender Daten
+\setkomavar{fromname}{--FROM-NAME--}
+\setkomavar{fromaddress}{--FROM-STREET--\\--FROM-CITY--}
+\setkomavar{fromphone}[\Mobilefone~]{--FROM-PHONE--}
+%\setkomavar{fromfax}[\FAX~]{+49\,(0)\,123\,456\,789\,0}
+\setkomavar{fromemail}[\Letter~]{--FROM-MAIL--}
+%\setkomavar{fromurl}[]{http://max-mustermann.de}
+%\setkomafont{fromaddress}{\small\rmfamily\mdseries\slshape\color{myblue}}
+
+\setkomavar{backaddressseparator}{ - }
+%\setkomavar{backaddress}{Max Mustermann, alternative Straße, alternative Stadt} % wenn erwünscht kann hier eine andere Backaddress eingetragen werden
+\setkomavar{signature}{--FROM-NAME--}
+% signature same indention level as rest
+\renewcommand*{\raggedsignature}{\raggedright}
+\setkomavar{location}{\raggedleft
+
+}
+% Anlage neu definieren
+\renewcommand{\enclname}{Anlagen}
+\setkomavar{enclseparator}{: }
+% Seitenstil
+%pagenumber=footmiddle
+\pagestyle{plain}%% keine Header in der Kopfzeile bzw. plain
+\pagenumbering{arabic}
+\setkomavar{firstfoot}{\footnotesize%
+\raggedleft (Seite 1 / 1)\\
+\rule[3pt]{\textwidth}{.4pt} \\
+\begin{tabular}[t]{l@{}}%
+\usekomavar{fromname}\\
+\usekomavar{fromaddress}\\
+USt.-IdNr.: --FROM-TAX-ID--\\
+\end{tabular}%
+\hfill
+\begin{tabular}[t]{l@{}}%
+  \usekomavar[\Mobilefone~]{fromphone}\\
+   \usekomavar[\Letter~]{fromemail}\\
+\end{tabular}%
+\ifkomavarempty{frombank}{}{%
+\hfill
+\begin{tabular}[t]{l@{}}%
+Bankverbindung: \\
+\usekomavar{frombank}
+\end{tabular}%
+}%
+}%
+% Bankverbindung
+\setkomavar{frombank}{IBAN. --FROM-IBAN--\\
+--FROM-BANK-NAME--}
+%\setkomavar{yourref}{}
+%\setkomavar{yourmail}{}
+%\setkomavar{myref}{}
+%\setkomavar{customer}{}
+\setkomavar{invoice}{--INVOICE-HASH-----INVOICE-NUMBER--}
+% Datum und Ort werden hier eingetragen
+\setkomavar{date}{\today}
+\setkomavar{place}{--INVOICE-CITY--}
+% Hier beginnt der Brief, mit der Anschrift des Empfängers
+\begin{letter}
+{
+--TO-NAME--\\
+--TO-STREET--\\
+\vspace{4mm}
+--TO-CITY--\\
+}
+% Der Betreff des Briefes
+\setkomavar{subject}{\textbf{RECHNUNG
+}
+}
+\opening{Sehr geehrte Damen und Herren,}
+
+Bitte überweisen Sie den folgenden Rechnungsbeitrag innerhalb von 14 Tagen auf das unten angegebene Konto.
+
+\vspace{5pt}
+\begin{tabularx}{\textwidth}{ccXrr}
+\hline
+%\rowcolor[gray]{.95}
+\tiny {Menge} & \tiny {Einheit} & \tiny {Beschreibung} & \tiny {Einzelpreis (netto)} & \tiny {Gesamtpreis (netto)} \\ \hline
+ 3 & Std. & DJ Dienstleistung am 10.12.2016 & \multicolumn{1}{r}{42,00 EUR} & \multicolumn{1}{r}{126,00 EUR} \\ \hline
+ 1 & Fahrkosten & Fahrkostenpauschale & \multicolumn{1}{r}{0,00 EUR} & \multicolumn{1}{r}{0,00 EUR} \\ \hline \hline
+\multicolumn{ 4}{l}{\small{Summe ohne MwSt.}} & 126,00 EUR \\ \hline
+\multicolumn{ 4}{l}{\small{MwSt. 19\% }} & 23.94 EUR \\ \hline \hline
+\multicolumn{ 4}{l}{ \textbf{Gesamtsumme inkl. MwSt.} } & \textbf{149,94 EUR} \\ \hline
+\end{tabularx}
+
+\closing{Mit freundlichen Grüßen,}
+%\ps{Seite 1/1}
+%\cc{}
+\end{letter}
+\end{document}

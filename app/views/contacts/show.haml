@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @contact.name
+%p
+  %b Street:
+  = @contact.street
+%p
+  %b City:
+  = @contact.city
+%p
+  %b Phone:
+  = @contact.phone
+%p
+  %b Mail:
+  = @contact.mail
+%p
+  %b Bank account nr:
+  = @contact.bank_account_nr
+%p
+  %b Bank name:
+  = @contact.bank_name
+%p
+  %b Tax nr:
+  = @contact.tax_nr
+
+= link_to 'Edit', edit_contact_path(@contact)
+\|
+= link_to 'Back', contacts_path

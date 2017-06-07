@@ -14,3 +14,5 @@
 config/database.yml
 config/secrets.yml
 db/seeds.rb.secret
+coverage/
+spec/examples.txt

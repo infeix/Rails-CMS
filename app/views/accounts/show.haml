@@ -1,0 +1,35 @@
+%p#notice= notice
+
+%hr
+%p
+  %b= "-- #{@account.name} --"
+%hr
+%p
+  %b ID:
+  = @account.id
+%p
+  %b Starting level:
+  = @account.starting_level
+%p
+  %b Current level:
+  = @account.current_level
+.left
+  - row = 1
+  - rows = {}
+  .heading='Date'
+  - @account.all_transactions.each do |transaction|
+    - unless rows[transaction.other_account(@account).id] then
+      .heading=transaction.other_account(@account).name
+      - rows[transaction.other_account(@account).id] = row
+      - row += 1
+  .float-reset
+  - @account.all_transactions.each do |transaction|
+    - transaction = transaction.decorate
+    =raw transaction.render_in_row(rows[transaction.other_account(@account).id], transaction.to?(@account))
+
+
+.float-reset
+%br
+= link_to 'Edit', edit_account_path(@account)
+\|
+= link_to 'Back', accounts_path
