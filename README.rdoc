@@ -3,7 +3,7 @@
 * Ruby version
 
 * System dependencies
-  * `sudo apt-get install texlive`
+  * `sudo apt-get install texlive`
 
 * Configuration
   * database.yml
@@ -15,7 +15,7 @@
 * Database initializatioan
   * `bundle exec rake db:migrate`
   * `bundle exec rake db:seed`
-      * initial login: admin@example.com / secret42
+    * initial login: admin@example.com / secret42
 
 * How to run the test suite
   * `bundle exec rspec`
