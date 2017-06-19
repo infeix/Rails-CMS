@@ -196,6 +196,8 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails-latex (2.2.0)
+      rails (>= 3.0.0, < 6)
     railties (4.2.8)
       actionpack (= 4.2.8)
       activesupport (= 4.2.8)
@@ -335,6 +337,7 @@ DEPENDENCIES
   pry-stack_explorer
   pure-css-rails
   rails (= 4.2.8)
+  rails-latex
   rspec-its
   rspec-pretty_fail_formatter
   rspec-rails

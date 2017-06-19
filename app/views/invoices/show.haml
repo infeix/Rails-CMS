@@ -8,9 +8,9 @@
   %b To:
   = @invoice.to.name
 %p
-  = render partial: 'common/services', locals: { services: @invoice.services }
+  = render partial: 'common/services', locals: { services: @invoice.services, invoice: @invoice }
 %p
-  %b Template: 
+  %b Template:
   = link_to 'edit Template', edit_document_template_path(@invoice.document_template)
 
 = link_to "download", invoice_path(@invoice,:format => :pdf)

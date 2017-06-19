@@ -1,4 +1,5 @@
 - services = local_assigns.fetch(:services)
+- invoice = local_assigns.fetch(:invoice)
 
 %h1 Listing services
 
@@ -20,10 +21,10 @@
         %td= service.unit
         %td= service.description
         %td= service.price_per_unit
-        %td= link_to 'Show', service
-        %td= link_to 'Edit', edit_service_path(service)
-        %td= link_to 'Destroy', service, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %td= link_to 'Show', invoice_service_path(invoice, service)
+        %td= link_to 'Edit', edit_invoice_service_path(invoice, service)
+        %td= link_to 'Destroy', invoice_service_path(invoice, service), :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 
-= link_to 'New Service', new_service_path
+= link_to 'New Service', new_invoice_service_path(invoice)

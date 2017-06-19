@@ -28,6 +28,7 @@ gem 'pure-css-rails'
 
 gem 'devise'
 gem 'passenger'
+gem 'rails-latex'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
