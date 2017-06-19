@@ -4,6 +4,7 @@
 
 * System dependencies
   * `sudo apt-get install texlive`
+  * `sudo apt-get install texlive-lang-german`
 
 * Configuration
   * database.yml
