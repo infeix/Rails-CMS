@@ -13,6 +13,6 @@
   %b Price per unit:
   = @service.price_per_unit
 
-= link_to 'Edit', edit_service_path(@service)
+= link_to 'Edit', edit_invoice_service_path(@invoice, @service)
 \|
 = link_to 'Back', overviews_path

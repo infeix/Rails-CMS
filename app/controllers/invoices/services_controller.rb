@@ -1,12 +1,15 @@
+# frozen_string_literal: true
+
 class Invoices::ServicesController < ApplicationController
   before_action :set_service, only: [:show, :edit, :update, :destroy]
+  before_action :set_invoice, only: [:show, :edit, :update, :destroy]
 
   def show
   end
 
   def new
     @service = Service.new
-    find_invoice
+    @service.invoice = @invoice unless @invoice.blank?
   end
 
   def edit
@@ -43,11 +46,8 @@ class Invoices::ServicesController < ApplicationController
 
   private
 
-  def find_invoice
-    if params[:invoice_id].present?
-      @invoice = Invoice.find_by!(id: params[:invoice_id])
-      @service.invoice = @invoice
-    end
+  def set_invoice
+    @invoice = Invoice.find(params[:invoice_id])
   end
 
   def set_service
