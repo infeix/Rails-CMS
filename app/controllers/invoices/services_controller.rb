@@ -9,7 +9,7 @@ class Invoices::ServicesController < ApplicationController
 
   def new
     @service = Service.new
-    set_service
+    set_invoice
     @service.invoice = @invoice unless @invoice.blank?
   end
 
