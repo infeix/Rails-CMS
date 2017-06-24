@@ -30,7 +30,7 @@ class Invoices::ServicesController < ApplicationController
   def update
     respond_to do |format|
       if @service.update(service_params)
-        format.html { redirect_to @service, notice: 'Service was successfully updated.' }
+        format.html { redirect_to @service.invoice, notice: 'Service was successfully updated.' }
       else
         format.html { render :edit }
       end
