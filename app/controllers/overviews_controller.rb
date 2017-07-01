@@ -21,7 +21,7 @@ class OverviewsController < ApplicationController
     @document_templates = DocumentTemplate.all
     @contacts = Contact.all
     @services = Service.all
-    @transactions = Transaction.all
+    @transactions = Transaction.all.sort_by_date
     @accounts = Account.all
   end
 end
