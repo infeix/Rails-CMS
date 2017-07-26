@@ -16,6 +16,7 @@
 .left
   - row = 1
   - rows = {}
+  .heading='Name'
   .heading='Date'
   - @account.all_transactions.each do |transaction|
     - unless rows[transaction.other_account(@account).id] then
@@ -25,7 +26,7 @@
   .float-reset
   - @account.all_transactions.each do |transaction|
     - transaction = transaction.decorate
-    =raw transaction.render_in_row(rows[transaction.other_account(@account).id], transaction.to?(@account))
+    =raw transaction.render_in_account(@account, rows)
 
 
 .float-reset
