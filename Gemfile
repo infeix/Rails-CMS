@@ -26,6 +26,7 @@ gem 'haml-rails'
 
 gem 'pure-css-rails'
 
+gem 'draper'
 gem 'devise'
 gem 'passenger'
 gem 'rails-latex'
