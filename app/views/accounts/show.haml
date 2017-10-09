@@ -16,17 +16,28 @@
 .left
   - row = 1
   - rows = {}
+  - sums = {}
   .heading='Name'
   .heading='Date'
   - @account.all_transactions.each do |transaction|
     - unless rows[transaction.other_account(@account).id] then
       .heading=transaction.other_account(@account).name
       - rows[transaction.other_account(@account).id] = row
+      - sums[transaction.other_account(@account).id] = 0
       - row += 1
   .float-reset
   - @account.all_transactions.each do |transaction|
     - transaction = transaction.decorate
     =raw transaction.render_in_account(@account, rows)
+    - if transaction.to?(@account)
+      - sums[transaction.other_account(@account).id] += transaction.total
+    - else
+      - sums[transaction.other_account(@account).id] -= transaction.total
+  .footing='Gesamt'
+  .footing=Time.zone.now.to_date
+  - sums.each do |sum|
+    .footing=sum[1]
+  .float-reset
 
 
 .float-reset
