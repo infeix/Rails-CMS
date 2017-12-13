@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :invoice do
     number { Faker::Number.number(10).to_s }
     to_id { build :contact }

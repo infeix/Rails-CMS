@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :service do
     price_per_unit { Faker::Number.number(10) }
     amount { Faker::Number.number(10) }

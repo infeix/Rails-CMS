@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :transaction do
     total { Faker::Number.number(10) }
     name { Faker::Lorem.word }
