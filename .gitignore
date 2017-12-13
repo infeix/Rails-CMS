@@ -17,3 +17,4 @@ config/secrets.yml
 db/seeds.rb.secret
 coverage/
 spec/examples.txt
+public/.well-known/acme-challenge/*
