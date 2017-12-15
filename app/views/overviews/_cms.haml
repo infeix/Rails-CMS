@@ -134,7 +134,7 @@
             %td.cell= html_part.index
             %td.cell= html_part.template_id
             %td.cell= link_to 'Show', template_html_part_path(html_part.template, html_part), 'class': 'pure-button'
-            %td.cell= link_to 'Edit', edit_template_html_part_path(html_part.template, html_part.template, html_part), 'class': 'pure-button'
+            %td.cell= link_to 'Edit', edit_template_html_part_path(html_part.template, html_part), 'class': 'pure-button'
             %td.cell= link_to 'Destroy', template_html_part_path(html_part.template, html_part), :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
 
     %br

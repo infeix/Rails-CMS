@@ -43,7 +43,8 @@ index.save!
 
 art1 = Article.find_or_create_by(index: 1, page_id: index.id)
 art1.text = '
-Hallo CMS!
+Hallo CMS!<br>
+<a href="pages/impressum">Impressum</a>
 '
 art1.save!
 

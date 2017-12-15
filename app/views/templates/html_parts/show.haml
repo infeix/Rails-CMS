@@ -10,6 +10,6 @@
   %b Is last:
   = @html_part.is_last
 
-= link_to 'Edit', edit_template_html_part_path(@template, @html_part)
+= link_to 'Edit', edit_template_html_part_path(@html_part.template, @html_part)
 \|
 = link_to 'Back', overviews_path

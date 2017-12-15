@@ -1,4 +1,4 @@
-= form_for [@template, @html_part] do |f|
+= form_for [@html_part.template, @html_part] do |f|
   - if @html_part.errors.any?
     #error_explanation
       %h2= "#{pluralize(@html_part.errors.count, "error")} prohibited this html_part from being saved:"
