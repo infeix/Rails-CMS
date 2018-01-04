@@ -47,12 +47,10 @@ class TemplatesController < ApplicationController
   # PATCH/PUT /templates/1
   # PATCH/PUT /templates/1.json
   def update
-    respond_to do |format|
-      if @template.update(template_params)
-        format.html { redirect_to overviews_path, notice: 'Template was successfully updated.' }
-      else
-        format.html { render :edit }
-      end
+    if @template.update(template_params)
+      render :edit, notice: 'Template was successfully updated.'
+    else
+      render :edit
     end
   end
 

@@ -10,7 +10,6 @@ Rails.application.routes.draw do
     resources :articles, controller: 'pages/articles'
   end
   resources :overviews, only: [:index]
-
   resources :transactions
   resources :accounts
   resources :document_templates
@@ -18,6 +17,6 @@ Rails.application.routes.draw do
     resources :services, controller: 'invoices/services'
   end
   resources :contacts
-
   root 'pages#show', id: 'index'
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
