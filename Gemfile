@@ -25,6 +25,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 
 gem 'haml-rails'
+gem 'coffee-rails'
 
 gem 'pure-css-rails'
 
