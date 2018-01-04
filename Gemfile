@@ -26,6 +26,7 @@ gem 'jquery-rails'
 
 gem 'haml-rails'
 gem 'coffee-rails'
+gem 'draper'
 
 gem 'pure-css-rails'
 
