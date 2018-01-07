@@ -15,7 +15,14 @@ config/database.yml
 config/deploy.rb
 config/secrets.yml
 config/environments/production.rb
+config/deploy/production.rb
 db/seeds.rb.secret
 coverage/
 spec/examples.txt
 public/.well-known/acme-challenge/*
+
+
+vendor/node_modules
+public/assets
+
+
