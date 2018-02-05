@@ -1,0 +1,22 @@
+.pure-g
+  .pure-u-1.views
+    %h1 Listing views
+
+    %table
+      %thead
+        %tr
+          %th.cell.cell-big Ref
+          %th.cell.cell-big title
+          %th.cell.cell-big Time
+
+      %tbody
+        - @views.each do |view|
+          %tr
+            %td.cell.cell-important= view.ref
+            %td.cell.cell-important= view.page.title
+            %td.cell.cell-important= view.created_at.strftime("%F %T")
+
+    %br
+    Views:
+    %h3= @views.count
+

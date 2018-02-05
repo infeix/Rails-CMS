@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,143 +10,146 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170422191713) do
+ActiveRecord::Schema.define(version: 20180205134900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "accounts", force: :cascade do |t|
-    t.float    "starting_level"
-    t.string   "name"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-  end
-
-  create_table "articles", force: :cascade do |t|
-    t.string   "title"
-    t.text     "text"
-    t.text     "code"
-    t.integer  "index"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "page_id"
-    t.integer  "template_id"
-  end
-
-  add_index "articles", ["page_id"], name: "index_articles_on_page_id", using: :btree
-  add_index "articles", ["template_id"], name: "index_articles_on_template_id", using: :btree
-
-  create_table "contacts", force: :cascade do |t|
-    t.string   "name"
-    t.string   "street"
-    t.string   "city"
-    t.string   "phone"
-    t.string   "mail"
-    t.string   "bank_account_nr"
-    t.string   "bank_name"
-    t.string   "tax_nr"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
-  create_table "document_templates", force: :cascade do |t|
-    t.text     "template"
+  create_table "accounts", id: :serial, force: :cascade do |t|
+    t.float "starting_level"
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "invoices", force: :cascade do |t|
-    t.string   "number"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-    t.integer  "to_id"
-    t.integer  "from_id"
-    t.integer  "document_template_id"
-    t.date     "send_date"
+  create_table "articles", id: :serial, force: :cascade do |t|
+    t.string "title"
+    t.text "text"
+    t.text "code"
+    t.integer "index"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "page_id"
+    t.integer "template_id"
+    t.index ["page_id"], name: "index_articles_on_page_id"
+    t.index ["template_id"], name: "index_articles_on_template_id"
   end
 
-  create_table "messages", force: :cascade do |t|
-    t.text     "msg"
-    t.string   "name"
-    t.string   "email"
+  create_table "contacts", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "street"
+    t.string "city"
+    t.string "phone"
+    t.string "mail"
+    t.string "bank_account_nr"
+    t.string "bank_name"
+    t.string "tax_nr"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "page_parts", force: :cascade do |t|
-    t.string   "title"
-    t.integer  "index"
-    t.text     "text"
-    t.boolean  "is_last",     default: false
-    t.string   "type"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.integer  "template_id"
-  end
-
-  add_index "page_parts", ["template_id"], name: "index_page_parts_on_template_id", using: :btree
-
-  create_table "pages", force: :cascade do |t|
-    t.string   "title"
-    t.text     "text"
-    t.string   "path"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "template_id"
-  end
-
-  add_index "pages", ["template_id"], name: "index_pages_on_template_id", using: :btree
-
-  create_table "services", force: :cascade do |t|
-    t.integer  "amount"
-    t.string   "unit"
-    t.string   "description"
-    t.float    "price_per_unit"
-    t.integer  "invoice_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-  end
-
-  create_table "templates", force: :cascade do |t|
-    t.string   "title"
+  create_table "document_templates", id: :serial, force: :cascade do |t|
+    t.text "template"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text     "meta"
   end
 
-  create_table "transactions", force: :cascade do |t|
-    t.float    "total"
-    t.string   "name"
-    t.date     "invoice_date"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "from_id"
-    t.integer  "to_id"
+  create_table "invoices", id: :serial, force: :cascade do |t|
+    t.string "number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "to_id"
+    t.integer "from_id"
+    t.integer "document_template_id"
+    t.date "send_date"
   end
 
-  add_index "transactions", ["from_id"], name: "index_transactions_on_from_id", using: :btree
-  add_index "transactions", ["to_id"], name: "index_transactions_on_to_id", using: :btree
+  create_table "messages", id: :serial, force: :cascade do |t|
+    t.text "msg"
+    t.string "name"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
-  create_table "users", force: :cascade do |t|
-    t.string   "lang"
-    t.string   "name"
-    t.boolean  "is_admin"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+  create_table "page_parts", id: :serial, force: :cascade do |t|
+    t.string "title"
+    t.integer "index"
+    t.text "text"
+    t.boolean "is_last", default: false
+    t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "template_id"
+    t.index ["template_id"], name: "index_page_parts_on_template_id"
+  end
+
+  create_table "pages", id: :serial, force: :cascade do |t|
+    t.string "title"
+    t.text "text"
+    t.string "path"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "template_id"
+    t.index ["template_id"], name: "index_pages_on_template_id"
+  end
+
+  create_table "services", id: :serial, force: :cascade do |t|
+    t.integer "amount"
+    t.string "unit"
+    t.string "description"
+    t.float "price_per_unit"
+    t.integer "invoice_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "templates", id: :serial, force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "meta"
+  end
+
+  create_table "transactions", id: :serial, force: :cascade do |t|
+    t.float "total"
+    t.string "name"
+    t.date "invoice_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "from_id"
+    t.integer "to_id"
+    t.index ["from_id"], name: "index_transactions_on_from_id"
+    t.index ["to_id"], name: "index_transactions_on_to_id"
+  end
+
+  create_table "users", id: :serial, force: :cascade do |t|
+    t.string "lang"
+    t.string "name"
+    t.boolean "is_admin"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.inet     "current_sign_in_ip"
-    t.inet     "last_sign_in_ip"
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  create_table "views", id: :serial, force: :cascade do |t|
+    t.string "ref"
+    t.integer "page_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["page_id"], name: "index_views_on_page_id"
+  end
 
   add_foreign_key "articles", "pages"
   add_foreign_key "articles", "templates"

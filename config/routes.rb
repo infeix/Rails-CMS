@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :overviews, only: [:index]
   resources :transactions
   resources :accounts
+  resources :views
   resources :document_templates
   resources :invoices, controller: 'invoices' do
     resources :services, controller: 'invoices/services'

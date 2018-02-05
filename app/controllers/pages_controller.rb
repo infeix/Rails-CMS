@@ -14,6 +14,12 @@ class PagesController < ApplicationController
   end
 
   def show
+    if @page.present? && current_user.blank?
+      view = View.new
+      view.page = @page
+      view.ref = request.referrer.presence
+      view.save!
+    end
   end
 
   def new

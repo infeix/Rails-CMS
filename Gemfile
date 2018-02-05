@@ -5,7 +5,7 @@ gem 'rails', '~> 5.1.4'
 gem 'passenger'
 
 gem 'good_migrations'
-gem 'pg'
+gem 'pg', '~> 0.18'
 gem 'pg_search'
 
 gem 'devise'
