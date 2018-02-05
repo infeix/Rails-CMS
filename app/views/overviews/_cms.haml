@@ -13,6 +13,7 @@
     %table
       %thead
         %tr
+          %th.cell.cell-big Time
           %th.cell.cell-big Msg
           %th.cell.cell-big Name
           %th.cell.cell-big Email
@@ -23,6 +24,7 @@
       %tbody
         - messages.each do |message|
           %tr
+            %td.cell.cell-important= message.created_at.strftime("%F %T")
             %td.cell.cell-important= message.msg
             %td.cell.cell-important= message.name
             %td.cell.cell-important= message.email
