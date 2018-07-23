@@ -6,7 +6,8 @@ set :stage, :production
 # Defines a single server with a list of roles and multiple properties.
 # You can define all roles on a single server, or split them:
 
-server 'dj-duo-jobe.de', user: 'deploy', roles: %w{app db web}
+set :deploy_to, '/path/to/deploy/folder'
+server 'deploy-server.com', user: 'deploy_user', roles: %w{app db web}
 
 
 

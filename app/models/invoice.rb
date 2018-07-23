@@ -6,6 +6,8 @@ class Invoice < ActiveRecord::Base
   belongs_to :document_template
   has_many :services
 
+  scope :sort_by_send_date, -> { order(send_date: :asc) }
+
   def render_pdf
     document_template.render self
   end

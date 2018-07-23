@@ -17,7 +17,7 @@ class OverviewsController < ApplicationController
     @messages = Message.all
     @users = User.all
 
-    @invoices = Invoice.all
+    @invoices = Invoice.all.sort_by_send_date
     @document_templates = DocumentTemplate.all
     @contacts = Contact.all
     @services = Service.all
