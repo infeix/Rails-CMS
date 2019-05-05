@@ -33,7 +33,7 @@ class Page < ActiveRecord::Base
     else
       rendered += text
     end
-    fixed_menu = "<div class=\"pure-menu-fixed\">".html_safe
+    fixed_menu = "<div class=\"pure-menu-fixed notice\">".html_safe
     fixed_menu += "<p class=\"notice\">#{notice}</p>".html_safe if notice.present?
     fixed_menu += "<a class=\"pure-button pure-button-primary\" href=\"/overviews\">Admin Backend</a>".html_safe if user_signed_in
     fixed_menu += "<p class=\"alert\">#{alert}</p>".html_safe if alert.present?
