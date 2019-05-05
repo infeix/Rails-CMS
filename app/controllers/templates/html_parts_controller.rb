@@ -54,7 +54,7 @@ class Templates::HtmlPartsController < ApplicationController
       reset_index
     end
 
-    redirect_to overviews_path, notice: 'Html part was successfully destroyed.'
+    redirect_to template_path(@template), notice: 'Html part was successfully destroyed.'
   end
 
   private

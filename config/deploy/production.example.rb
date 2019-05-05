@@ -10,6 +10,7 @@ set :deploy_to, '/path/to/deploy/folder'
 server 'deploy-server.com', user: 'deploy_user', roles: %w{app db web}
 
 
+set :branch, :master
 
 # role-based syntax
 # ==================

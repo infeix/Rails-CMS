@@ -1,6 +1,6 @@
 set :stage, :staging
 
-server 'dj-duo-jobe.de',
+server 'staging-server.com',
        user: 'deploy',
        roles: [:app, :web, :cron, :db],
        primary: true,
@@ -11,4 +11,4 @@ server 'dj-duo-jobe.de',
        }
 
 set :user, 'deploy'
-set :branch, :master
+set :branch, :staging
