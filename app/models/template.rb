@@ -36,22 +36,28 @@ class Template < ActiveRecord::Base
   def render_articles(parts)
     html = ''
     parts.each do |article|
-      html += render_article article
+      html = render_article article, html
     end
     html
   end
 
-  def render_article(article)
-    it_is_rendered = false
-    render_value = nil
-    html_parts.each do |part|
-      if part.to_s.include? "{{artikel_#{article.index}}}"
-        render_value = part.to_s.gsub("{{artikel_#{article.index}}}", article.to_s)
-        it_is_rendered = true
+  def render_article(article, render_value = "")
+    return nil unless article
+    replace_pattern = "{{artikel_#{article.index}}}"
+
+    if render_value.include? replace_pattern
+      render_value = render_value.gsub(replace_pattern, article.to_s)
+      return render_value
+    else
+      html_parts.each do |part|
+        if part.to_s.include? replace_pattern
+          render_value += part.to_s.gsub(replace_pattern, article.to_s)
+          return render_value
+        end
       end
     end
-    render_value = article.to_s || "" unless it_is_rendered
-    render_value
+
+    "#{render_value}#{article}"
   end
 
   def last_index_of(kind)
