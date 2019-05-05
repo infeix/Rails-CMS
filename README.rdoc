@@ -18,6 +18,10 @@
   * `bundle exec rake db:seed`
     * initial login: admin@example.com / secret42
 
+* Development
+  * asdf and plugin to instsall postgres db
+  * `pg_ctl start` to start the postgres db
+
 * How to run the test suite
   * `bundle exec rspec`
 

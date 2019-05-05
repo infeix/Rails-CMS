@@ -1,4 +1,4 @@
-class CreateDocumentTemplates < ActiveRecord::Migration
+class CreateDocumentTemplates < ActiveRecord::Migration[5.0]
   def change
     create_table :document_templates do |t|
       t.text :template

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Article < ActiveRecord::Base
-  belongs_to :template
+  belongs_to :template, optional: true
   belongs_to :page
   scope :sort_by_index, -> { order(index: :asc) }
 

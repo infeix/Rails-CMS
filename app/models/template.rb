@@ -14,11 +14,11 @@ class Template < ActiveRecord::Base
   end
 
   def render_head
-    "#{render_css}#{reder_meta}</head>\n"
+    "#{render_css}#{reder_meta}\n"
   end
 
-  def render(arts = [])
-    "#{render_articles(arts)} #{last_html_part}"
+  def render(parts = [])
+    "#{render_articles(parts)}"
   end
 
   def reder_meta
@@ -33,20 +33,32 @@ class Template < ActiveRecord::Base
     html
   end
 
-  def render_articles(arts)
+  def render_articles(parts)
     html = ''
-    arts.each do |article|
+    parts.each do |article|
       html += render_article article
     end
     html
   end
 
   def render_article(article)
-    part = html_parts.find_by(index: article.index, is_last: false)
-    if part.present?
-      "#{part} #{article}"
+    it_is_rendered = false
+    render_value = nil
+    html_parts.each do |part|
+      if part.to_s.include? "{{artikel_#{article.index}}}"
+        render_value = part.to_s.gsub("{{artikel_#{article.index}}}", article.to_s)
+        it_is_rendered = true
+      end
+    end
+    render_value = article.to_s || "" unless it_is_rendered
+    render_value
+  end
+
+  def last_index_of(kind)
+    if kind.equal? :html_part
+      html_parts&.last&.index || 1
     else
-      article.to_s
+      css_parts&.last&.index || 1
     end
   end
 end

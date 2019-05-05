@@ -8,7 +8,7 @@
 
 .pure-g
   .pure-u-1.messages
-    %h1 Listing messages
+    %h1 Nachrichten
 
     %table
       %thead
@@ -34,9 +34,9 @@
 
     %br
 
-    = link_to 'New Message', new_message_path, 'class': 'pure-button new-message-button'
+    = link_to 'Neue Nachricht', new_message_path, 'class': 'pure-button new-message-button'
   .pure-u-1.pure-u-md-1-2.pages
-    %h1 Listing pages
+    %h1 Seiten
 
     %table
       %thead
@@ -54,7 +54,7 @@
           %tr
             %td.cell= page.id
             %td.cell= page.title
-            %td.cell= page.path
+            %td.cell= link_to page.url, page.url
             %td.cell= link_to 'Show', page, 'class': 'pure-button'
             %td.cell= link_to 'Edit', edit_page_path(page), 'class': 'pure-button'
             %td.cell= link_to 'New article', new_page_article_path(page.id), 'class': 'pure-button'
@@ -62,10 +62,10 @@
 
     %br
 
-    = link_to 'New page', new_page_path, 'class': 'pure-button new-page-button'
+    = link_to 'Neue Seite', new_page_path, 'class': 'pure-button new-page-button'
 
   .pure-u-1.pure-u-md-1-2.articles
-    %h1 Listing articles
+    %h1 Artikel
 
     %table
       %thead
@@ -90,7 +90,7 @@
     %br
 
   .pure-u-1.pure-u-md-1-2.templates
-    %h1 Listing templates
+    %h1 Vorlagen
 
     %table
       %thead
@@ -116,58 +116,11 @@
 
     %br
 
-    = link_to 'New Template', new_template_path, 'class': 'pure-button new-template-button'
-
-  .pure-u-1.pure-u-md-1-2.html_parts
-    %h1 Listing html_parts
-
-    %table
-      %thead
-        %tr
-          %th Index
-          %th Template
-          %th
-          %th
-          %th
-
-      %tbody
-        - html_parts.each do |html_part|
-          %tr
-            %td.cell= html_part.index
-            %td.cell= html_part.template_id
-            %td.cell= link_to 'Show', template_html_part_path(html_part.template, html_part), 'class': 'pure-button'
-            %td.cell= link_to 'Edit', edit_template_html_part_path(html_part.template, html_part), 'class': 'pure-button'
-            %td.cell= link_to 'Destroy', template_html_part_path(html_part.template, html_part), :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
-
-    %br
-
-
-  .pure-u-1.pure-u-md-1-2.css_parts
-    %h1 Listing css_parts
-
-    %table
-      %thead
-        %tr
-          %th Index
-          %th Template
-          %th
-          %th
-          %th
-
-      %tbody
-        - css_parts.each do |css_part|
-          %tr
-            %td.cell= css_part.index
-            %td.cell= css_part.template_id
-            %td.cell= link_to 'Show', template_css_part_path(css_part.template, css_part), 'class': 'pure-button'
-            %td.cell= link_to 'Edit', edit_template_css_part_path(css_part.template, css_part), 'class': 'pure-button'
-            %td.cell= link_to 'Destroy', template_css_part_path(css_part.template, css_part), :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
-
-    %br
+    = link_to 'Neue Vorlage', new_template_path, 'class': 'pure-button new-template-button'
 
 
   .pure-u-1.pure-u-md-1-2.users
-    %h1 Listing users
+    %h1 Benutzer
 
     %table
       %thead
@@ -191,4 +144,4 @@
 
     %br
 
-    = link_to 'New User', new_user_path, 'class': 'pure-button new-user-button'
+    = link_to 'Neuer Benutzer', new_user_path, 'class': 'pure-button new-user-button'

@@ -15,6 +15,15 @@ class Templates::HtmlPartsController < ApplicationController
   def new
     @html_part = HtmlPart.new
     find_template
+    last_index = @template.last_index_of :html_part
+    @html_part.index = last_index + 1
+    last_index = last_index + 1
+    @html_part.is_last = true
+    @html_part.save
+
+    reset_index
+
+    redirect_to edit_template_path(@template), notice: 'Html part was successfully created.'
   end
 
   def edit
@@ -23,33 +32,47 @@ class Templates::HtmlPartsController < ApplicationController
   def create
     @html_part = HtmlPart.new(html_part_params)
 
-    respond_to do |format|
-      if @html_part.save
-        format.html { redirect_to overviews_path, notice: 'Html part was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    if @html_part.save
+      redirect_to overviews_path, notice: 'Html part was successfully created.'
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @html_part.update(html_part_params)
-        format.html { redirect_to overviews_path, notice: 'Html part was successfully updated.' }
-      else
-        format.html { render :edit }
-      end
+    if @html_part.update(html_part_params)
+      redirect_to overviews_path, notice: 'Html part was successfully updated.'
+    else
+      render :edit
     end
   end
 
   def destroy
+    template = @html_part.template
     @html_part.destroy
-    respond_to do |format|
-      format.html { redirect_to overviews_path, notice: 'Html part was successfully destroyed.' }
+    if template.html_parts.count > 0
+      reset_index
     end
+
+    redirect_to overviews_path, notice: 'Html part was successfully destroyed.'
   end
 
   private
+
+  def reset_index
+    template = @html_part.template
+    template = template.reload
+    index_count = 1
+    template.html_parts.each do |element|
+      element.index = index_count
+      index_count = index_count + 1
+      element.is_last = false
+      element.save
+    end
+    element = template.html_parts.last
+    element.is_last = true
+    element.save
+  end
 
   def find_template
     if params[:template_id].present?

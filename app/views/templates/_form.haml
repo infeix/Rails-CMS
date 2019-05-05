@@ -6,50 +6,56 @@
         - @template.errors.full_messages.each do |msg|
           %li= msg
 
+
   .pure-g
-    .field.pure-u-1.pure-u-md-1-5
+    .field.pure-u-1.pure-u-md-1-8
       = f.label :title
-      %br
       = f.text_field :title
-    .field.pure-u-1.pure-u-md-3-5
-      = f.label :meta
-      %br
-      = f.text_area :meta, rows: 6, cols: 100, class: "edit_template"
 
-
+  .pure-g
+    .field.pure-u-1.pure-u-md-1-12
+    .field.pure-u-1.pure-u-md-11-12
+      = "<head>"
 
   = f.fields_for :css_parts do |ff|
     - if ff.object.id.present?
       = ff.hidden_field :id
       .pure-g
-        .field.pure-u-1.pure-u-md-1-5
-          = ff.label :index
-          %br
-          = ff.number_field :index
-        .field.pure-u-1.pure-u-md-3-5
-          = ff.label :text
-          %br
-          = ff.text_area :text, rows: 6, cols: 100
-        .field.pure-u-1.pure-u-md-1-5
-          = ff.label :is_last
-          %br
-          = ff.check_box :is_last
+        .field.pure-u-1.pure-u-md-1-12
+          css
+        .field.pure-u-1.pure-u-md-11-12
+          = ff.text_area :text, rows: 6, cols: 80, class: "edit_template"
 
+  .pure-g
+    .field.pure-u-1.pure-u-md-1-12
+      = f.label :meta
+
+    .field.pure-u-1.pure-u-md-11-12
+      = f.text_area :meta, rows: 6, cols: 80, class: "edit_template"
+
+  .pure-g
+    .field.pure-u-1.pure-u-md-1-12
+    .field.pure-u-1.pure-u-md-11-12
+      = "</head>"
+      %br
+      = "<body>"
+  - index = 1
   = f.fields_for :html_parts do |ff|
     - if ff.object.id.present?
       = ff.hidden_field :id
       .pure-g
-        .field.pure-u-1.pure-u-md-1-5
-          = ff.label :index
-          %br
-          = ff.number_field :index
-        .field.pure-u-1.pure-u-md-3-5
-          = ff.label :text
-          %br
-          = ff.text_area :text, rows: 6, cols: 100
-        .field.pure-u-1.pure-u-md-1-5
-          = ff.label :is_last
-          %br
-          = ff.check_box :is_last
+        .field.pure-u-1.pure-u-md-1-12
+          html
+        .field.pure-u-1.pure-u-md-11-12
+          = ff.text_area :text, rows: 6, cols: 80, class: "edit_template"
+
+  .pure-g
+    .field.pure-u-1.pure-u-md-1-12
+    .field.pure-u-1.pure-u-md-11-12
+      = "</body>"
+
   .actions
     = f.submit 'Save', class: "pure-button pure-button-primary submit-button"
+    - if @template.persisted?
+      = link_to 'Neues CSS Fragment', new_template_css_part_path(@template), 'class': 'pure-button'
+      = link_to 'Neues HTML Fragment', new_template_html_part_path(@template), 'class': 'pure-button'

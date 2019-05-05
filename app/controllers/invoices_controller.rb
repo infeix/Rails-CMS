@@ -4,7 +4,7 @@ class InvoicesController < ApplicationController
   # GET /invoices
   # GET /invoices.json
   def index
-    redirect_to overviews_url
+    redirect_to "#{overviews_url}#invoice"
   end
 
   # GET /invoices/1

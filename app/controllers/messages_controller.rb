@@ -4,6 +4,8 @@ class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token, only: :create
 
+  BLLACKLIST = %w(http sex).freeze
+
   # GET /messages
   # GET /messages.json
   def index
@@ -28,12 +30,10 @@ class MessagesController < ApplicationController
   # POST /messages.json
   def create
     @message = Message.new(message_params)
-    respond_to do |format|
-      if @message.save
-        format.html { redirect_to root_path, notice: 'Die Nachricht wurde erfolgreich gesendet.' }
-      else
-        format.html { redirect_to root_path, notice: 'Die Nachricht konnte nicht gesendet werden.' }
-      end
+    if blacklist_exluded_in(@message.msg) && @message.save
+      redirect_to root_path, notice: 'Die Nachricht wurde erfolgreich gesendet.'
+    else
+      redirect_to root_path, notice: 'Die Nachricht konnte nicht gesendet werden.'
     end
   end
 
@@ -60,6 +60,13 @@ class MessagesController < ApplicationController
   end
 
   private
+    def blacklist_exluded_in(msg)
+      BLLACKLIST.each do |element|
+        return false if msg.downcase.include? element
+      end
+      true
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_message
       @message = Message.find(params[:id])

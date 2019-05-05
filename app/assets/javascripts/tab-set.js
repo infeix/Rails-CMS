@@ -11,4 +11,19 @@ function openTab(evt, name) {
     })
     $("." + name + "-tab").addClass('selected-tab')
     $("." + name + "-tablink").addClass('pure-button-primary')
+    window.location.hash = "#" + name;
 }
+
+$( document ).ready(function() {
+
+    var hash = window.location.hash;
+    if(hash == "#invoice"){
+        openTab(null, 'invoice');
+    }
+
+    if(hash.eqals("#cms")){
+        openTab(null, 'cms')
+    }
+
+    console.log( "ready! " + hash );
+});

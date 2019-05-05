@@ -6,13 +6,15 @@ class Account < ActiveRecord::Base
   has_many :income_accounts, through: :incomes, class_name: 'Account'
   has_many :expense_accounts, through: :expenses, class_name: 'Account'
 
-  def current_level
+  def current_level(year = nil)
+    year ||= (Time.current.year - 1)
+
     level = starting_level
-    expenses.each do |transaction|
+    expenses.in_year(year).each do |transaction|
       level -= transaction.total
     end
 
-    incomes.each do |transaction|
+    incomes.in_year(year).each do |transaction|
       level += transaction.total
     end
     level

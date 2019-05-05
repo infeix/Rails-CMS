@@ -9,6 +9,8 @@ class OverviewsController < ApplicationController
   end
 
   def index
+    year = params[:year]
+
     @pages = Page.all
     @templates = Template.all
     @articles = Article.all.sort_by_index
@@ -21,7 +23,7 @@ class OverviewsController < ApplicationController
     @document_templates = DocumentTemplate.all
     @contacts = Contact.all
     @services = Service.all
-    @transactions = Transaction.all.sort_by_date
+    @transactions = Transaction.in_year(year).sort_by_date
     @accounts = Account.all
   end
 end

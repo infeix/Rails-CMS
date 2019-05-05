@@ -62,6 +62,9 @@ ActiveRecord::Schema.define(version: 20180205134900) do
     t.integer "from_id"
     t.integer "document_template_id"
     t.date "send_date"
+    t.index ["document_template_id"], name: "index_invoices_on_document_template_id"
+    t.index ["from_id"], name: "index_invoices_on_from_id"
+    t.index ["to_id"], name: "index_invoices_on_to_id"
   end
 
   create_table "messages", id: :serial, force: :cascade do |t|
@@ -102,6 +105,7 @@ ActiveRecord::Schema.define(version: 20180205134900) do
     t.integer "invoice_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["invoice_id"], name: "index_services_on_invoice_id"
   end
 
   create_table "templates", id: :serial, force: :cascade do |t|

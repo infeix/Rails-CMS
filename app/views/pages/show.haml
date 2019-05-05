@@ -1,12 +1,9 @@
-= raw @page.render_head
-%body
-  .pure-menu-fixed.notice
-    - if notice.present?
-      %p.notice
-        = notice
-    - if user_signed_in?
-      %a.pure-button.pure-button-primary{ href: '/overviews' }= 'Admin Backend'
-    - if alert.present?
-      %p.alert
-        = alert
-  = raw @page.render
+
+
+- head_content = stylesheet_link_tag('application', media: 'all', 'data-turbolinks-track' => true).html_safe
+- head_content += (javascript_include_tag 'application', 'data-turbolinks-track' => true).html_safe
+- head_content += csrf_meta_tags&.html_safe
+- rendered = @page.render(notice, alert, user_signed_in?)
+- rendered = rendered.gsub("<head>", "<head> #{head_content}").html_safe
+
+= raw rendered

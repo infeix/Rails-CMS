@@ -20,6 +20,7 @@ class PagesController < ApplicationController
       view.ref = request.referrer.presence
       view.save!
     end
+    render layout: "custompage"
   end
 
   def new
