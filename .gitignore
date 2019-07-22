@@ -7,9 +7,10 @@ config/database.yml
 config/deploy.rb
 config/secrets.yml
 config/environments/production.rb
-config/deploy/productionp.rb
-config/deploy/productiond.rb
-config/deploy/productionj.rb
+config/deploy/productionphysio.rb
+config/deploy/productionklang.rb
+config/deploy/productiondj.rb
+config/deploy/productionjo.rb
 db/seeds.rb.secret
 coverage/*
 spec/examples.txt
