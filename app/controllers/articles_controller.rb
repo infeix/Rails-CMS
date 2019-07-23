@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Pages::ArticlesController < ApplicationController
+class ArticlesController < ApplicationController
   before_action :authenticate_user!
   before_action :authenticate_admin!
 
@@ -68,6 +68,6 @@ class Pages::ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:title, :text, :index, :page_id, :template_id)
+    params.require(:article).permit(:title, :text, :position, :page_id, :template_id)
   end
 end

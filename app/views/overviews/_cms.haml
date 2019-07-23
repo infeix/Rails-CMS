@@ -47,7 +47,6 @@
           %th.cell
           %th.cell
           %th.cell
-          %th.cell
 
       %tbody
         - pages.each do |page|
@@ -57,7 +56,6 @@
             %td.cell= link_to page.url, page.url
             %td.cell= link_to 'Show', page, 'class': 'pure-button'
             %td.cell= link_to 'Edit', edit_page_path(page), 'class': 'pure-button'
-            %td.cell= link_to 'New article', new_page_article_path(page.id), 'class': 'pure-button'
             %td.cell= link_to 'Destroy', page, method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
 
     %br
@@ -70,7 +68,6 @@
     %table
       %thead
         %tr
-          %th Index
           %th Title
           %th Page
           %th
@@ -80,14 +77,15 @@
       %tbody
         - articles.each do |article|
           %tr
-            %td.cell= article.index
             %td.cell= article.title
             %td.cell= article.page_id
-            %td.cell= link_to 'Show', page_article_path(article.page_id, article), 'class': 'pure-button'
-            %td.cell= link_to 'Edit', edit_page_article_path(article.page_id, article), 'class': 'pure-button'
-            %td.cell= link_to 'Destroy', page_article_path(article.page_id, article), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+            %td.cell= link_to 'Show', article_path(article), 'class': 'pure-button'
+            %td.cell= link_to 'Edit', edit_article_path(article), 'class': 'pure-button'
+            %td.cell= link_to 'Destroy', article_path(article), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
 
     %br
+
+    = link_to 'Neue Artikel', new_article_path, 'class': 'pure-button new-article-button'
 
   .pure-u-1.pure-u-md-1-2.templates
     %h1 Vorlagen

@@ -43,7 +43,7 @@ class Template < ActiveRecord::Base
 
   def render_article(article, render_value = "")
     return nil unless article
-    replace_pattern = "{{artikel_#{article.index}}}"
+    replace_pattern = "{{#{article.position}}}"
 
     if render_value.include? replace_pattern
       render_value = render_value.gsub(replace_pattern, article.to_s)

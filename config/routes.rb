@@ -6,9 +6,8 @@ Rails.application.routes.draw do
     resources :css_parts, controller: 'templates/css_parts'
     resources :html_parts, controller: 'templates/html_parts'
   end
-  resources :pages, controller: 'pages' do
-    resources :articles, controller: 'pages/articles'
-  end
+  resources :pages, controller: 'pages'
+  resources :articles, controller: 'articles'
   resources :overviews, only: [:index]
   resources :transactions
   resources :accounts

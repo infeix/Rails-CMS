@@ -2,7 +2,7 @@
 
 class Page < ActiveRecord::Base
   belongs_to :template, optional: true
-  has_many :articles, -> { order(index: :asc) }
+  has_many :articles, -> { order(index: :asc) }, dependent: :nullify
   validates :path, presence: true
 
   def url
