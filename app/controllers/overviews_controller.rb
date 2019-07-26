@@ -14,6 +14,10 @@ class OverviewsController < ApplicationController
     @pages = Page.all
     @templates = Template.all
     @articles = Article.all.sort_by_index
+    @pictures = Picture.all.sort_by_index
+    @videoelements = Videoelement.all.sort_by_index
+    @textelements = Textelement.all.sort_by_index
+    @urlelements = Urlelement.all.sort_by_index
     @html_parts = HtmlPart.all.sort_by_index
     @css_parts = CssPart.all.sort_by_index
     @messages = Message.all

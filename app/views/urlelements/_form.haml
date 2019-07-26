@@ -1,0 +1,26 @@
+= form_for [@urlelement] do |f|
+  - if @urlelement.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@urlelement.errors.count, "error")} prohibited this urlelement from being saved:"
+      %ul
+        - @urlelement.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :position
+    = Position.render_dropdown("urlelement", "position")
+  .field
+    = f.label :page_id
+    = f.text_field :page_id
+  .field
+    = f.label :template_id
+    = f.text_field :template_id
+  .field
+    = f.label :text
+    = f.text_area :text, rows: 9, cols: 100, class: "edit_template"
+
+  .actions
+    = f.submit 'Save'

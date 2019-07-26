@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @urlelement.title
+%p
+  %b Page id:
+  = @urlelement.page_id
+%p
+  %b Text:
+  = @urlelement.text
+%p
+  %b Position:
+  = @urlelement.position
+%p
+  %b Code:
+  = @urlelement.code
+
+= link_to 'Edit', edit_urlelement_path(@urlelement)
+\|
+= link_to 'Back', overviews_path

@@ -1,9 +1,9 @@
-= form_for [@article] do |f|
-  - if @article.errors.any?
+= form_for [@textelement] do |f|
+  - if @textelement.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@article.errors.count, "error")} prohibited this article from being saved:"
+      %h2= "#{pluralize(@textelement.errors.count, "error")} prohibited this textelement from being saved:"
       %ul
-        - @article.errors.full_messages.each do |msg|
+        - @textelement.errors.full_messages.each do |msg|
           %li= msg
 
   .field
@@ -11,7 +11,7 @@
     = f.text_field :title
   .field
     = f.label :position
-    = Position.render_dropdown("article", "position")
+    = Position.render_dropdown("textelement", "position")
   .field
     = f.label :page_id
     = f.text_field :page_id
@@ -21,5 +21,6 @@
   .field
     = f.label :text
     = f.text_area :text, rows: 9, cols: 100, class: "edit_template"
+
   .actions
     = f.submit 'Save'

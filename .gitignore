@@ -19,5 +19,5 @@ public/.well-known/acme-challenge/*
 
 vendor/node_modules/*
 public/assets/*
-
+public/uploads
 

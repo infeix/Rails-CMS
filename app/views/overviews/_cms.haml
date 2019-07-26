@@ -1,6 +1,10 @@
 - messages = local_assigns.fetch(:messages)
 - pages = local_assigns.fetch(:pages)
 - articles = local_assigns.fetch(:articles)
+- pictures = local_assigns.fetch(:pictures)
+- videoelements = local_assigns.fetch(:videoelements)
+- textelements = local_assigns.fetch(:textelements)
+- urlelements = local_assigns.fetch(:urlelements)
 - templates = local_assigns.fetch(:templates)
 - html_parts = local_assigns.fetch(:html_parts)
 - css_parts = local_assigns.fetch(:css_parts)
@@ -34,8 +38,7 @@
 
     %br
 
-    = link_to 'Neue Nachricht', new_message_path, 'class': 'pure-button new-message-button'
-  .pure-u-1.pure-u-md-1-2.pages
+  .pure-u-1.pure-u-md-1-4.pages
     %h1 Seiten
 
     %table
@@ -62,8 +65,8 @@
 
     = link_to 'Neue Seite', new_page_path, 'class': 'pure-button new-page-button'
 
-  .pure-u-1.pure-u-md-1-2.articles
-    %h1 Artikel
+  .pure-u-1.pure-u-md-1-4.textelements
+    %h1 Texte
 
     %table
       %thead
@@ -75,17 +78,93 @@
           %th
 
       %tbody
-        - articles.each do |article|
+        - textelements.each do |textelement|
           %tr
-            %td.cell= article.title
-            %td.cell= article.page_id
-            %td.cell= link_to 'Show', article_path(article), 'class': 'pure-button'
-            %td.cell= link_to 'Edit', edit_article_path(article), 'class': 'pure-button'
-            %td.cell= link_to 'Destroy', article_path(article), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+            %td.cell= textelement.title
+            %td.cell= textelement.page_id
+            %td.cell= link_to 'Show', textelement_path(textelement), 'class': 'pure-button'
+            %td.cell= link_to 'Edit', edit_textelement_path(textelement), 'class': 'pure-button'
+            %td.cell= link_to 'Destroy', textelement_path(textelement), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
 
     %br
 
-    = link_to 'Neue Artikel', new_article_path, 'class': 'pure-button new-article-button'
+    = link_to 'Neuer Text', new_textelement_path, 'class': 'pure-button new-article-button'
+
+  .pure-u-1.pure-u-md-1-4.pictures
+    %h1 Bilder
+
+    %table
+      %thead
+        %tr
+          %th Title
+          %th Page
+          %th
+          %th
+          %th
+
+      %tbody
+        - pictures.each do |picture|
+          %tr
+            %td.cell= picture.title
+            %td.cell= picture.page_id
+            %td.cell= link_to 'Show', picture_path(picture), 'class': 'pure-button'
+            %td.cell= link_to 'Edit', edit_picture_path(picture), 'class': 'pure-button'
+            %td.cell= link_to 'Destroy', picture_path(picture), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+    %br
+
+    = link_to 'Neues Bild', new_picture_path, 'class': 'pure-button new-picture-button'
+
+  .pure-u-1.pure-u-md-1-4.videoelements
+    %h1 Videos
+
+    %table
+      %thead
+        %tr
+          %th Title
+          %th Page
+          %th
+          %th
+          %th
+
+      %tbody
+        - videoelements.each do |videoelement|
+          %tr
+            %td.cell= videoelement.title
+            %td.cell= videoelement.page_id
+            %td.cell= link_to 'Show', videoelement_path(videoelement), 'class': 'pure-button'
+            %td.cell= link_to 'Edit', edit_videoelement_path(videoelement), 'class': 'pure-button'
+            %td.cell= link_to 'Destroy', videoelement_path(videoelement), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+    %br
+
+    = link_to 'Neues Video', new_videoelement_path, 'class': 'pure-button new-videoelement-button'
+
+  .pure-u-1.pure-u-md-1-4.urlelements
+    %h1 Links
+
+    %table
+      %thead
+        %tr
+          %th Title
+          %th Page
+          %th
+          %th
+          %th
+
+      %tbody
+        - urlelements.each do |urlelement|
+          %tr
+            %td.cell= urlelement.title
+            %td.cell= urlelement.page_id
+            %td.cell= link_to 'Show', urlelement_path(urlelement), 'class': 'pure-button'
+            %td.cell= link_to 'Edit', edit_urlelement_path(urlelement), 'class': 'pure-button'
+            %td.cell= link_to 'Destroy', urlelement_path(urlelement), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+    %br
+
+    = link_to 'Neuen Link', new_urlelement_path, 'class': 'pure-button new-urlelement-button'
 
   .pure-u-1.pure-u-md-1-2.templates
     %h1 Vorlagen

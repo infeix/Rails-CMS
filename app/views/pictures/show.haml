@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @picture.title
+%p
+  %b Page id:
+  = @picture.page_id
+%p
+  %b Text:
+  = @picture.text
+%p
+  %b Position:
+  = @picture.position
+%p
+  %b Code:
+  = @picture.code
+
+= link_to 'Edit', edit_picture_path(@picture)
+\|
+= link_to 'Back', overviews_path
