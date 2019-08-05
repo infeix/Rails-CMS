@@ -17,13 +17,13 @@
     = f.text_field :page_id
   .field
     = f.label :text
-    = f.text_field :text
+    = f.text_area :text, rows: 5, cols: 100, class: "edit_template"
   .field
     = f.label :target_path
     = f.text_field :target_path
   .field
     = f.label :data_text
-    = f.text_field :data_text
+    = f.text_area :data_text, rows: 5, cols: 100, class: "edit_template"
 
   .actions
     = f.submit 'Save'
