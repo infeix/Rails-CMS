@@ -68,6 +68,16 @@ class UrlelementsController < ApplicationController
   end
 
   def urlelement_params
-    params.require(:urlelement).permit(:title, :text, :position, :page_id, :template_id, :image, :remove_image, :video, :remove_video)
+    params.require(:urlelement).permit(
+      :title,
+      :text,
+      :target_path,
+      :position,
+      :page_id,
+      :template_id,
+      :image,
+      :remove_image,
+      :video,
+      :remove_video)
   end
 end

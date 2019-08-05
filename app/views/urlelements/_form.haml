@@ -20,7 +20,13 @@
     = f.text_field :template_id
   .field
     = f.label :text
-    = f.text_area :text, rows: 9, cols: 100, class: "edit_template"
+    = f.text_field :text
+  .field
+    = f.label :target_path
+    = f.text_field :target_path
+  .field
+    = f.label :data_text
+    = f.text_field :data_text
 
   .actions
     = f.submit 'Save'

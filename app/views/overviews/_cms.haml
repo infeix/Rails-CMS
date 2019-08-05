@@ -38,7 +38,7 @@
 
     %br
 
-  .pure-u-1.pure-u-md-1-4.pages
+  .pure-u-1.pure-u-md-1-3.pages
     %h1 Seiten
 
     %table
@@ -65,7 +65,8 @@
 
     = link_to 'Neue Seite', new_page_path, 'class': 'pure-button new-page-button'
 
-  .pure-u-1.pure-u-md-1-4.textelements
+
+  .pure-u-1.pure-u-md-1-3.textelements
     %h1 Texte
 
     %table
@@ -91,7 +92,8 @@
 
     = link_to 'Neuer Text', new_textelement_path, 'class': 'pure-button new-article-button'
 
-  .pure-u-1.pure-u-md-1-4.pictures
+
+  .pure-u-1.pure-u-md-1-3.pictures
     %h1 Bilder
 
     %table
@@ -116,57 +118,8 @@
 
     = link_to 'Neues Bild', new_picture_path, 'class': 'pure-button new-picture-button'
 
-  .pure-u-1.pure-u-md-1-4.videoelements
-    %h1 Videos
 
-    %table
-      %thead
-        %tr
-          %th Title
-          %th Page
-          %th
-          %th
-          %th
-
-      %tbody
-        - videoelements.each do |videoelement|
-          %tr
-            %td.cell= videoelement.title
-            %td.cell= videoelement.page_id
-            %td.cell= link_to 'Show', videoelement_path(videoelement), 'class': 'pure-button'
-            %td.cell= link_to 'Edit', edit_videoelement_path(videoelement), 'class': 'pure-button'
-            %td.cell= link_to 'Destroy', videoelement_path(videoelement), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
-
-    %br
-
-    = link_to 'Neues Video', new_videoelement_path, 'class': 'pure-button new-videoelement-button'
-
-  .pure-u-1.pure-u-md-1-4.urlelements
-    %h1 Links
-
-    %table
-      %thead
-        %tr
-          %th Title
-          %th Page
-          %th
-          %th
-          %th
-
-      %tbody
-        - urlelements.each do |urlelement|
-          %tr
-            %td.cell= urlelement.title
-            %td.cell= urlelement.page_id
-            %td.cell= link_to 'Show', urlelement_path(urlelement), 'class': 'pure-button'
-            %td.cell= link_to 'Edit', edit_urlelement_path(urlelement), 'class': 'pure-button'
-            %td.cell= link_to 'Destroy', urlelement_path(urlelement), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
-
-    %br
-
-    = link_to 'Neuen Link', new_urlelement_path, 'class': 'pure-button new-urlelement-button'
-
-  .pure-u-1.pure-u-md-1-2.templates
+  .pure-u-1.pure-u-md-1-3.templates
     %h1 Vorlagen
 
     %table
@@ -195,8 +148,57 @@
 
     = link_to 'Neue Vorlage', new_template_path, 'class': 'pure-button new-template-button'
 
+  .pure-u-1.pure-u-md-1-3.videoelements
+    %h1 Videos
 
-  .pure-u-1.pure-u-md-1-2.users
+    %table
+      %thead
+        %tr
+          %th Title
+          %th Page
+          %th
+          %th
+          %th
+
+      %tbody
+        - videoelements.each do |videoelement|
+          %tr
+            %td.cell= videoelement.title
+            %td.cell= videoelement.page_id
+            %td.cell= link_to 'Show', videoelement_path(videoelement), 'class': 'pure-button'
+            %td.cell= link_to 'Edit', edit_videoelement_path(videoelement), 'class': 'pure-button'
+            %td.cell= link_to 'Destroy', videoelement_path(videoelement), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+    %br
+
+    = link_to 'Neues Video', new_videoelement_path, 'class': 'pure-button new-videoelement-button'
+
+  .pure-u-1.pure-u-md-1-3.urlelements
+    %h1 Links
+
+    %table
+      %thead
+        %tr
+          %th Title
+          %th Page
+          %th
+          %th
+          %th
+
+      %tbody
+        - urlelements.each do |urlelement|
+          %tr
+            %td.cell= urlelement.title
+            %td.cell= urlelement.page_id
+            %td.cell= link_to 'Show', urlelement_path(urlelement), 'class': 'pure-button'
+            %td.cell= link_to 'Edit', edit_urlelement_path(urlelement), 'class': 'pure-button'
+            %td.cell= link_to 'Destroy', urlelement_path(urlelement), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+    %br
+
+    = link_to 'Neuen Link', new_urlelement_path, 'class': 'pure-button new-urlelement-button'
+
+  .pure-u-1.pure-u-md-1-3.users
     %h1 Benutzer
 
     %table
