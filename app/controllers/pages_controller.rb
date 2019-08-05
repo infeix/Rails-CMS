@@ -71,6 +71,6 @@ class PagesController < ApplicationController
   end
 
   def page_params
-    params.require(:page).permit(:title, :text, :path, :template_id, :code)
+    params.require(:page).permit(:title, :text, :path, :template_id, :code, :edit_filter)
   end
 end

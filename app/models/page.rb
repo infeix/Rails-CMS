@@ -57,4 +57,8 @@ class Page < ActiveRecord::Base
   def to_param
     path
   end
+
+  def self.editingPage
+    Page.where(edit_filter: 1).first
+  end
 end

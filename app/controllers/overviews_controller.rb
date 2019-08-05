@@ -10,14 +10,32 @@ class OverviewsController < ApplicationController
 
   def index
     year = params[:year]
+    page = params[:page] || Page.editingPage&.id
+    page = nil if page.eql?('nil')
 
     @pages = Page.all
     @templates = Template.all
-    @articles = Article.all.sort_by_index
-    @pictures = Picture.all.sort_by_index
-    @videoelements = Videoelement.all.sort_by_index
-    @textelements = Textelement.all.sort_by_index
-    @urlelements = Urlelement.all.sort_by_index
+    if(page)
+      page = Page.find_by(id: page)
+      page.edit_filter = 1
+      page.save
+      @articles = Article.where(page: page).sort_by_index
+      @pictures = Picture.where(page: page).sort_by_index
+      @videoelements = Videoelement.where(page: page).sort_by_index
+      @textelements = Textelement.where(page: page).sort_by_index
+      @urlelements = Urlelement.where(page: page).sort_by_index
+    else
+      page = Page.editingPage
+      unless page.nil?
+        page.edit_filter = 0
+        page.save
+      end
+      @articles = Article.all.sort_by_index
+      @pictures = Picture.all.sort_by_index
+      @videoelements = Videoelement.all.sort_by_index
+      @textelements = Textelement.all.sort_by_index
+      @urlelements = Urlelement.all.sort_by_index
+    end
     @html_parts = HtmlPart.all.sort_by_index
     @css_parts = CssPart.all.sort_by_index
     @messages = Message.all
