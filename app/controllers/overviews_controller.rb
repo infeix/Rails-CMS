@@ -13,8 +13,13 @@ class OverviewsController < ApplicationController
     page = params[:page] || Page.editingPage&.id
     page = nil if page.eql?('nil')
 
-    @pages = Page.all
+    @pages = Page.all.sort_by_id
     if(page)
+      current_edit_page = Page.editingPage
+      unless current_edit_page.nil?
+        current_edit_page.edit_filter = 0
+        current_edit_page.save
+      end
       page = Page.find_by(id: page)
       page.edit_filter = 1
       page.save

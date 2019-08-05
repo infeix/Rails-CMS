@@ -3,6 +3,7 @@
 class Page < ActiveRecord::Base
   belongs_to :template, optional: true
   has_many :articles, -> { order(index: :asc) }, dependent: :nullify
+  scope :sort_by_id, -> { order(id: :asc) }
   validates :path, presence: true
 
   def url
