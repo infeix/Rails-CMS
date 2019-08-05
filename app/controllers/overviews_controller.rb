@@ -14,7 +14,6 @@ class OverviewsController < ApplicationController
     page = nil if page.eql?('nil')
 
     @pages = Page.all
-    @templates = Template.all
     if(page)
       page = Page.find_by(id: page)
       page.edit_filter = 1
@@ -24,12 +23,14 @@ class OverviewsController < ApplicationController
       @videoelements = Videoelement.where(page: page).sort_by_index
       @textelements = Textelement.where(page: page).sort_by_index
       @urlelements = Urlelement.where(page: page).sort_by_index
+      @templates = Template.where(id: page.template_id)
     else
       page = Page.editingPage
       unless page.nil?
         page.edit_filter = 0
         page.save
       end
+      @templates = Template.all
       @articles = Article.all.sort_by_index
       @pictures = Picture.all.sort_by_index
       @videoelements = Videoelement.all.sort_by_index
