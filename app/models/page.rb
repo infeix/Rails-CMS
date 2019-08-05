@@ -25,9 +25,7 @@ class Page < ActiveRecord::Base
       if articles.any?
         rendered += template.render articles.all
       else
-        article = Article.new
-        article.text = text
-        rendered += template.render [ article ]
+        rendered += template.render
       end
     elsif articles.any?
       rendered += render_articles(articles.all)

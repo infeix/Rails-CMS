@@ -33,7 +33,7 @@ class Template < ActiveRecord::Base
     html
   end
 
-  def render_articles(parts)
+  def render_articles(parts = [])
     html = ''
     parts.each do |article|
       html = render_article article, html
@@ -60,7 +60,7 @@ class Template < ActiveRecord::Base
       end
     end
 
-    "#{render_value}#{article}"
+    render_value
   end
 
   def clear_blank_position(position, render_value = "")

@@ -22,4 +22,8 @@ class Position < ActiveRecord::Base
       Position.find_or_create_by(name: position_name)
     end
   end
+
+  def to_s
+    name
+  end
 end
