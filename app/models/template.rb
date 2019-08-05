@@ -38,6 +38,9 @@ class Template < ActiveRecord::Base
     parts.each do |article|
       html = render_article article, html
     end
+    Position.all.each do |position|
+      html = clear_blank_position position, html
+    end
     html
   end
 
@@ -58,6 +61,25 @@ class Template < ActiveRecord::Base
     end
 
     "#{render_value}#{article}"
+  end
+
+  def clear_blank_position(position, render_value = "")
+    return nil unless position
+    replace_pattern = "{{#{position}}}"
+
+    if render_value.include? replace_pattern
+      render_value = render_value.gsub(replace_pattern, '')
+      return render_value
+    else
+      html_parts.each do |part|
+        if part.to_s.include? replace_pattern
+          render_value += part.to_s.gsub(replace_pattern, '')
+          return render_value
+        end
+      end
+    end
+
+    render_value
   end
 
   def last_index_of(kind)
