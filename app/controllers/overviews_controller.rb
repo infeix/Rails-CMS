@@ -10,7 +10,7 @@ class OverviewsController < ApplicationController
 
   def index
     year = params[:year]
-    page = params[:page] || Page.editingPage&.id
+    page = params[:page_id] || Page.editingPage&.id
     page = nil if page.eql?('nil')
 
     @pages = Page.all.sort_by_id
@@ -20,15 +20,15 @@ class OverviewsController < ApplicationController
         current_edit_page.edit_filter = 0
         current_edit_page.save
       end
-      page = Page.find_by(id: page)
-      page.edit_filter = 1
-      page.save
-      @articles = Article.where(page: page).sort_by_index
-      @pictures = Picture.where(page: page).sort_by_index
-      @videoelements = Videoelement.where(page: page).sort_by_index
-      @textelements = Textelement.where(page: page).sort_by_index
-      @urlelements = Urlelement.where(page: page).sort_by_index
-      @templates = Template.where(id: page.template_id)
+      @page = Page.find_by(id: page)
+      @page.edit_filter = 1
+      @page.save
+      @articles = Article.where(page: @page).sort_by_index
+      @pictures = Picture.where(page: @page).sort_by_index
+      @videoelements = Videoelement.where(page: @page).sort_by_index
+      @textelements = Textelement.where(page: @page).sort_by_index
+      @urlelements = Urlelement.where(page: @page).sort_by_index
+      @templates = Template.where(id: @page.template_id)
     else
       page = Page.editingPage
       unless page.nil?

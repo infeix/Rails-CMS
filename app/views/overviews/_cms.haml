@@ -1,4 +1,5 @@
 - messages = local_assigns.fetch(:messages)
+- edit_filter_page = local_assigns.fetch(:page)
 - pages = local_assigns.fetch(:pages)
 - articles = local_assigns.fetch(:articles)
 - pictures = local_assigns.fetch(:pictures)
@@ -58,7 +59,7 @@
             %td.cell= page.id
             %td.cell= page.title
             %td.cell= link_to page.url, page.url
-            %td.cell= link_to 'Filter', "/overviews?page=#{page.id}#cms", 'class': 'pure-button'
+            %td.cell= link_to 'Filter', "/overviews?page_id=#{page.id}#cms", 'class': 'pure-button'
             %td.cell= link_to 'Show', page, 'class': 'pure-button'
             %td.cell= link_to 'Edit', edit_page_path(page), 'class': 'pure-button'
             %td.cell= link_to 'Destroy', page, method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
@@ -66,7 +67,7 @@
     %br
 
     = link_to 'Neue Seite', new_page_path, 'class': 'pure-button new-page-button'
-    = link_to 'Reset Filter', "/overviews?page=nil#cms", 'class': 'pure-button'
+    = link_to 'Reset Filter', "/overviews?page_id=nil#cms", 'class': 'pure-button'
 
 
   .pure-u-1.pure-u-md-1-3.textelements
@@ -93,7 +94,7 @@
 
     %br
 
-    = link_to 'Neuer Text', new_textelement_path, 'class': 'pure-button new-article-button'
+    = link_to 'Neuer Text', new_textelement_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-article-button'
 
 
   .pure-u-1.pure-u-md-1-3.pictures
@@ -119,7 +120,7 @@
 
     %br
 
-    = link_to 'Neues Bild', new_picture_path, 'class': 'pure-button new-picture-button'
+    = link_to 'Neues Bild', new_picture_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-picture-button'
 
 
   .pure-u-1.pure-u-md-1-3.templates
@@ -149,7 +150,7 @@
 
     %br
 
-    = link_to 'Neue Vorlage', new_template_path, 'class': 'pure-button new-template-button'
+    = link_to 'Neue Vorlage', new_template_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-template-button'
 
   .pure-u-1.pure-u-md-1-3.videoelements
     %h1 Videos
@@ -174,7 +175,7 @@
 
     %br
 
-    = link_to 'Neues Video', new_videoelement_path, 'class': 'pure-button new-videoelement-button'
+    = link_to 'Neues Video', new_videoelement_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-videoelement-button'
 
   .pure-u-1.pure-u-md-1-3.urlelements
     %h1 Links
@@ -199,7 +200,7 @@
 
     %br
 
-    = link_to 'Neuen Link', new_urlelement_path, 'class': 'pure-button new-urlelement-button'
+    = link_to 'Neuen Link', new_urlelement_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-urlelement-button'
 
   .pure-u-1.pure-u-md-1-3.users
     %h1 Benutzer
