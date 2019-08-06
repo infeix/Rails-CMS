@@ -35,6 +35,9 @@ class Template < ActiveRecord::Base
 
   def render_articles(parts = [])
     html = ''
+    html_parts.each do |part|
+      html += part
+    end
     parts.each do |article|
       html = render_article article, html
     end
@@ -51,13 +54,6 @@ class Template < ActiveRecord::Base
     if render_value.include? replace_pattern
       render_value = render_value.gsub(replace_pattern, article.to_s)
       return render_value
-    else
-      html_parts.each do |part|
-        if part.to_s.include? replace_pattern
-          render_value += part.to_s.gsub(replace_pattern, article.to_s)
-          return render_value
-        end
-      end
     end
 
     render_value
@@ -70,13 +66,6 @@ class Template < ActiveRecord::Base
     if render_value.include? replace_pattern
       render_value = render_value.gsub(replace_pattern, '')
       return render_value
-    else
-      html_parts.each do |part|
-        if part.to_s.include? replace_pattern
-          render_value += part.to_s.gsub(replace_pattern, '')
-          return render_value
-        end
-      end
     end
 
     render_value
