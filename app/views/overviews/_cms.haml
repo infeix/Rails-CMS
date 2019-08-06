@@ -55,7 +55,8 @@
 
       %tbody
         - pages.each do |page|
-          %tr
+          - filtered_page = if page.edit_filter == 1 then "filtered-page" else "" end
+          %tr{ class: filtered_page}
             %td.cell= page.id
             %td.cell= page.title
             %td.cell= link_to page.url, page.url
