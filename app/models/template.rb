@@ -36,7 +36,7 @@ class Template < ActiveRecord::Base
   def render_articles(parts = [])
     html = ''
     html_parts.each do |part|
-      html += part
+      html += part.to_s
     end
     parts.each do |article|
       html = render_article article, html
