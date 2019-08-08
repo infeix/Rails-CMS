@@ -2,9 +2,9 @@ Rails.application.routes.draw do
   resources :messages
   devise_for :users
   resources :users
-  resources :templates, controller: 'templates' do
-    resources :css_parts, controller: 'templates/css_parts'
-    resources :html_parts, controller: 'templates/html_parts'
+  resources :template_elements, controller: 'template_elements' do
+    resources :css_parts, controller: 'template_elements/css_parts'
+    resources :html_parts, controller: 'template_elements/html_parts'
   end
   resources :pages, controller: 'pages'
   resources :articles, controller: 'articles'

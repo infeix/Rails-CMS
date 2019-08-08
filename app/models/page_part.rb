@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PagePart < ActiveRecord::Base
-  belongs_to :template
+  belongs_to :template_element
   scope :sort_by_index, -> { order(index: :asc) }
 
   after_save :create_positions

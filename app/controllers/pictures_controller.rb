@@ -68,6 +68,6 @@ class PicturesController < ApplicationController
   end
 
   def picture_params
-    params.require(:picture).permit(:title, :text, :position, :page_id, :template_id, :image, :remove_image, :video, :remove_video)
+    params.require(:picture).permit(:title, :text, :position, :page_id, :template_element_id, :image, :remove_image, :video, :remove_video)
   end
 end

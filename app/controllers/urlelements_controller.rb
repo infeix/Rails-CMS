@@ -74,10 +74,15 @@ class UrlelementsController < ApplicationController
       :target_path,
       :position,
       :page_id,
-      :template_id,
+      :template_element_id,
       :image,
       :remove_image,
       :video,
-      :remove_video)
+      :remove_video).tap do |param|
+        binding.pry
+        if param[:template_element_id].eql?("nil")
+          param.delete(:template_element_id)
+        end
+      end
   end
 end

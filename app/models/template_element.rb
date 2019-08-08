@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Template < ActiveRecord::Base
+class TemplateElement < ActiveRecord::Base
   has_many :pages
   has_many :articles
   has_many :html_parts, -> { sort_by_index }
@@ -52,7 +52,7 @@ class Template < ActiveRecord::Base
     replace_pattern = "{{#{article.position}}}"
 
     if render_value.include? replace_pattern
-      render_value = render_value.gsub(replace_pattern, article.to_s)
+      render_value = render_value.gsub(replace_pattern, article.render)
       return render_value
     end
 
@@ -77,5 +77,27 @@ class Template < ActiveRecord::Base
     else
       css_parts&.last&.index || 1
     end
+  end
+
+  def self.render_dropdown(element, property, selected)
+    html_result = ""
+    is_selected = false
+    TemplateElement.all.each do |template|
+      next if template&.title.blank?
+      if selected && selected.eql?(template.title)
+        html_result = "#{html_result}<option  value=\"#{template.id}\" selected>#{template.title}</option>"
+        is_selected = true
+      else
+        html_result = "#{html_result}<option value=\"#{template.id}\">#{template.title}</option>"
+      end
+    end
+
+    if is_selected
+      html_result = "<select id=\"#{element}_#{property}\" name=\"#{element}[#{property}]\"><option value=\"nil\">Standard</option>#{html_result}"
+    else
+      html_result = "<select id=\"#{element}_#{property}\" name=\"#{element}[#{property}]\"><option value=\"nil\" selected>Standard</option>#{html_result}"
+    end
+    html_result = "#{html_result}</select>"
+    html_result.html_safe
   end
 end

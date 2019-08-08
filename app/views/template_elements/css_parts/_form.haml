@@ -1,4 +1,4 @@
-= form_for [@css_part.template, @css_part] do |f|
+= form_for [@css_part.template_element, @css_part] do |f|
   - if @css_part.errors.any?
     #error_explanation
       %h2= "#{pluralize(@css_part.errors.count, "error")} prohibited this css_part from being saved:"
@@ -10,8 +10,8 @@
     = f.label :index
     = f.number_field :index
   .field
-    = f.label :template_id
-    = f.number_field :template_id
+    = f.label :template_element_id
+    = f.number_field :template_element_id
   .field
     = f.label :text
     = f.text_area :text

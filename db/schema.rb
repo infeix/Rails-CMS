@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190804175959) do
+ActiveRecord::Schema.define(version: 20190808214700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20190804175959) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "page_id"
-    t.integer "template_id"
+    t.integer "template_element_id"
     t.string "position"
     t.string "image"
     t.string "video"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20190804175959) do
     t.string "target_path"
     t.string "data_text"
     t.index ["page_id"], name: "index_articles_on_page_id"
-    t.index ["template_id"], name: "index_articles_on_template_id"
+    t.index ["template_element_id"], name: "index_articles_on_template_element_id"
   end
 
   create_table "contacts", id: :serial, force: :cascade do |t|
@@ -89,8 +89,8 @@ ActiveRecord::Schema.define(version: 20190804175959) do
     t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "template_id"
-    t.index ["template_id"], name: "index_page_parts_on_template_id"
+    t.integer "template_element_id"
+    t.index ["template_element_id"], name: "index_page_parts_on_template_element_id"
   end
 
   create_table "pages", id: :serial, force: :cascade do |t|
@@ -99,9 +99,9 @@ ActiveRecord::Schema.define(version: 20190804175959) do
     t.string "path"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "template_id"
+    t.integer "template_element_id"
     t.integer "edit_filter"
-    t.index ["template_id"], name: "index_pages_on_template_id"
+    t.index ["template_element_id"], name: "index_pages_on_template_element_id"
   end
 
   create_table "positions", id: :serial, force: :cascade do |t|
@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(version: 20190804175959) do
     t.index ["invoice_id"], name: "index_services_on_invoice_id"
   end
 
-  create_table "templates", id: :serial, force: :cascade do |t|
+  create_table "template_elements", id: :serial, force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -169,9 +169,9 @@ ActiveRecord::Schema.define(version: 20190804175959) do
   end
 
   add_foreign_key "articles", "pages"
-  add_foreign_key "articles", "templates"
-  add_foreign_key "page_parts", "templates"
-  add_foreign_key "pages", "templates"
+  add_foreign_key "articles", "template_elements"
+  add_foreign_key "page_parts", "template_elements"
+  add_foreign_key "pages", "template_elements"
   add_foreign_key "transactions", "accounts", column: "from_id"
   add_foreign_key "transactions", "accounts", column: "to_id"
 end

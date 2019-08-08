@@ -1,4 +1,4 @@
-class Templates::CssPartsController < ApplicationController
+class TemplateElements::CssPartsController < ApplicationController
   before_action :authenticate_user!
   before_action :authenticate_admin!
 
@@ -52,9 +52,9 @@ class Templates::CssPartsController < ApplicationController
   private
 
   def find_template
-    if params[:template_id].present?
-      @template = Template.find_by!(id: params[:template_id])
-      @css_part.template = @template
+    if params[:template_element_id].present?
+      @template = TemplateElement.find_by!(id: params[:template_element_id])
+      @css_part.template_element = @template
     end
   end
 
@@ -63,6 +63,6 @@ class Templates::CssPartsController < ApplicationController
   end
 
   def css_part_params
-    params.require(:css_part).permit(:index, :template_id, :text, :is_last)
+    params.require(:css_part).permit(:index, :template_element_id, :text, :is_last)
   end
 end

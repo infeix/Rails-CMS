@@ -3,10 +3,10 @@ def debug(message)
 end
 
 debug 'Creating template'
-temp = Template.find_or_create_by(title: 'test')
+temp = TemplateElement.find_or_create_by(title: 'test')
 temp.save!
 
-css1 = CssPart.find_or_create_by(index: 1, template_id: temp.id)
+css1 = CssPart.find_or_create_by(index: 1, template_element_id: temp.id)
 css1.title = 'test_css'
 css1.text = '
 h1,
@@ -21,13 +21,13 @@ label {
 '
 css1.save!
 
-part1 = HtmlPart.find_or_create_by(index: 1, template_id: temp.id)
+part1 = HtmlPart.find_or_create_by(index: 1, template_element_id: temp.id)
 part1.text = '
     <h1 >'
 part1.save!
 
 # Part 2
-part2 = HtmlPart.find_or_create_by(index: 2, template_id: temp.id)
+part2 = HtmlPart.find_or_create_by(index: 2, template_element_id: temp.id)
 part2.text = '
     </h1>
 '
@@ -38,7 +38,7 @@ part2.save!
 debug 'Creating index page'
 index = Page.find_or_create_by(path: 'index')
 index.title = 'Start'
-index.template = temp
+index.template_element = temp
 index.save!
 
 art1 = Article.find_or_create_by(index: 1, page_id: index.id)
@@ -51,7 +51,7 @@ art1.save!
 debug 'Creating Impressum page'
 impressum = Page.find_or_create_by(path: 'impressum')
 impressum.title = 'Impressum'
-impressum.template = nil
+impressum.template_element = nil
 impressum.save!
 
 art_impressum = Article.find_or_create_by(index: 1, page_id: impressum.id)

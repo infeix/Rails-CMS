@@ -68,6 +68,17 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:title, :text, :position, :page_id, :template_id, :image, :remove_image, :video, :remove_video, :data_text, :target_path)
+    params.require(:article).permit(
+      :title,
+      :text,
+      :target_path,
+      :position,
+      :page_id,
+      :template_element_id,
+      :image,
+      :remove_image,
+      :video,
+      :remove_video,
+      :data_text)
   end
 end

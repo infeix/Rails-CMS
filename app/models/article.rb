@@ -4,12 +4,16 @@ class Article < ActiveRecord::Base
   mount_uploader :image, ImageUploader
   mount_uploader :video, VideoUploader
 
-  belongs_to :template, optional: true
+  belongs_to :template_element, optional: true
   belongs_to :page, optional: true
   scope :sort_by_index, -> { order(index: :asc) }
 
+  # def render
+  #   template.present? ? "#{template.html_begin} #{text} #{template.html_end}" : text
+  # end
+
   def render
-    template.present? ? "#{template.html_begin} #{text} #{template.html_end}" : text
+    to_s
   end
 
   def to_s

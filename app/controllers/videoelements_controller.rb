@@ -68,6 +68,19 @@ class VideoelementsController < ApplicationController
   end
 
   def videoelement_params
-    params.require(:videoelement).permit(:title, :text, :position, :page_id, :template_id, :image, :remove_image, :video, :remove_video)
+    params.require(:videoelement).permit(
+      :title,
+      :text,
+      :position,
+      :page_id,
+      :template_element_id,
+      :image,
+      :remove_image,
+      :video,
+      :remove_video).tap do |param|
+        if param[:template_element_id].nil?
+          param.delete(:template_element_id)
+        end
+      end
   end
 end

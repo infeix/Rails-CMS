@@ -29,7 +29,7 @@ RSpec.feature 'Page edit page' do
 
     find('.page_title').set 'blub_title'
     find('#page_path').set 'blub_path'
-    find('#page_template_id').set template.id
+    find('#page_template_element_id').set template.id
     find('#page_text').set 'blub_text'
 
     page.find("input[type='submit']").click

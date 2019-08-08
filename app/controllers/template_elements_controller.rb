@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class TemplatesController < ApplicationController
+class TemplateElementsController < ApplicationController
   before_action :authenticate_user!
   before_action :authenticate_admin!
 
@@ -13,7 +13,7 @@ class TemplatesController < ApplicationController
   # GET /templates
   # GET /templates.json
   def index
-    @templates = Template.all
+    @templates = TemplateElement.all
   end
 
   # GET /templates/1
@@ -23,7 +23,7 @@ class TemplatesController < ApplicationController
 
   # GET /templates/new
   def new
-    @template = Template.new
+    @template = TemplateElement.new
   end
 
   # GET /templates/1/edit
@@ -33,7 +33,7 @@ class TemplatesController < ApplicationController
   # POST /templates
   # POST /templates.json
   def create
-    @template = Template.new(template_params)
+    @template = TemplateElement.new(template_element_params)
 
     respond_to do |format|
       if @template.save
@@ -47,7 +47,7 @@ class TemplatesController < ApplicationController
   # PATCH/PUT /templates/1
   # PATCH/PUT /templates/1.json
   def update
-    if @template.update(template_params)
+    if @template.update(template_element_params)
       render :edit, notice: 'Template was successfully updated.'
     else
       render :edit
@@ -67,11 +67,11 @@ class TemplatesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_template
-      @template = Template.find(params[:id])
+      @template = TemplateElement.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def template_params
-      params.require(:template).permit(:title, :meta, html_parts_attributes: [:id, :index, :text, :is_last], css_parts_attributes: [:id, :index, :text])
+    def template_element_params
+      params.require(:template_element).permit(:title, :meta, html_parts_attributes: [:id, :index, :text, :is_last], css_parts_attributes: [:id, :index, :text])
     end
 end

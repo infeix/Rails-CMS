@@ -1,4 +1,4 @@
-class Templates::HtmlPartsController < ApplicationController
+class TemplateElements::HtmlPartsController < ApplicationController
   before_action :authenticate_user!
   before_action :authenticate_admin!
 
@@ -23,7 +23,7 @@ class Templates::HtmlPartsController < ApplicationController
 
     reset_index
 
-    redirect_to edit_template_path(@template), notice: 'Html part was successfully created.'
+    redirect_to edit_template_element_path(@template), notice: 'Html part was successfully created.'
   end
 
   def edit
@@ -48,19 +48,19 @@ class Templates::HtmlPartsController < ApplicationController
   end
 
   def destroy
-    template = @html_part.template
+    template = @html_part.template_element
     @html_part.destroy
     if template.html_parts.count > 0
       reset_index
     end
 
-    redirect_to template_path(template), notice: 'Html part was successfully destroyed.'
+    redirect_to template_element_path(template), notice: 'Html part was successfully destroyed.'
   end
 
   private
 
   def reset_index
-    template = @html_part.template
+    template = @html_part.template_element
     template = template.reload
     index_count = 1
     template.html_parts.each do |element|
@@ -75,9 +75,9 @@ class Templates::HtmlPartsController < ApplicationController
   end
 
   def find_template
-    if params[:template_id].present?
-      @template = Template.find_by!(id: params[:template_id])
-      @html_part.template = @template
+    if params[:template_element_id].present?
+      @template = TemplateElement.find_by!(id: params[:template_element_id])
+      @html_part.template_element = @template
     end
   end
 
@@ -88,6 +88,6 @@ class Templates::HtmlPartsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def html_part_params
-    params.require(:html_part).permit(:index, :template_id, :text, :is_last)
+    params.require(:html_part).permit(:index, :template_element_id, :text, :is_last)
   end
 end

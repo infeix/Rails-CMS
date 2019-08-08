@@ -13,7 +13,7 @@
     %br
     %span.css_part= css_part
     %br
-    %div= link_to 'Destroy', template_css_part_path(@template, css_part), :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+    %div= link_to 'Destroy', template_element_css_part_path(@template, css_part), :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
 
 -@template.html_parts.each do |html_part|
   %p
@@ -21,8 +21,8 @@
     %br
     %span.html_part= html_part
     %br
-    %div= link_to 'Destroy', template_html_part_path(@template, html_part), :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+    %div= link_to 'Destroy', template_element_html_part_path(@template, html_part), :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
 
-= link_to 'Edit', edit_template_path(@template)
+= link_to 'Edit', edit_template_element_path(@template)
 \|
 = link_to 'Back', overviews_path
