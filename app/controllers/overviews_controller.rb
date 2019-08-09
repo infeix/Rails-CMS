@@ -35,7 +35,7 @@ class OverviewsController < ApplicationController
         page.edit_filter = 0
         page.save
       end
-      @templates = TemplateElement.all
+      @templates = TemplateElement.all.sort_by_id
       @articles = Article.all.sort_by_index
       @pictures = Picture.all.sort_by_index
       @videoelements = Videoelement.all.sort_by_index

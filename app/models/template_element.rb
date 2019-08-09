@@ -5,6 +5,7 @@ class TemplateElement < ActiveRecord::Base
   has_many :articles
   has_many :html_parts, -> { sort_by_index }
   has_many :css_parts, -> { sort_by_index }
+  scope :sort_by_id, ->() { order(:id) }
 
   accepts_nested_attributes_for :html_parts
   accepts_nested_attributes_for :css_parts

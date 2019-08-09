@@ -4,7 +4,7 @@ class Urlelement < Article
   def to_s
     if template_element && template_element.html_parts.all.count > 3 then
       template_element.html_parts[0].to_s +
-        "<a href=\"#{target_path}\" #{data_text}>" +
+        "<a href=\"#{target_path}\" data-target=\"#{target_path}\" data-position=\"#{position}\" #{template_element.meta} #{data_text}>" +
         template_element.html_parts[1].to_s +
         text +
         template_element.html_parts[2].to_s +

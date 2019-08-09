@@ -79,8 +79,13 @@ class UrlelementsController < ApplicationController
       :remove_image,
       :video,
       :remove_video).tap do |param|
-        if param[:template_element_id].eql?("nil")
-          param.delete(:template_element_id)
+        if param[:template_element_id].blank? || param[:template_element_id].eql?("nil")
+          template = param[:position].blank? ? nil : TemplateElement.where(title: param[:position]).first
+          if template
+            param[:template_element_id] = template.id
+          else
+            param.delete(:template_element_id)
+          end
         end
       end
   end
