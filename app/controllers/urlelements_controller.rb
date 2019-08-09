@@ -79,7 +79,6 @@ class UrlelementsController < ApplicationController
       :remove_image,
       :video,
       :remove_video).tap do |param|
-        binding.pry
         if param[:template_element_id].eql?("nil")
           param.delete(:template_element_id)
         end
