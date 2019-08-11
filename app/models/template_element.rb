@@ -14,8 +14,16 @@ class TemplateElement < ActiveRecord::Base
     html_parts.find_by is_last: true
   end
 
-  def render_head
-    "#{render_css}#{reder_meta}\n"
+  def render_head(parts = [])
+    html = "#{render_css}#{reder_meta}\n"
+
+    parts.each do |article|
+      html = render_article article, html
+    end
+    Position.all.each do |position|
+      html = clear_blank_position position, html
+    end
+    html
   end
 
   def render(parts = [])

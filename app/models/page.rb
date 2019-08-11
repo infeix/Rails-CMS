@@ -10,16 +10,16 @@ class Page < ActiveRecord::Base
     "/pages/#{path}"
   end
 
-  def render_head
+  def render_head(articles)
     rendered = "<!DOCTYPE html><html lang=\"de\"><head>"
     if template_element.present?
-      rendered += template_element.render_head
+      rendered += template_element.render_head(articles)
     end
     "#{rendered}</head>"
   end
 
   def render(notice = nil, alert = nil, user_signed_in = false)
-    rendered = render_head
+    rendered = render_head(articles)
     rendered += "<body>".html_safe
     if template_element.present?
       if articles.any?
