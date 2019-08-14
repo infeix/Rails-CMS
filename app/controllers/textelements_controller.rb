@@ -68,6 +68,20 @@ class TextelementsController < ApplicationController
   end
 
   def textelement_params
-    params.require(:textelement).permit(:title, :text, :position, :index, :page_id, :template_element_id, :image, :remove_image, :video, :remove_video)
+    params.require(:textelement).permit(:title,
+      :text,
+      :position,
+      :index,
+      :template_element_id,
+      :page_id,
+      :template_element_id,
+      :image,
+      :remove_image,
+      :video,
+      :remove_video).tap do |param|
+        if param[:template_element_id].blank? || param[:template_element_id].eql?("nil")
+          param[:template_element_id] = nil
+        end
+      end
   end
 end

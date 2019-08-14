@@ -24,7 +24,7 @@ class Page < ActiveRecord::Base
     rendered += "<body>".html_safe
     if template_element.present?
       if articles.any?
-        rendered += template_element.render text_articles.all, articles.all
+        rendered += template_element.render text_articles.all, articles.where.not(type: "Textelement")
       else
         rendered += template_element.render
       end
