@@ -68,6 +68,6 @@ class TextelementsController < ApplicationController
   end
 
   def textelement_params
-    params.require(:textelement).permit(:title, :text, :position, :page_id, :template_element_id, :image, :remove_image, :video, :remove_video)
+    params.require(:textelement).permit(:title, :text, :position, :index, :page_id, :template_element_id, :image, :remove_image, :video, :remove_video)
   end
 end
