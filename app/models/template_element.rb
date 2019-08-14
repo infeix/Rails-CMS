@@ -26,10 +26,6 @@ class TemplateElement < ActiveRecord::Base
     html
   end
 
-  def render(parts = [])
-    "#{render_articles(parts)}"
-  end
-
   def reder_meta
     meta if meta.present?
   end
@@ -42,10 +38,13 @@ class TemplateElement < ActiveRecord::Base
     html
   end
 
-  def render_articles(parts = [])
+  def render(text_parts = [], parts = [])
     html = ''
     html_parts.each do |part|
       html += part.to_s
+    end
+    text_parts.each do |article|
+      html = render_article article, html
     end
     parts.each do |article|
       html = render_article article, html
@@ -61,7 +60,7 @@ class TemplateElement < ActiveRecord::Base
     replace_pattern = "{{#{article.position}}}"
 
     if render_value.include? replace_pattern
-      render_value = render_value.gsub(replace_pattern, article.render)
+      render_value = render_value.gsub(replace_pattern, "#{article.render}#{replace_pattern}")
       return render_value
     end
 

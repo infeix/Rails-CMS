@@ -8,6 +8,12 @@ class Article < ActiveRecord::Base
   belongs_to :page, optional: true
   scope :sort_by_index, -> { order(index: :asc) }
 
+  after_save :create_positions
+
+  def create_positions
+    Position.create_positions to_s
+  end
+
   # def render
   #   template.present? ? "#{template.html_begin} #{text} #{template.html_end}" : text
   # end
