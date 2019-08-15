@@ -40,223 +40,233 @@
 
     %br
 
-  .pure-u-1.pure-u-md-1-3.pages
-    %h1 Seiten
+  .pure-u-1.pure-u-md-1-3
+    .pages
+      %h1 Seiten
 
-    %table
-      %thead
-        %tr
-          %th.cell ID
-          %th.cell Title
-          %th.cell Path
-          %th.cell
-          %th.cell
-          %th.cell
-          %th.cell
-
-      %tbody
-        - pages.each do |page|
-          - filtered_page = if page.edit_filter == 1 then "filtered-page" else "" end
-          %tr{ class: filtered_page}
-            %td.cell= page.id
-            %td.cell= page.title
-            %td.cell= link_to page.url, page.url
-            %td.cell= link_to 'Filter', "/overviews?page_id=#{page.id}#cms", 'class': 'pure-button'
-            %td.cell= link_to 'Show', page, 'class': 'pure-button'
-            %td.cell= link_to 'Edit', edit_page_path(page), 'class': 'pure-button'
-            %td.cell= link_to 'Destroy', page, method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
-
-    %br
-
-    = link_to 'Neue Seite', new_page_path, 'class': 'pure-button new-page-button'
-    = link_to 'Reset Filter', "/overviews?page_id=nil#cms", 'class': 'pure-button'
-
-
-  .pure-u-1.pure-u-md-1-3.textelements
-    %h1 Texte
-
-    %table
-      %thead
-        %tr
-          %th Title
-          %th Page
-          %th Index
-          %th
-          %th
-          %th
-
-      %tbody
-        - textelements.each do |textelement|
+      %table
+        %thead
           %tr
-            %td.cell= textelement.title
-            %td.cell= textelement.page_id
-            %td.cell= textelement.index
-            %td.cell= link_to 'Show', textelement_path(textelement), 'class': 'pure-button'
-            %td.cell= link_to 'Edit', edit_textelement_path(textelement), 'class': 'pure-button'
-            %td.cell= link_to 'Destroy', textelement_path(textelement), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+            %th.cell ID
+            %th.cell Title
+            %th.cell Path
+            %th.cell
+            %th.cell
+            %th.cell
+            %th.cell
 
+        %tbody
+          - pages.each do |page|
+            - filtered_page = if page.edit_filter == 1 then "filtered-page" else "" end
+            %tr{ class: filtered_page}
+              %td.cell= page.id
+              %td.cell= page.title
+              %td.cell= link_to page.url, page.url
+              %td.cell= link_to 'Filter', "/overviews?page_id=#{page.id}#cms", 'class': 'pure-button'
+              %td.cell= link_to 'Show', page, 'class': 'pure-button'
+              %td.cell= link_to 'Edit', edit_page_path(page), 'class': 'pure-button'
+              %td.cell= link_to 'Destroy', page, method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+      %br
+
+      = link_to 'Neue Seite', new_page_path, 'class': 'pure-button new-page-button'
+      = link_to 'Reset Filter', "/overviews?page_id=nil#cms", 'class': 'pure-button'
 
     %br
+    %br
+    .templates
+      %h1 Vorlagen
 
-    = link_to 'Neuer Text', new_textelement_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-article-button'
-
-
-  .pure-u-1.pure-u-md-1-3.pictures
-    %h1 Bilder
-
-    %table
-      %thead
-        %tr
-          %th Title
-          %th Page
-          %th
-          %th
-          %th
-
-      %tbody
-        - pictures.each do |picture|
+      %table
+        %thead
           %tr
-            %td.cell= picture.title
-            %td.cell= picture.page_id
-            %td.cell= link_to 'Show', picture_path(picture), 'class': 'pure-button'
-            %td.cell= link_to 'Edit', edit_picture_path(picture), 'class': 'pure-button'
-            %td.cell= link_to 'Destroy', picture_path(picture), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+            %th ID
+            %th Title
+            %th
+            %th
+            %th
+            %th
+            %th
+
+        %tbody
+          - templates.each do |template|
+            %tr
+              %td.cell= template.id
+              %td.cell= template.title
+              %td.cell= link_to 'Show', template, 'class': 'pure-button'
+              %td.cell= link_to 'Edit', edit_template_element_path(template), 'class': 'pure-button'
+              %td.cell= link_to 'New Html', new_template_element_html_part_path(template), 'class': 'pure-button'
+              %td.cell= link_to 'New Css', new_template_element_css_part_path(template), 'class': 'pure-button'
+              %td.cell= link_to 'Destroy', template, :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+      %br
+
+      = link_to 'Neue Vorlage', new_template_element_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-template-button'
 
     %br
+    %br
 
-    = link_to 'Neues Bild', new_picture_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-picture-button'
+    .users
+      %h1 Benutzer
 
-
-  .pure-u-1.pure-u-md-1-3.templates
-    %h1 Vorlagen
-
-    %table
-      %thead
-        %tr
-          %th ID
-          %th Title
-          %th
-          %th
-          %th
-          %th
-          %th
-
-      %tbody
-        - templates.each do |template|
+      %table
+        %thead
           %tr
-            %td.cell= template.id
-            %td.cell= template.title
-            %td.cell= link_to 'Show', template, 'class': 'pure-button'
-            %td.cell= link_to 'Edit', edit_template_element_path(template), 'class': 'pure-button'
-            %td.cell= link_to 'New Html', new_template_element_html_part_path(template), 'class': 'pure-button'
-            %td.cell= link_to 'New Css', new_template_element_css_part_path(template), 'class': 'pure-button'
-            %td.cell= link_to 'Destroy', template, :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+            %th Lang
+            %th Name
+            %th Mail
+            %th
+            %th
+            %th
 
-    %br
+        %tbody
+          - users.each do |user|
+            %tr
+              %td.cell= user.lang
+              %td.cell= user.name
+              %td.cell= user.email
+              %td.cell= link_to 'Show', user, 'class': 'pure-button'
+              %td.cell= link_to 'Edit', edit_user_path(user), 'class': 'pure-button'
+              %td.cell= link_to 'Destroy', user, :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
 
-    = link_to 'Neue Vorlage', new_template_element_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-template-button'
+      %br
 
-  .pure-u-1.pure-u-md-1-3.videoelements
-    %h1 Videos
-
-    %table
-      %thead
-        %tr
-          %th Title
-          %th Page
-          %th
-          %th
-          %th
-
-      %tbody
-        - videoelements.each do |videoelement|
-          %tr
-            %td.cell= videoelement.title
-            %td.cell= videoelement.page_id
-            %td.cell= link_to 'Show', videoelement_path(videoelement), 'class': 'pure-button'
-            %td.cell= link_to 'Edit', edit_videoelement_path(videoelement), 'class': 'pure-button'
-            %td.cell= link_to 'Destroy', videoelement_path(videoelement), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
-
-    %br
-
-    = link_to 'Neues Video', new_videoelement_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-videoelement-button'
-
-  .pure-u-1.pure-u-md-1-3.urlelements
-    %h1 Links
-
-    %table
-      %thead
-        %tr
-          %th Title
-          %th Page
-          %th
-          %th
-          %th
-          %th
-
-      %tbody
-        - urlelements.each do |urlelement|
-          %tr
-            %td.cell= urlelement.title
-            %td.cell= urlelement.page_id
-            %td.cell= urlelement.index
-            %td.cell= link_to 'Show', urlelement_path(urlelement), 'class': 'pure-button'
-            %td.cell= link_to 'Edit', edit_urlelement_path(urlelement), 'class': 'pure-button'
-            %td.cell= link_to 'Destroy', urlelement_path(urlelement), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
-
-    %br
-
-    = link_to 'Neuen Link', new_urlelement_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-urlelement-button'
-
-  .pure-u-1.pure-u-md-1-3.users
-    %h1 Benutzer
-
-    %table
-      %thead
-        %tr
-          %th Lang
-          %th Name
-          %th Mail
-          %th
-          %th
-          %th
-
-      %tbody
-        - users.each do |user|
-          %tr
-            %td.cell= user.lang
-            %td.cell= user.name
-            %td.cell= user.email
-            %td.cell= link_to 'Show', user, 'class': 'pure-button'
-            %td.cell= link_to 'Edit', edit_user_path(user), 'class': 'pure-button'
-            %td.cell= link_to 'Destroy', user, :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
-
-    %br
-
-    = link_to 'Neuer Benutzer', new_user_path, 'class': 'pure-button new-user-button'
+      = link_to 'Neuer Benutzer', new_user_path, 'class': 'pure-button new-user-button'
 
 
-  .pure-u-1.pure-u-md-1-3.pdf_files
-    %h1 Pdf Files
 
-    %table
-      %thead
-        %tr
-          %th Title
-          %th Page
-          %th
-          %th
-          %th
 
-      %tbody
-        - pdf_files.each do |pdf_file|
-          %tr
-            %td.cell= pdf_file.title
-            %td.cell= pdf_file.page_id
-            %td.cell= link_to 'Show', pdf_file_path(pdf_file), 'class': 'pure-button'
-            %td.cell= link_to 'Edit', edit_pdf_file_path(pdf_file), 'class': 'pure-button'
-            %td.cell= link_to 'Destroy', pdf_file_path(pdf_file), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+  .pure-u-1.pure-u-md-2-3.textelements
+    .pure-g
+      .pure-u-1.pure-u-md-1-2.textelements
+        %h1 Texte
 
-    %br
+        %table
+          %thead
+            %tr
+              %th Title
+              %th Page
+              %th Index
+              %th
+              %th
+              %th
 
-    = link_to 'Neues Pdf File', new_pdf_file_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-pdf-file-button'
+          %tbody
+            - textelements.each do |textelement|
+              %tr
+                %td.cell= textelement.title
+                %td.cell= textelement.page_id
+                %td.cell= textelement.index
+                %td.cell= link_to 'Show', textelement_path(textelement), 'class': 'pure-button'
+                %td.cell= link_to 'Edit', edit_textelement_path(textelement), 'class': 'pure-button'
+                %td.cell= link_to 'Destroy', textelement_path(textelement), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+
+        %br
+
+        = link_to 'Neuer Text', new_textelement_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-article-button'
+
+
+      .pure-u-1.pure-u-md-1-2.pictures
+        %h1 Bilder
+
+        %table
+          %thead
+            %tr
+              %th Title
+              %th Page
+              %th
+              %th
+              %th
+
+          %tbody
+            - pictures.each do |picture|
+              %tr
+                %td.cell= picture.title
+                %td.cell= picture.page_id
+                %td.cell= link_to 'Show', picture_path(picture), 'class': 'pure-button'
+                %td.cell= link_to 'Edit', edit_picture_path(picture), 'class': 'pure-button'
+                %td.cell= link_to 'Destroy', picture_path(picture), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+        %br
+
+        = link_to 'Neues Bild', new_picture_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-picture-button'
+
+      .pure-u-1.pure-u-md-1-2.videoelements
+        %h1 Videos
+
+        %table
+          %thead
+            %tr
+              %th Title
+              %th Page
+              %th
+              %th
+              %th
+
+          %tbody
+            - videoelements.each do |videoelement|
+              %tr
+                %td.cell= videoelement.title
+                %td.cell= videoelement.page_id
+                %td.cell= link_to 'Show', videoelement_path(videoelement), 'class': 'pure-button'
+                %td.cell= link_to 'Edit', edit_videoelement_path(videoelement), 'class': 'pure-button'
+                %td.cell= link_to 'Destroy', videoelement_path(videoelement), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+        %br
+
+        = link_to 'Neues Video', new_videoelement_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-videoelement-button'
+
+      .pure-u-1.pure-u-md-1-2.urlelements
+        %h1 Links
+
+        %table
+          %thead
+            %tr
+              %th Title
+              %th Page
+              %th
+              %th
+              %th
+              %th
+
+          %tbody
+            - urlelements.each do |urlelement|
+              %tr
+                %td.cell= urlelement.title
+                %td.cell= urlelement.page_id
+                %td.cell= urlelement.index
+                %td.cell= link_to 'Show', urlelement_path(urlelement), 'class': 'pure-button'
+                %td.cell= link_to 'Edit', edit_urlelement_path(urlelement), 'class': 'pure-button'
+                %td.cell= link_to 'Destroy', urlelement_path(urlelement), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+        %br
+
+        = link_to 'Neuen Link', new_urlelement_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-urlelement-button'
+      .pure-u-1.pure-u-md-1-2.pdf_files
+        %h1 Pdf Files
+
+        %table
+          %thead
+            %tr
+              %th Title
+              %th Page
+              %th
+              %th
+              %th
+
+          %tbody
+            - pdf_files.each do |pdf_file|
+              %tr
+                %td.cell= pdf_file.title
+                %td.cell= pdf_file.page_id
+                %td.cell= link_to 'Show', pdf_file_path(pdf_file), 'class': 'pure-button'
+                %td.cell= link_to 'Edit', edit_pdf_file_path(pdf_file), 'class': 'pure-button'
+                %td.cell= link_to 'Destroy', pdf_file_path(pdf_file), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+        %br
+
+        = link_to 'Neues Pdf File', new_pdf_file_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-pdf-file-button'
+
+
+  .pure-u-1.pure-u-md-1
