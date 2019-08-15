@@ -85,7 +85,7 @@ class UrlelementsController < ApplicationController
           if template
             param[:template_element_id] = template.id
           else
-            param.delete(:template_element_id)
+            param[:template_element_id] = nil
           end
         end
       end
