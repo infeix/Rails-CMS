@@ -74,6 +74,7 @@ class UrlelementsController < ApplicationController
       :target_path,
       :position,
       :page_id,
+      :index,
       :template_element_id,
       :image,
       :remove_image,
