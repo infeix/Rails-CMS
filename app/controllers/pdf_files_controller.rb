@@ -74,6 +74,7 @@ class PdfFilesController < ApplicationController
       :target_path,
       :position,
       :page_id,
+      :index,
       :template_element_id,
       :pdf,
       :remove_pdf,

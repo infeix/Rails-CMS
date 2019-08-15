@@ -251,6 +251,7 @@
             %tr
               %th Title
               %th Page
+              %th Index
               %th
               %th
               %th
@@ -260,6 +261,7 @@
               %tr
                 %td.cell= pdf_file.title
                 %td.cell= pdf_file.page_id
+                %td.cell= pdf_file.index
                 %td.cell= link_to 'Show', pdf_file_path(pdf_file), 'class': 'pure-button'
                 %td.cell= link_to 'Edit', edit_pdf_file_path(pdf_file), 'class': 'pure-button'
                 %td.cell= link_to 'Destroy', pdf_file_path(pdf_file), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
