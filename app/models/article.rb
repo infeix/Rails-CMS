@@ -3,6 +3,7 @@
 class Article < ActiveRecord::Base
   mount_uploader :image, ImageUploader
   mount_uploader :video, VideoUploader
+  mount_uploader :pdf, PdfUploader
 
   belongs_to :template_element, optional: true
   belongs_to :page, optional: true

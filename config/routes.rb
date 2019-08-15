@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :videoelements, controller: 'videoelements'
   resources :textelements, controller: 'textelements'
   resources :urlelements, controller: 'urlelements'
+  resources :pdf_files, controller: 'pdf_files'
   resources :overviews, only: [:index]
   resources :transactions
   resources :accounts

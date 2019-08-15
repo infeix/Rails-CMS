@@ -28,6 +28,7 @@ class OverviewsController < ApplicationController
       @videoelements = Videoelement.where(page: @page).sort_by_index
       @textelements = Textelement.where(page: @page).sort_by_index
       @urlelements = Urlelement.where(page: @page).sort_by_index
+      @pdf_files = PdfFile.where(page: @page).sort_by_index
       @templates = TemplateElement.where(id: @page.template_element_id)
     else
       page = Page.editingPage
@@ -41,6 +42,7 @@ class OverviewsController < ApplicationController
       @videoelements = Videoelement.all.sort_by_index
       @textelements = Textelement.all.sort_by_index
       @urlelements = Urlelement.all.sort_by_index
+      @pdf_files = PdfFile.all.sort_by_index
     end
     @html_parts = HtmlPart.all.sort_by_index
     @css_parts = CssPart.all.sort_by_index

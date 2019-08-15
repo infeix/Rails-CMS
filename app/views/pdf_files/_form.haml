@@ -1,0 +1,39 @@
+= form_for [@pdf_file] do |f|
+  - if @pdf_file.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@pdf_file.errors.count, "error")} prohibited this pdf_file from being saved:"
+      %ul
+        - @pdf_file.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :position
+    = Position.render_dropdown("pdf_file", "position", f.object.position)
+  .field
+    = f.label :template_element_id
+    = TemplateElement.render_dropdown("pdf_file", "template_element_id", f.object.template_element&.title)
+  .field
+    = f.label :page_id
+    = f.text_field :page_id
+  .field
+    = f.label :text
+    = f.text_area :text, rows: 5, cols: 100, class: "edit_template"
+  .field
+    = f.label :data_text
+    = f.text_area :data_text, rows: 5, cols: 100, class: "edit_template"
+  .field
+    = f.label :pdf
+    = f.file_field :pdf
+
+    - if @pdf_file.pdf?
+      = @pdf_file.render
+
+      = label_tag :remove_pdf do
+        Remove Pdf
+        = f.check_box :remove_pdf
+
+  .actions
+    = f.submit 'Save'

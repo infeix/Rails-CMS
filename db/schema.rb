@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190808214700) do
+ActiveRecord::Schema.define(version: 20190815043526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20190808214700) do
     t.string "type"
     t.string "target_path"
     t.string "data_text"
+    t.string "pdf"
     t.index ["page_id"], name: "index_articles_on_page_id"
     t.index ["template_element_id"], name: "index_articles_on_template_element_id"
   end

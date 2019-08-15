@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @pdf_file.title
+%p
+  %b Page id:
+  = @pdf_file.page_id
+%p
+  %b Text:
+  = @pdf_file.text
+%p
+  %b Position:
+  = @pdf_file.position
+%p
+  %b Code:
+  = @pdf_file.code
+
+= link_to 'Edit', edit_pdf_file_path(@pdf_file)
+\|
+= link_to 'Back', overviews_path

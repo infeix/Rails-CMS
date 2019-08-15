@@ -6,6 +6,7 @@
 - videoelements = local_assigns.fetch(:videoelements)
 - textelements = local_assigns.fetch(:textelements)
 - urlelements = local_assigns.fetch(:urlelements)
+- pdf_files = local_assigns.fetch(:pdf_files)
 - templates = local_assigns.fetch(:templates)
 - html_parts = local_assigns.fetch(:html_parts)
 - css_parts = local_assigns.fetch(:css_parts)
@@ -231,3 +232,29 @@
     %br
 
     = link_to 'Neuer Benutzer', new_user_path, 'class': 'pure-button new-user-button'
+
+
+  .pure-u-1.pure-u-md-1-3.pdf_files
+    %h1 Pdf Files
+
+    %table
+      %thead
+        %tr
+          %th Title
+          %th Page
+          %th
+          %th
+          %th
+
+      %tbody
+        - pdf_files.each do |pdf_file|
+          %tr
+            %td.cell= pdf_file.title
+            %td.cell= pdf_file.page_id
+            %td.cell= link_to 'Show', pdf_file_path(pdf_file), 'class': 'pure-button'
+            %td.cell= link_to 'Edit', edit_pdf_file_path(pdf_file), 'class': 'pure-button'
+            %td.cell= link_to 'Destroy', pdf_file_path(pdf_file), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+    %br
+
+    = link_to 'Neues Pdf File', new_pdf_file_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-pdf-file-button'
