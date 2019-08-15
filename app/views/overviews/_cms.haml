@@ -198,6 +198,7 @@
           %tr
             %td.cell= urlelement.title
             %td.cell= urlelement.page_id
+            %td.cell= urlelement.index
             %td.cell= link_to 'Show', urlelement_path(urlelement), 'class': 'pure-button'
             %td.cell= link_to 'Edit', edit_urlelement_path(urlelement), 'class': 'pure-button'
             %td.cell= link_to 'Destroy', urlelement_path(urlelement), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
