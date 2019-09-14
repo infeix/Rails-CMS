@@ -79,6 +79,7 @@ class PdfFilesController < ApplicationController
       :pdf,
       :remove_pdf,
       :video,
+      :data_text,
       :remove_video).tap do |param|
         if param[:template_element_id].blank? || param[:template_element_id].eql?("nil")
           template = param[:position].blank? ? nil : TemplateElement.where(title: param[:position]).first
