@@ -78,6 +78,7 @@ class TextelementsController < ApplicationController
       :image,
       :remove_image,
       :video,
+      :data_text,
       :remove_video).tap do |param|
         if param[:template_element_id].blank? || param[:template_element_id].eql?("nil")
           param[:template_element_id] = nil

@@ -77,6 +77,7 @@ class VideoelementsController < ApplicationController
       :image,
       :remove_image,
       :video,
+      :data_text,
       :remove_video).tap do |param|
         if param[:template_element_id].nil?
           param.delete(:template_element_id)
