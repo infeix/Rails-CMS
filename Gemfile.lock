@@ -146,6 +146,8 @@ GEM
       railties (>= 3.0.0)
     faker (1.8.7)
       i18n (>= 0.7)
+    faraday (0.15.4)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
     flay (2.10.0)
       erubis (~> 2.7.0)
@@ -158,6 +160,9 @@ GEM
       sexp_processor (~> 4.8)
     font-awesome-sass (4.7.0)
       sass (>= 3.2)
+    gibbon (3.2.0)
+      faraday (>= 0.9.1)
+      multi_json (>= 1.11.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     good_migrations (0.0.2)
@@ -209,6 +214,7 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     multi_json (1.13.1)
+    multipart-post (2.1.1)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (4.2.0)
@@ -459,6 +465,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   font-awesome-sass
+  gibbon
   good_migrations
   haml-rails
   jbuilder (~> 2.5)

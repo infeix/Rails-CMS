@@ -7,10 +7,16 @@
           %li= msg
 
   .field
-    = f.label :lang
-    = f.text_field :lang
+    = f.label :is_admin
+    = f.check_box :is_admin
+  .field
+    = f.label :is_subscriber
+    = f.check_box :is_subscriber
   .field
     = f.label :name
     = f.text_field :name
+  .field
+    = f.label :email
+    = f.text_field :email
   .actions
     = f.submit 'Save'
