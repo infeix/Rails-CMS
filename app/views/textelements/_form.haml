@@ -17,7 +17,8 @@
     = TemplateElement.render_dropdown("textelement", "template_element_id", f.object.template_element&.title)
   .field
     = f.label :page_id
-    = f.text_field :page_id
+    - f.object.pages do |page|
+      = "#{page.name} (#{page.id})"
   .field
     = f.label :index
     = f.text_field :index

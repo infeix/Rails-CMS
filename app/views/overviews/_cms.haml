@@ -145,7 +145,6 @@
           %thead
             %tr
               %th Title
-              %th Page
               %th Index
               %th
               %th
@@ -155,7 +154,6 @@
             - textelements.each do |textelement|
               %tr
                 %td.cell= textelement.title
-                %td.cell= textelement.page_id
                 %td.cell= textelement.index
                 %td.cell= link_to 'Show', textelement_path(textelement), 'class': 'pure-button'
                 %td.cell= link_to 'Edit', edit_textelement_path(textelement), 'class': 'pure-button'
@@ -174,7 +172,6 @@
           %thead
             %tr
               %th Title
-              %th Page
               %th
               %th
               %th
@@ -183,7 +180,6 @@
             - pictures.each do |picture|
               %tr
                 %td.cell= picture.title
-                %td.cell= picture.page_id
                 %td.cell= link_to 'Show', picture_path(picture), 'class': 'pure-button'
                 %td.cell= link_to 'Edit', edit_picture_path(picture), 'class': 'pure-button'
                 %td.cell= link_to 'Destroy', picture_path(picture), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
@@ -199,7 +195,6 @@
           %thead
             %tr
               %th Title
-              %th Page
               %th
               %th
               %th
@@ -208,7 +203,6 @@
             - videoelements.each do |videoelement|
               %tr
                 %td.cell= videoelement.title
-                %td.cell= videoelement.page_id
                 %td.cell= link_to 'Show', videoelement_path(videoelement), 'class': 'pure-button'
                 %td.cell= link_to 'Edit', edit_videoelement_path(videoelement), 'class': 'pure-button'
                 %td.cell= link_to 'Destroy', videoelement_path(videoelement), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
@@ -224,7 +218,6 @@
           %thead
             %tr
               %th Title
-              %th Page
               %th Index
               %th
               %th
@@ -234,7 +227,6 @@
             - urlelements.each do |urlelement|
               %tr
                 %td.cell= urlelement.title
-                %td.cell= urlelement.page_id
                 %td.cell= urlelement.index
                 %td.cell= link_to 'Show', urlelement_path(urlelement), 'class': 'pure-button'
                 %td.cell= link_to 'Edit', edit_urlelement_path(urlelement), 'class': 'pure-button'
@@ -250,7 +242,6 @@
           %thead
             %tr
               %th Title
-              %th Page
               %th Index
               %th
               %th
@@ -260,7 +251,6 @@
             - pdf_files.each do |pdf_file|
               %tr
                 %td.cell= pdf_file.title
-                %td.cell= pdf_file.page_id
                 %td.cell= pdf_file.index
                 %td.cell= link_to 'Show', pdf_file_path(pdf_file), 'class': 'pure-button'
                 %td.cell= link_to 'Edit', edit_pdf_file_path(pdf_file), 'class': 'pure-button'

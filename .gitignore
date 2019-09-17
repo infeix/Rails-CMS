@@ -11,6 +11,7 @@ config/deploy/productionphysio.rb
 config/deploy/productionklang.rb
 config/deploy/productiondj.rb
 config/deploy/productionjo.rb
+config/deploy/stagingklang.rb
 db/seeds.rb.secret
 coverage/*
 spec/examples.txt

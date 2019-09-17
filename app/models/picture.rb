@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Picture < Article
+class Picture < ContentPart
   def render
     to_s
   end

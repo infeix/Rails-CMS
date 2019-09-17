@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190914200300) do
+ActiveRecord::Schema.define(version: 20190917115100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,28 @@ ActiveRecord::Schema.define(version: 20190914200300) do
     t.string "tax_nr"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "content_parts", id: :serial, force: :cascade do |t|
+    t.string "title"
+    t.text "text"
+    t.text "code"
+    t.integer "index"
+    t.integer "template_element_id"
+    t.string "position"
+    t.string "image"
+    t.string "video"
+    t.string "type"
+    t.string "target_path"
+    t.string "data_text"
+    t.string "pdf"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "content_parts_pages", id: false, force: :cascade do |t|
+    t.bigint "content_part_id", null: false
+    t.bigint "page_id", null: false
   end
 
   create_table "document_templates", id: :serial, force: :cascade do |t|

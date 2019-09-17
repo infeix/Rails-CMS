@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Urlelement < Article
+class Urlelement < ContentPart
   def to_s
     if template_element && template_element.html_parts.all.count > 3 then
       template_element.html_parts[0].to_s +

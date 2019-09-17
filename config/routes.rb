@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   end
   resources :pages, controller: 'pages'
   resources :articles, controller: 'articles'
+  resources :content_parts, controller: 'content_parts'
   resources :pictures, controller: 'pictures'
   resources :videoelements, controller: 'videoelements'
   resources :textelements, controller: 'textelements'

@@ -4,8 +4,13 @@ class Page < ActiveRecord::Base
   belongs_to :template_element, optional: true
   has_many :articles, -> { order(index: :asc) }, dependent: :nullify
   has_many :text_articles, -> { where(type: "Textelement").order(index: :asc) }, foreign_key: "page_id", class_name: "Textelement", dependent: :nullify
+  has_and_belongs_to_many :content_parts, -> { order(index: :asc) }, dependent: :nullify, optional: true
   scope :sort_by_id, -> { order(id: :asc) }
   validates :path, presence: true
+
+  def textelements
+    content_parts.where(type: "Textelement").order(index: :asc)
+  end
 
   def url
     "/pages/#{path}"
@@ -14,7 +19,7 @@ class Page < ActiveRecord::Base
   def render_head
     rendered = "<!DOCTYPE html><html lang=\"de\"><head>"
     if template_element.present?
-      rendered += template_element.render_head(text_articles)
+      rendered += template_element.render_head(textelements)
     end
     "#{rendered}</head>"
   end
@@ -23,13 +28,13 @@ class Page < ActiveRecord::Base
     rendered = render_head
     rendered += "<body>".html_safe
     if template_element.present?
-      if articles.any?
-        rendered += template_element.render text_articles.all, articles.where.not(type: "Textelement")
+      if content_parts.any?
+        rendered += template_element.render textelements.all, content_parts.where.not(type: "Textelement")
       else
         rendered += template_element.render
       end
-    elsif articles.any?
-      rendered += render_articles
+    elsif content_parts.any?
+      rendered += render_content_parts
     else
       rendered += text
     end
@@ -42,10 +47,10 @@ class Page < ActiveRecord::Base
     "#{rendered}</body></html>".html_safe
   end
 
-  def render_articles
+  def render_content_parts
     html = ''
-    articles.each do |article|
-      html += article.to_s
+    content_parts.each do |content_part|
+      html += content_part.to_s
     end
     html
   end

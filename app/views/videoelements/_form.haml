@@ -14,7 +14,8 @@
     = Position.render_dropdown("videoelement", "position", f.object.position)
   .field
     = f.label :page_id
-    = f.text_field :page_id
+    - f.object.pages do |page|
+      = "#{page.name} (#{page.id})"
 
   .field
     = f.label :video
