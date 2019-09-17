@@ -24,11 +24,11 @@ class OverviewsController < ApplicationController
       @page.edit_filter = 1
       @page.save
       @articles = Article.where(page: @page).sort_by_index
-      @pictures = Picture.where(page: @page).sort_by_index
-      @videoelements = Videoelement.where(page: @page).sort_by_index
-      @textelements = Textelement.where(page: @page).sort_by_index
-      @urlelements = Urlelement.where(page: @page).sort_by_index
-      @pdf_files = PdfFile.where(page: @page).sort_by_index
+      @pictures = Picture.includes(:pages).where(pages: {id: @page.id}).sort_by_index
+      @videoelements = Videoelement.includes(:pages).where(pages: {id: @page.id}).sort_by_index
+      @textelements = Textelement.includes(:pages).where(pages: {id: @page.id}).sort_by_index
+      @urlelements = Urlelement.includes(:pages).where(pages: {id: @page.id}).sort_by_index
+      @pdf_files = PdfFile.includes(:pages).where(pages: {id: @page.id}).sort_by_index
       @templates = TemplateElement.where(id: @page.template_element_id)
     else
       page = Page.editingPage
