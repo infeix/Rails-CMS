@@ -11,6 +11,9 @@ class PositionsController < ApplicationController
   end
 
   def new
+    Position.all.each do |position|
+      position.destroy
+    end
     ContentPart.all.each do |part|
       part.create_positions
     end
