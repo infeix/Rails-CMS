@@ -20,6 +20,9 @@ class PositionsController < ApplicationController
     PagePart.all.each do |part|
       part.create_positions
     end
+    TemplateElement.all.each do |element|
+      element.create_positions
+    end
     Position.find_or_create_by(name: "no_position")
     redirect_to overviews_path, notice: 'Positions were successfully updated.'
   end

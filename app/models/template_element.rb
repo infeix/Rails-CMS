@@ -11,6 +11,12 @@ class TemplateElement < ActiveRecord::Base
   accepts_nested_attributes_for :html_parts
   accepts_nested_attributes_for :css_parts
 
+  after_save :create_positions
+
+  def create_positions
+    Position.create_positions meta
+  end
+
   def last_html_part
     html_parts.find_by is_last: true
   end
