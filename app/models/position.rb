@@ -10,7 +10,7 @@ class Position < ActiveRecord::Base
 
   def self.render_dropdown(element, property, selected)
     html_result = "<select id=\"#{element}_#{property}\" name=\"#{element}[#{property}]\">"
-    Position.all.each do |position|
+    Position.sort_by_name.each do |position|
       if selected.eql? position.name
         html_result = "#{html_result}<option selected>#{position.name}</option>"
       else
