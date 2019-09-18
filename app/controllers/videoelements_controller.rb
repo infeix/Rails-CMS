@@ -79,6 +79,9 @@ class VideoelementsController < ApplicationController
       :data_text,
       :remove_video,
       :page_ids => []).tap do |param|
+        if param[:page_ids].blank?
+          param[:page_ids] = []
+        end
         if param[:template_element_id].nil?
           param.delete(:template_element_id)
         end

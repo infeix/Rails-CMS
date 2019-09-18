@@ -78,6 +78,10 @@ class PicturesController < ApplicationController
       :remove_image,
       :video,
       :remove_video,
-      :page_ids => [])
+      :page_ids => []).tap do |param|
+        if param[:page_ids].blank?
+          param[:page_ids] = []
+        end
+      end
   end
 end

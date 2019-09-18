@@ -71,6 +71,17 @@ class PagesController < ApplicationController
   end
 
   def page_params
-    params.require(:page).permit(:title, :text, :path, :template_element_id, :code, :edit_filter, :content_part_ids => [])
+    params.require(:page).permit(
+      :title,
+      :text,
+      :path,
+      :template_element_id,
+      :code,
+      :edit_filter,
+      :content_part_ids => []).tap do |param|
+      if param[:content_part_ids].blank?
+        param[:content_part_ids] = []
+      end
+    end
   end
 end

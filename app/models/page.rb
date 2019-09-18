@@ -3,8 +3,7 @@
 class Page < ActiveRecord::Base
   belongs_to :template_element, optional: true
   has_many :articles, -> { order(index: :asc) }, dependent: :nullify
-  has_many :text_articles, -> { where(type: "Textelement").order(index: :asc) }, foreign_key: "page_id", class_name: "Textelement", dependent: :nullify
-  has_and_belongs_to_many :content_parts, -> { order(index: :asc) }, dependent: :nullify, optional: true
+  has_and_belongs_to_many :content_parts, -> { order(index: :asc) }, optional: true
   scope :sort_by_id, -> { order(id: :asc) }
   validates :path, presence: true
 
