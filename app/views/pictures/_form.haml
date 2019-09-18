@@ -14,8 +14,13 @@
     = Position.render_dropdown("picture", "position", f.object.position)
   .field
     = f.label :page_id
-    - f.object.pages do |page|
-      = "#{page.name} (#{page.id})"
+    - Page.all.each do |page|
+      %br
+      = "#{page.title} (#{page.id})"
+      - if f.object.page_ids.include? page.id
+        = check_box "picture", "page_ids", { multiple: true, checked: true }, page.id, nil
+      - else
+        = check_box "picture", "page_ids", { multiple: true, checked: false }, page.id, nil
   .field
     = f.label :image
     = f.file_field :image

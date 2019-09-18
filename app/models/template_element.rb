@@ -58,9 +58,13 @@ class TemplateElement < ActiveRecord::Base
 
   def render_article(article, render_value = "")
     return nil unless article
+    replace_title_pattern = "{{#{article.title}}}"
     replace_pattern = "{{#{article.position}}}"
 
-    if render_value.include? replace_pattern
+    if render_value.include? replace_title_pattern
+      render_value = render_value.gsub(replace_title_pattern, "#{article.render}#{replace_title_pattern}")
+      return render_value
+    elsif render_value.include? replace_pattern
       render_value = render_value.gsub(replace_pattern, "#{article.render}#{replace_pattern}")
       return render_value
     end

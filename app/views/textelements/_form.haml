@@ -17,8 +17,14 @@
     = TemplateElement.render_dropdown("textelement", "template_element_id", f.object.template_element&.title)
   .field
     = f.label :page_id
-    - f.object.pages do |page|
-      = "#{page.name} (#{page.id})"
+    - Page.all.each do |page|
+      %br
+      = "#{page.title} (#{page.id})"
+      - if f.object.page_ids.include? page.id
+        = check_box "textelement", "page_ids", { multiple: true, checked: true }, page.id, nil
+      - else
+        = check_box "textelement", "page_ids", { multiple: true, checked: false }, page.id, nil
+
   .field
     = f.label :index
     = f.text_field :index

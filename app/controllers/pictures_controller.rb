@@ -59,7 +59,7 @@ class PicturesController < ApplicationController
   def find_page
     if params[:page_id].present?
       @page = Page.find_by!(id: params[:page_id])
-      @picture.page = @page
+      @picture.pages << @page
     end
   end
 
@@ -68,6 +68,16 @@ class PicturesController < ApplicationController
   end
 
   def picture_params
-    params.require(:picture).permit(:title, :text, :position, :page_id, :template_element_id, :image, :data_text, :remove_image, :video, :remove_video)
+    params.require(:picture).permit(
+      :title,
+      :text,
+      :position,
+      :template_element_id,
+      :image,
+      :data_text,
+      :remove_image,
+      :video,
+      :remove_video,
+      :page_ids => [])
   end
 end

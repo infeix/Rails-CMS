@@ -13,6 +13,7 @@ class ContentPart < ActiveRecord::Base
 
   def create_positions
     Position.create_positions to_s
+    Position.create_positions title
   end
 
   # def render
