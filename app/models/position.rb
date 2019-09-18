@@ -3,6 +3,10 @@
 class Position < ActiveRecord::Base
 
   validates :name, uniqueness: true
+  scope :sort_by_name, ->() { order(:name) }
+
+  def usage_count
+  end
 
   def self.render_dropdown(element, property, selected)
     html_result = "<select id=\"#{element}_#{property}\" name=\"#{element}[#{property}]\">"

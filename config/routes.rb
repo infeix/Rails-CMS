@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :textelements, controller: 'textelements'
   resources :urlelements, controller: 'urlelements'
   resources :pdf_files, controller: 'pdf_files'
+  resources :positions, controller: 'positions', only: [:new, :destroy]
   resources :overviews, only: [:index]
   resources :transactions
   resources :accounts

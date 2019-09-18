@@ -48,6 +48,7 @@ class OverviewsController < ApplicationController
     @css_parts = CssPart.all.sort_by_index
     @messages = Message.all
     @users = User.all
+    @positions = Position.sort_by_name
 
     @invoices = Invoice.all.sort_by_send_date
     @document_templates = DocumentTemplate.all

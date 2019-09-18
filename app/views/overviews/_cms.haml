@@ -261,4 +261,21 @@
         = link_to 'Neues Pdf File', new_pdf_file_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-pdf-file-button'
 
 
-  .pure-u-1.pure-u-md-1
+  .pure-u-1.pure-u-md-1.positions
+    %h1 Positionen
+
+    %table
+      %thead
+        %tr
+          %th Name
+          %th
+
+      %tbody
+        - positions.each do |position|
+          %tr
+            %td.cell= position.name
+            %td.cell= link_to 'Destroy', position, :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+    %br
+
+    = link_to 'Neue Position', new_position_path, 'class': 'pure-button new-position-button'

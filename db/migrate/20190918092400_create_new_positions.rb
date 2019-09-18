@@ -4,7 +4,7 @@ class ContentPart < ActiveRecord::Base
 
   def create_positions
     Position.create_positions to_s
-    Position.create_positions title
+    Position.find_or_create_by(name: title)
   end
 
   def to_s
