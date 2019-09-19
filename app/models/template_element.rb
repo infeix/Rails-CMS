@@ -4,6 +4,7 @@ class TemplateElement < ActiveRecord::Base
   has_many :pages, dependent: :nullify
   has_many :articles, dependent: :nullify
   has_many :content_parts, dependent: :nullify
+  has_many :page_parts, -> { sort_by_index }, dependent: :destroy
   has_many :html_parts, -> { sort_by_index }, dependent: :destroy
   has_many :css_parts, -> { sort_by_index }, dependent: :destroy
   scope :sort_by_id, ->() { order(:id) }
