@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class TemplateElement < ActiveRecord::Base
-  has_many :pages
-  has_many :articles
-  has_many :content_parts
-  has_many :html_parts, -> { sort_by_index }
-  has_many :css_parts, -> { sort_by_index }
+  has_many :pages, dependent: :nullify
+  has_many :articles, dependent: :nullify
+  has_many :content_parts, dependent: :nullify
+  has_many :html_parts, -> { sort_by_index }, dependent: :destroy
+  has_many :css_parts, -> { sort_by_index }, dependent: :destroy
   scope :sort_by_id, ->() { order(:id) }
 
   accepts_nested_attributes_for :html_parts
