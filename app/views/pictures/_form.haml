@@ -14,7 +14,7 @@
     = Position.render_dropdown("picture", "position", f.object.position)
   .field
     = f.label :template_element_id
-    = TemplateElement.render_dropdown("textelement", "template_element_id", f.object.template_element&.title)
+    = TemplateElement.render_dropdown("picture", "template_element_id", f.object.template_element&.title)
   .field
     = f.label :page_id
     - Page.all.each do |page|
