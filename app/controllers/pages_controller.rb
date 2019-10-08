@@ -45,14 +45,23 @@ class PagesController < ApplicationController
     end
   end
 
+  def copy
+    authenticate_admin!
+    @page = Page.new(page_params)
+
+    if @page.save
+      redirect_to overviews_path, notice: 'Page was successfully created.'
+    else
+      render :new
+    end
+  end
+
   def update
     authenticate_admin!
-    respond_to do |format|
-      if @page.update(page_params)
-        format.html { redirect_to overviews_path, notice: 'Page was successfully updated.' }
-      else
-        format.html { render :edit }
-      end
+    if @page.update(page_params)
+      redirect_to overviews_path, notice: 'Page was successfully updated.'
+    else
+      render :edit
     end
   end
 

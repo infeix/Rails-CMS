@@ -6,7 +6,11 @@ Rails.application.routes.draw do
     resources :css_parts, controller: 'template_elements/css_parts'
     resources :html_parts, controller: 'template_elements/html_parts'
   end
-  resources :pages, controller: 'pages'
+  resources :pages, controller: 'pages' do
+    member do
+      patch 'copy'
+    end
+  end
   resources :articles, controller: 'articles'
   resources :content_parts, controller: 'content_parts'
   resources :pictures, controller: 'pictures'
