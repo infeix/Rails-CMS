@@ -2,6 +2,7 @@
 
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  before_filter :authenticate_admin!
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def authenticate_admin!
@@ -75,6 +76,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:is_admin, :is_agent, :is_subscriber, :lang, :name)
+    params.require(:user).permit(:password, :password_confirmation, :email, :is_admin, :is_agent, :is_subscriber, :lang, :name)
   end
 end

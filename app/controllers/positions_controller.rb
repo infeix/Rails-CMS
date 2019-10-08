@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class PositionsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :authenticate_admin!
+  before_filter :authenticate_user!
+  before_filter :authenticate_admin!
 
   before_action :set_position, only: [:destroy]
 

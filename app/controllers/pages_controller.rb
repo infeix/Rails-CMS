@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
 class PagesController < ApplicationController
+  before_filter :authenticate_user!
+  before_filter :authenticate_agent!
+
   before_action :set_page, only: [:show, :edit, :update, :destroy]
 
-  def authenticate_admin!
-    authenticate_user!
-    redirect_to user_session_path unless current_user.is_admin?
-  end
 
   def index
     authenticate_admin!
