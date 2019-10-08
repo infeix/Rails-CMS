@@ -1,12 +1,8 @@
 # frozen_string_literal: true
 
 class VideoelementsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :authenticate_admin!
-
-  def authenticate_admin!
-    redirect_to user_session_path unless current_user.is_admin?
-  end
+  before_filter :authenticate_user!
+  before_filter :authenticate_agent!
 
   before_action :set_videoelement, only: [:show, :edit, :update, :destroy]
 
