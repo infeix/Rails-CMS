@@ -28,12 +28,20 @@ class TextelementsController < ApplicationController
   def create
     @textelement = Textelement.new(textelement_params)
 
-    respond_to do |format|
-      if @textelement.save
-        format.html { redirect_to overviews_path, notice: 'Textelement was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    if @textelement.save
+      redirect_to overviews_path, notice: 'Textelement was successfully created.'
+    else
+      render :new
+    end
+  end
+
+  def copy
+    @textelement = Textelement.new(textelement_params)
+
+    if @textelement.save
+      redirect_to overviews_path, notice: 'Textelement was successfully created.'
+    else
+      render :new
     end
   end
 

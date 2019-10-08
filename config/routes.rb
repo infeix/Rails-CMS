@@ -15,7 +15,11 @@ Rails.application.routes.draw do
   resources :content_parts, controller: 'content_parts'
   resources :pictures, controller: 'pictures'
   resources :videoelements, controller: 'videoelements'
-  resources :textelements, controller: 'textelements'
+  resources :textelements, controller: 'textelements' do
+    member do
+      patch 'copy'
+    end
+  end
   resources :urlelements, controller: 'urlelements'
   resources :pdf_files, controller: 'pdf_files'
   resources :positions, controller: 'positions', only: [:new, :destroy]
