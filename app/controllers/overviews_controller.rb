@@ -2,7 +2,7 @@
 
 class OverviewsController < ApplicationController
   before_action :authenticate_user!
-  before_filter :authenticate_agent!
+  before_action :authenticate_agent!
 
   def index
     year = params[:year]

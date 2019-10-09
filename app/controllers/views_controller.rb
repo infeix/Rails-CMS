@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class ViewsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authenticate_agent!
+  before_action :authenticate_user!
+  before_action :authenticate_agent!
 
   # GET /views
   def index

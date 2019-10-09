@@ -6,22 +6,23 @@ class ApplicationController < ActionController::Base
   # protect_from_forgery with: :exception
   protect_from_forgery with: :exception
 
-
   def authenticate_admin!
-    if current_user.is_admin?
-      redirect_to user_session_path unless current_user.is_admin?
-      true
-    else
-      false
+    unless current_user.is_admin?
+      sign_out current_user
+
+      redirect_to root_path
+
+      return false
     end
   end
 
   def authenticate_agent!
-    if current_user.is_agent? || current_user.is_admin?
-      redirect_to user_session_path unless current_user.is_agent? || current_user.is_admin?
-      true
-    else
-      false
+    unless current_user.is_agent? || current_user.is_admin?
+      sign_out current_user
+
+      redirect_to root_path
+
+      return false
     end
   end
 end

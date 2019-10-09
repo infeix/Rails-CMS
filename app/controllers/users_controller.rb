@@ -2,17 +2,8 @@
 
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_filter :authenticate_admin!
+  before_action :authenticate_admin!
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
-  def authenticate_admin!
-    if current_user.is_admin?
-      true
-    else
-      redirect_to user_session_path unless current_user.is_admin?
-      false
-    end
-  end
 
   def index
     @users = if current_user.is_admin?

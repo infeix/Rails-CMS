@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class PagesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authenticate_agent!
+  before_action :authenticate_user!, only: [:new, :edit, :create, :copy, :update, :destroy]
+  before_action :authenticate_agent!, only: [:new, :edit, :create, :copy, :update, :destroy]
 
-  before_action :set_page, only: [:show, :edit, :update, :destroy]
+  before_action :set_page, only: [:show, :filter, :edit, :update, :destroy]
 
 
   def index
@@ -52,6 +52,18 @@ class PagesController < ApplicationController
       redirect_to overviews_path, notice: 'Page was successfully created.'
     else
       render :new
+    end
+  end
+
+  def filter
+    authenticate_agent!
+    if @page.present?
+      @page.edit_filter = true
+      if @page.save
+        redirect_to overviews_path
+      else
+        redirect_to overviews_path, alert: 'Error.'
+      end
     end
   end
 

@@ -1,12 +1,8 @@
 # frozen_string_literal: true
 
 class TemplateElementsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authenticate_agent!
-
-  def authenticate_admin!
-    redirect_to user_session_path unless current_user.is_admin?
-  end
+  before_action :authenticate_user!
+  before_action :authenticate_agent!
 
   before_action :set_template, only: [:show, :edit, :update, :destroy]
 

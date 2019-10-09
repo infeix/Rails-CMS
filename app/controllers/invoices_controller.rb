@@ -1,6 +1,6 @@
 class InvoicesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authenticate_agent!
+  before_action :authenticate_user!
+  before_action :authenticate_agent!
 
   before_action :set_invoice, only: [:show, :edit, :update, :destroy]
 

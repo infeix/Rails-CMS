@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class VideoelementsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authenticate_agent!
+  before_action :authenticate_user!
+  before_action :authenticate_agent!
 
   before_action :set_videoelement, only: [:show, :edit, :update, :destroy]
 

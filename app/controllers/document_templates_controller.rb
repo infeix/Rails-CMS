@@ -1,6 +1,6 @@
 class DocumentTemplatesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :authenticate_agent!
+  before_action :authenticate_user!
+  before_action :authenticate_agent!
 
   before_action :set_document_template, only: [:show, :edit, :update, :destroy]
 

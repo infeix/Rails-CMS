@@ -1,9 +1,9 @@
 .overviews-page
 
   = link_to('Logout', destroy_user_session_path, method: :delete, 'class': 'pure-button')
-
-  %button.tablink.cms-tablink.pure-button.pure-button-primary{ onclick: "openTab(event, 'cms')" }= 'CMS'
-  %button.tablink.invoice-tablink.pure-button{ onclick: "openTab(event, 'invoice')" }= 'INVOICE'
+  - if current_user.is_admin?
+    %button.tablink.cms-tablink.pure-button.pure-button-primary{ onclick: "openTab(event, 'cms')" }= 'CMS'
+    %button.tablink.invoice-tablink.pure-button{ onclick: "openTab(event, 'invoice')" }= 'INVOICE'
 
   .tab-set
     .cms-tab.tab-element.selected-tab
@@ -22,9 +22,10 @@
                                          users: @users,
                                          positions: @positions }
 
-    .invoice-tab.tab-element
-      = render partial: 'invoice', locals: { contacts: @contacts,
-                                             invoices: @invoices,
-                                             document_templates: @document_templates,
-                                             accounts: @accounts,
-                                             transactions: @transactions }
+    - if current_user.is_admin?
+      .invoice-tab.tab-element
+        = render partial: 'invoice', locals: { contacts: @contacts,
+                                               invoices: @invoices,
+                                               document_templates: @document_templates,
+                                               accounts: @accounts,
+                                               transactions: @transactions }

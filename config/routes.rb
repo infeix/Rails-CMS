@@ -10,6 +10,9 @@ Rails.application.routes.draw do
     member do
       patch 'copy'
     end
+    member do
+      patch 'filter'
+    end
   end
   resources :articles, controller: 'articles'
   resources :content_parts, controller: 'content_parts'

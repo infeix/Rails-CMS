@@ -65,4 +65,18 @@ class Page < ActiveRecord::Base
   def self.editingPage
     Page.where(edit_filter: 1).first
   end
+
+  def self.render_dropdown(element, property, selected)
+    html_result = "<select id=\"#{element}_#{property}\" name=\"#{element}[#{property}]\">"
+    Page.sort_by_name.each do |page|
+      if selected.eql? page.name
+        html_result = "#{html_result}<option selected>#{page.name}</option>"
+      else
+        html_result = "#{html_result}<option>#{page.name}</option>"
+      end
+    end
+    html_result = "#{html_result}</select>"
+    html_result.html_safe
+  end
+
 end
