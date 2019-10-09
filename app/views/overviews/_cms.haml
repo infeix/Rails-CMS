@@ -35,7 +35,7 @@
                   %td.cell= link_to page.url, page.url
                   %td.cell= link_to 'wählen', "/overviews?page_id=#{page.id}#cms", 'class': 'pure-button'
   - else
-    - page = Page.editingPage
+    - @page = Page.editingPage
     .pure-u-1.pure-u-md-1-3
       .pages
         %br
@@ -47,6 +47,27 @@
               %td.cell= page.title
               %td.cell= link_to page.url, page.url
               %td.cell= link_to 'andere Seite', "/overviews?page_id=nil#cms", 'class': 'pure-button'
+      %br
+      = form_for @page do |f|
+        - if @page.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@page.errors.count, "error")} Es wurde das Speichern verhindert."
+            %ul
+              - @page.errors.full_messages.each do |msg|
+                %li= msg
+
+        .field
+          = f.label :title
+          = f.text_field :title, class: "page_title"
+        .field
+          = f.label :path
+          = f.text_field :path, class: "page_path"
+        .field
+          = f.label :template_element_id
+          = TemplateElement.render_dropdown("page", "template_element_id", f.object.template_element&.title)
+        .actions
+          = f.submit 'Save'
+
 
     %br
   - if current_user.is_admin?

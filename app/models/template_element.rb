@@ -113,9 +113,9 @@ class TemplateElement < ActiveRecord::Base
     end
 
     if is_selected
-      html_result = "<select id=\"#{element}_#{property}\" name=\"#{element}[#{property}]\"><option value=\"nil\">Standard</option>#{html_result}"
+      html_result = "<select id=\"#{element}_#{property}\" name=\"#{element}[#{property}]\"><option value=\"nil\">kein Layout</option>#{html_result}"
     else
-      html_result = "<select id=\"#{element}_#{property}\" name=\"#{element}[#{property}]\"><option value=\"nil\" selected>Standard</option>#{html_result}"
+      html_result = "<select id=\"#{element}_#{property}\" name=\"#{element}[#{property}]\"><option value=\"nil\" selected>kein Layout</option>#{html_result}"
     end
     html_result = "#{html_result}</select>"
     html_result.html_safe
