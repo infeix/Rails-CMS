@@ -33,5 +33,6 @@
     = f.text_area :text, rows: 9, cols: 100, class: "edit_template"
 
   .actions
-    = f.submit 'Make A Copy', formaction: copy_textelement_path(f.object.id)
+    - if @textelement.id
+      = f.submit 'Make A Copy', formaction: copy_textelement_path(f.object.id)
     = f.submit 'Save'
