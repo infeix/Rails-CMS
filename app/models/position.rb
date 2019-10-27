@@ -10,7 +10,12 @@ class Position < ActiveRecord::Base
 
   def self.render_dropdown(element, property, selected)
     html_result = "<select id=\"#{element}_#{property}\" name=\"#{element}[#{property}]\">"
-    Position.sort_by_name.each do |position|
+    if selected.eql? 'no_position'
+      html_result = "#{html_result}<option selected>no_position</option>"
+    else
+      html_result = "#{html_result}<option>no_position</option>"
+    end
+    Position.where.not(name: 'no_position').sort_by_name.each do |position|
       if selected.eql? position.name
         html_result = "#{html_result}<option selected>#{position.name}</option>"
       else

@@ -8,6 +8,7 @@ class TemplateElement < ActiveRecord::Base
   has_many :html_parts, -> { sort_by_index }, dependent: :destroy
   has_many :css_parts, -> { sort_by_index }, dependent: :destroy
   scope :sort_by_id, ->() { order(:id) }
+  scope :sort_by_title, ->() { order(:title) }
 
   accepts_nested_attributes_for :html_parts
   accepts_nested_attributes_for :css_parts
@@ -102,7 +103,7 @@ class TemplateElement < ActiveRecord::Base
   def self.render_dropdown(element, property, selected)
     html_result = ""
     is_selected = false
-    TemplateElement.all.each do |template|
+    TemplateElement.sort_by_title.each do |template|
       next if template&.title.blank?
       if selected && selected.eql?(template.title)
         html_result = "#{html_result}<option  value=\"#{template.id}\" selected>#{template.title}</option>"
