@@ -25,6 +25,8 @@ class OverviewsController < ApplicationController
       @textelements = Textelement.includes(:pages).where(pages: {id: @page.id}).sort_by_index
       @urlelements = Urlelement.includes(:pages).where(pages: {id: @page.id}).sort_by_index
       @pdf_files = PdfFile.includes(:pages).where(pages: {id: @page.id}).sort_by_index
+      @css_files = CssFile.includes(:pages).where(pages: {id: @page.id}).sort_by_index
+      @js_files = JsFile.includes(:pages).where(pages: {id: @page.id}).sort_by_index
       @templates = TemplateElement.where(id: @page.template_element_id)
     else
       page = Page.editingPage
@@ -39,6 +41,8 @@ class OverviewsController < ApplicationController
       @textelements = Textelement.all.sort_by_index
       @urlelements = Urlelement.all.sort_by_index
       @pdf_files = PdfFile.all.sort_by_index
+      @css_files = CssFile.all.sort_by_index
+      @js_files = JsFile.all.sort_by_index
     end
     @html_parts = HtmlPart.all.sort_by_index
     @css_parts = CssPart.all.sort_by_index

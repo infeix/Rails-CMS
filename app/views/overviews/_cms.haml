@@ -7,6 +7,8 @@
 - textelements = local_assigns.fetch(:textelements)
 - urlelements = local_assigns.fetch(:urlelements)
 - pdf_files = local_assigns.fetch(:pdf_files)
+- css_files = local_assigns.fetch(:css_files)
+- js_files = local_assigns.fetch(:js_files)
 - templates = local_assigns.fetch(:templates)
 - html_parts = local_assigns.fetch(:html_parts)
 - css_parts = local_assigns.fetch(:css_parts)
@@ -246,7 +248,8 @@
 
           = link_to 'Neues Bild', new_picture_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-picture-button'
 
-        .pure-u-1.pure-u-md-1-2.videoelements
+          %br
+
           %h1 Videos
 
           %table
@@ -269,7 +272,8 @@
 
           = link_to 'Neues Video', new_videoelement_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-videoelement-button'
 
-        .pure-u-1.pure-u-md-1-2.urlelements
+          %br
+
           %h1 Links
 
           %table
@@ -293,7 +297,9 @@
           %br
 
           = link_to 'Neuen Link', new_urlelement_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-urlelement-button'
-        .pure-u-1.pure-u-md-1-2.pdf_files
+
+          %br
+
           %h1 Pdf Files
 
           %table
@@ -317,6 +323,58 @@
           %br
 
           = link_to 'Neues Pdf File', new_pdf_file_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-pdf-file-button'
+
+          %br
+
+          %h1 Css Files
+
+          %table
+            %thead
+              %tr
+                %th Title
+                %th Index
+                %th
+                %th
+                %th
+
+            %tbody
+              - css_files.each do |css_file|
+                %tr
+                  %td.cell= css_file.title
+                  %td.cell= css_file.index
+                  %td.cell= link_to 'Show', css_file_path(css_file), 'class': 'pure-button'
+                  %td.cell= link_to 'Edit', edit_css_file_path(css_file), 'class': 'pure-button'
+                  %td.cell= link_to 'Destroy', css_file_path(css_file), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+          %br
+
+          = link_to 'Neues Css File', new_css_file_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-css-file-button'
+
+          %br
+
+          %h1 Js Files
+
+          %table
+            %thead
+              %tr
+                %th Title
+                %th Index
+                %th
+                %th
+                %th
+
+            %tbody
+              - js_files.each do |js_file|
+                %tr
+                  %td.cell= js_file.title
+                  %td.cell= js_file.index
+                  %td.cell= link_to 'Show', js_file_path(js_file), 'class': 'pure-button'
+                  %td.cell= link_to 'Edit', edit_js_file_path(js_file), 'class': 'pure-button'
+                  %td.cell= link_to 'Destroy', js_file_path(js_file), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+          %br
+
+          = link_to 'Neues Js File', new_js_file_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-js-file-button'
 
 
     .pure-u-1.pure-u-md-1.positions

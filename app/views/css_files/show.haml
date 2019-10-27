@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @css_file.title
+%p
+  %b Page id:
+  = @css_file.page_id
+%p
+  %b Text:
+  = @css_file.text
+%p
+  %b Position:
+  = @css_file.position
+%p
+  %b Code:
+  = @css_file.code
+
+= link_to 'Edit', edit_css_file_path(@css_file)
+\|
+= link_to 'Back', overviews_path

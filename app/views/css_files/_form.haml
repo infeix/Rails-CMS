@@ -1,0 +1,45 @@
+= form_for [@css_file] do |f|
+  - if @css_file.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@css_file.errors.count, "error")} prohibited this css_file from being saved:"
+      %ul
+        - @css_file.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :position
+    = Position.render_dropdown("css_file", "position", f.object.position)
+  .field
+    = f.label :page_id
+    - Page.all.each do |page|
+      %br
+      = "#{page.title} (#{page.id})"
+      - if f.object.page_ids.include? page.id
+        = check_box "css_file", "page_ids", { multiple: true, checked: true }, page.id, nil
+      - else
+        = check_box "css_file", "page_ids", { multiple: true, checked: false }, page.id, nil
+  .field
+    = f.label :index
+    = f.text_field :index
+  .field
+    = f.label :text
+    = f.text_area :text, rows: 5, cols: 100, class: "edit_template"
+  .field
+    = f.label :data_text
+    = f.text_area :data_text, rows: 5, cols: 100, class: "edit_template"
+  .field
+    = f.label :css
+    = f.file_field :css
+
+    - if @css_file.css_file?
+      = @css_file.css_file.url
+
+      = label_tag :remove_css do
+        Remove CSS
+        = f.check_box :remove_css
+
+  .actions
+    = f.submit 'Save'

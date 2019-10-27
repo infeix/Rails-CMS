@@ -4,6 +4,8 @@ class ContentPart < ActiveRecord::Base
   mount_uploader :image, ImageUploader
   mount_uploader :video, VideoUploader
   mount_uploader :pdf, PdfUploader
+  mount_uploader :css_file, CssFileUploader
+  mount_uploader :js_file, JsFileUploader
 
   belongs_to :template_element, optional: true
   has_and_belongs_to_many :pages, optional: true

@@ -25,6 +25,8 @@ Rails.application.routes.draw do
   end
   resources :urlelements, controller: 'urlelements'
   resources :pdf_files, controller: 'pdf_files'
+  resources :css_files, controller: 'css_files'
+  resources :js_files, controller: 'js_files'
   resources :positions, controller: 'positions', only: [:new, :destroy]
   resources :overviews, only: [:index]
   resources :transactions
