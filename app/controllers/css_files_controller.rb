@@ -24,12 +24,10 @@ class CssFilesController < ApplicationController
   def create
     @css_file = CssFile.new(css_file_params)
 
-    respond_to do |format|
-      if @css_file.save
-        format.html { redirect_to overviews_path, notice: 'CssFile was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    if @css_file.save
+      redirect_to overviews_path, notice: 'CssFile was successfully created.'
+    else
+      render :new
     end
   end
 
@@ -69,8 +67,8 @@ class CssFilesController < ApplicationController
       :position,
       :index,
       :template_element_id,
-      :css,
-      :remove_css,
+      :css_file,
+      :remove_css_file,
       :video,
       :data_text,
       :remove_video,
