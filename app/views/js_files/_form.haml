@@ -37,8 +37,8 @@
     = f.label :js_file
     = f.file_field :js_file
 
-    - if @js_file.js_file?
-      = @js_file.render
+    - if @css_file.js_file?
+      = @css_file.js_file.url
 
       = label_tag :remove_js_file do
         Remove Js File

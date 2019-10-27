@@ -31,8 +31,8 @@
     = f.label :data_text
     = f.text_area :data_text, rows: 5, cols: 100, class: "edit_template"
   .field
-    = f.label :css
-    = f.file_field :css
+    = f.label :css_file
+    = f.file_field :css_file
 
     - if @css_file.css_file?
       = @css_file.css_file.url
