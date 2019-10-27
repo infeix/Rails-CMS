@@ -18,7 +18,7 @@ class Page < ActiveRecord::Base
   def render_head
     rendered = "<!DOCTYPE html><html lang=\"de\"><head>"
     if template_element.present?
-      rendered += template_element.render_head(textelements)
+      rendered += template_element.render_head(content_parts)
     end
     "#{rendered}</head>"
   end

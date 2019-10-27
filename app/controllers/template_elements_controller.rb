@@ -31,12 +31,10 @@ class TemplateElementsController < ApplicationController
   def create
     @template = TemplateElement.new(template_element_params)
 
-    respond_to do |format|
-      if @template.save
-        format.html { redirect_to overviews_path, notice: 'Template was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    if @template.save
+      redirect_to overviews_path, notice: 'Template was successfully created.'
+    else
+      render :new
     end
   end
 
