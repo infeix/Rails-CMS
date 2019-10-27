@@ -13,9 +13,6 @@
     = f.label :position
     = Position.render_dropdown("js_file", "position", f.object.position)
   .field
-    = f.label :template_element_id
-    = TemplateElement.render_dropdown("js_file", "template_element_id", f.object.template_element&.title)
-  .field
     = f.label :page_id
     - Page.all.each do |page|
       %br
@@ -37,8 +34,9 @@
     = f.label :js_file
     = f.file_field :js_file
 
-    - if @css_file.js_file?
-      = @css_file.js_file.url
+    - if @js_file.js_file?
+      = "<a href=\"#{@js_file.js_file.url}\">#{@js_file.js_file.url}</a>".html_safe
+
 
       = label_tag :remove_js_file do
         Remove Js File

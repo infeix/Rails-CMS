@@ -7,14 +7,14 @@ class JsFilesController < ApplicationController
   before_action :set_js_file, only: [:show, :edit, :update, :destroy]
 
   def index
-    @js_files = CssFile.all
+    @js_files = JsFile.all
   end
 
   def show
   end
 
   def new
-    @js_file = CssFile.new
+    @js_file = JsFile.new
     find_page
   end
 
@@ -22,11 +22,11 @@ class JsFilesController < ApplicationController
   end
 
   def create
-    @js_file = CssFile.new(js_file_params)
+    @js_file = JsFile.new(js_file_params)
 
     respond_to do |format|
       if @js_file.save
-        format.html { redirect_to overviews_path, notice: 'CssFile was successfully created.' }
+        format.html { redirect_to overviews_path, notice: 'JsFile was successfully created.' }
       else
         format.html { render :new }
       end
@@ -35,7 +35,7 @@ class JsFilesController < ApplicationController
 
   def update
     if @js_file.update(js_file_params)
-      redirect_to overviews_path, notice: 'CssFile was successfully updated.'
+      redirect_to overviews_path, notice: 'JsFile was successfully updated.'
     else
       render :edit
     end
@@ -44,7 +44,7 @@ class JsFilesController < ApplicationController
   def destroy
     @js_file.destroy
     respond_to do |format|
-      format.html { redirect_to overviews_path, notice: 'CssFile was successfully destroyed.' }
+      format.html { redirect_to overviews_path, notice: 'JsFile was successfully destroyed.' }
     end
   end
 
@@ -58,7 +58,7 @@ class JsFilesController < ApplicationController
   end
 
   def set_js_file
-    @js_file = CssFile.find(params[:id])
+    @js_file = JsFile.find(params[:id])
   end
 
   def js_file_params
@@ -77,14 +77,6 @@ class JsFilesController < ApplicationController
       :page_ids => []).tap do |param|
         if param[:page_ids].blank?
           param[:page_ids] = []
-        end
-        if param[:template_element_id].blank? || param[:template_element_id].eql?("nil")
-          template = param[:position].blank? ? nil : TemplateElement.where(title: param[:position]).first
-          if template
-            param[:template_element_id] = template.id
-          else
-            param.delete(:template_element_id)
-          end
         end
       end
   end

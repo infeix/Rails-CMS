@@ -35,11 +35,11 @@
     = f.file_field :css_file
 
     - if @css_file.css_file?
-      = @css_file.css_file.url
+      = "<a href=\"#{@css_file.css_file.url}\">#{@css_file.css_file.url}</a>".html_safe
 
-      = label_tag :remove_css do
+      = label_tag :remove_css_file do
         Remove CSS
-        = f.check_box :remove_css
+        = f.check_box :remove_css_file
 
   .actions
     = f.submit 'Save'

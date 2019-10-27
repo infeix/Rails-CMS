@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190920152400) do
+ActiveRecord::Schema.define(version: 20191027085201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,8 @@ ActiveRecord::Schema.define(version: 20190920152400) do
     t.string "pdf"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "css_file"
+    t.string "js_file"
   end
 
   create_table "content_parts_pages", id: false, force: :cascade do |t|
