@@ -24,17 +24,22 @@ class JsFilesController < ApplicationController
   def create
     @js_file = JsFile.new(js_file_params)
 
-    respond_to do |format|
-      if @js_file.save
-        format.html { redirect_to overviews_path, notice: 'JsFile was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    if @js_file.save
+      @js_file.read_data
+      redirect_to overviews_path, notice: 'JsFile was successfully created.'
+    else
+      render :new
     end
   end
 
   def update
     if @js_file.update(js_file_params)
+      if js_file_params['js_file'].present?
+        @js_file.read_data
+      else
+        @js_file.write_data
+      end
+
       redirect_to overviews_path, notice: 'JsFile was successfully updated.'
     else
       render :edit

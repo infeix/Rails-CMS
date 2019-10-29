@@ -25,6 +25,7 @@ class CssFilesController < ApplicationController
     @css_file = CssFile.new(css_file_params)
 
     if @css_file.save
+      @css_file.read_data
       redirect_to overviews_path, notice: 'CssFile was successfully created.'
     else
       render :new
@@ -33,6 +34,11 @@ class CssFilesController < ApplicationController
 
   def update
     if @css_file.update(css_file_params)
+      if css_file_params['css_file'].present?
+        @css_file.read_data
+      else
+        @css_file.write_data
+      end
       redirect_to overviews_path, notice: 'CssFile was successfully updated.'
     else
       render :edit
