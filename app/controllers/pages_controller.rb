@@ -97,11 +97,6 @@ class PagesController < ApplicationController
       :path,
       :template_element_id,
       :code,
-      :edit_filter,
-      :content_part_ids => []).tap do |param|
-      if param[:content_part_ids].blank?
-        param[:content_part_ids] = []
-      end
-    end
+      :edit_filter)
   end
 end

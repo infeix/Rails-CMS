@@ -15,21 +15,22 @@
   .field
     = f.label :template_element_id
     = f.text_field :template_element_id, class: "page_template_element_id"
-  .field
-    = f.label :content_parts
-    - ContentPart.all.each do |content_part|
-      %br
-      = "#{content_part.title} (#{content_part.id})"
-      - if f.object.content_part_ids.include? content_part.id
-        = check_box "page", "content_part_ids", { multiple: true, checked: true }, content_part.id, nil
-      - else
-        = check_box "page", "content_part_ids", { multiple: true, checked: false }, content_part.id, nil
-  .field
-    = f.label :edit_filter
-    = f.text_field :edit_filter, class: "edit_filter"
-  .field
-    = f.label :text
-    = f.text_area :text, rows: 9, class: "edit_template page_text"
+  - if false
+    .field
+      = f.label :content_parts
+      - ContentPart.all.each do |content_part|
+        %br
+        = "#{content_part.title} (#{content_part.id})"
+        - if f.object.content_part_ids.include? content_part.id
+          = check_box "page", "content_part_ids", { multiple: true, checked: true }, content_part.id, nil
+        - else
+          = check_box "page", "content_part_ids", { multiple: true, checked: false }, content_part.id, nil
+    .field
+      = f.label :edit_filter
+      = f.text_field :edit_filter, class: "edit_filter"
+    .field
+      = f.label :text
+      = f.text_area :text, rows: 9, class: "edit_template page_text"
   .actions
     = f.submit 'Make A Copy', formaction: copy_page_path(f.object.id)
     = f.submit 'Save'
