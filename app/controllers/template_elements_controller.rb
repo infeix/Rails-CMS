@@ -42,6 +42,7 @@ class TemplateElementsController < ApplicationController
   # PATCH/PUT /templates/1.json
   def update
     if @template.update(template_element_params)
+      @template.reload if @template.remove_empty_css
       render :edit, notice: 'Template was successfully updated.'
     else
       render :edit
@@ -66,6 +67,10 @@ class TemplateElementsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def template_element_params
-      params.require(:template_element).permit(:title, :meta, html_parts_attributes: [:id, :index, :text, :is_last], css_parts_attributes: [:id, :index, :text])
+      params.require(:template_element).permit(
+        :title,
+        :meta,
+        html_parts_attributes: [:id, :index, :text, :is_last],
+        css_parts_attributes: [:id, :index, :text])
     end
 end

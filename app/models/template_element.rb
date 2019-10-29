@@ -47,6 +47,17 @@ class TemplateElement < ActiveRecord::Base
     html
   end
 
+  def remove_empty_css
+    deleted = false
+    css_parts.each do |css|
+      if css.text.blank?
+        css.destroy
+        deleted = true
+      end
+    end
+    deleted
+  end
+
   def render(text_parts = [], parts = [])
     html = ''
     html_parts.each do |part|
