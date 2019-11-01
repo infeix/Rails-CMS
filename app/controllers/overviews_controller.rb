@@ -6,44 +6,53 @@ class OverviewsController < ApplicationController
 
   def index
     year = params[:year]
-    page = params[:page_id] || Page.editingPage&.id
+    page = params[:page_id] || Page.currentEditingOne&.id
     page = nil if page.eql?('nil')
+    content_part_id = params[:content_part_id] || ContentPart.currentEditingOne&.id
+    content_part_id = nil if content_part_id.eql?('nil')
 
     @pages = Page.all.sort_by_id
     if(page)
-      current_edit_page = Page.editingPage
+      current_edit_page = Page.currentEditingOne
       unless current_edit_page.nil?
         current_edit_page.edit_filter = 0
         current_edit_page.save
       end
+
       @page = Page.find_by(id: page)
       @page.edit_filter = 1
       @page.save
-      @articles = Article.where(page: @page).sort_by_index
-      @pictures = Picture.includes(:pages).where(pages: {id: @page.id}).sort_by_index
-      @videoelements = Videoelement.includes(:pages).where(pages: {id: @page.id}).sort_by_index
-      @textelements = Textelement.includes(:pages).where(pages: {id: @page.id}).sort_by_index
-      @urlelements = Urlelement.includes(:pages).where(pages: {id: @page.id}).sort_by_index
-      @pdf_files = PdfFile.includes(:pages).where(pages: {id: @page.id}).sort_by_index
-      @css_files = CssFile.includes(:pages).where(pages: {id: @page.id}).sort_by_index
-      @js_files = JsFile.includes(:pages).where(pages: {id: @page.id}).sort_by_index
-      @templates = TemplateElement.where(id: @page.template_element_id)
+
+      if(content_part_id)
+        @content_part = ContentPart.find_by(id: content_part_id)
+        @content_part.edit_filter = 1
+        @content_part.save
+        @content_parts = ContentPart.where(id: @content_part.id)
+      else
+        @content_part = ContentPart.currentEditingOne
+        unless @content_part.nil?
+          @content_part.edit_filter = 0
+          @content_part.save
+        end
+        @content_parts = ContentPart.includes(:pages).where(pages: {id: @page.id})
+      end
+      @templates = TemplateElement.where(id: @page.template_element_id).sort_by_id
     else
-      page = Page.editingPage
+      page = Page.currentEditingOne
       unless page.nil?
         page.edit_filter = 0
         page.save
       end
+
+      @content_part = ContentPart.currentEditingOne
+      unless @content_part.nil?
+        @content_part.edit_filter = 0
+        @content_part.save
+      end
+      @content_parts = ContentPart.all
       @templates = TemplateElement.all.sort_by_id
-      @articles = Article.all.sort_by_index
-      @pictures = Picture.all.sort_by_index
-      @videoelements = Videoelement.all.sort_by_index
-      @textelements = Textelement.all.sort_by_index
-      @urlelements = Urlelement.all.sort_by_index
-      @pdf_files = PdfFile.all.sort_by_index
-      @css_files = CssFile.all.sort_by_index
-      @js_files = JsFile.all.sort_by_index
     end
+
     @html_parts = HtmlPart.all.sort_by_index
     @css_parts = CssPart.all.sort_by_index
     @messages = Message.all

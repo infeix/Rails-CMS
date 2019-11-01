@@ -28,4 +28,8 @@ class ContentPart < ActiveRecord::Base
   def to_s
     text
   end
+
+  def self.currentEditingOne
+    ContentPart.where(edit_filter: 1).first
+  end
 end

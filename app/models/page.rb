@@ -62,7 +62,7 @@ class Page < ActiveRecord::Base
     path
   end
 
-  def self.editingPage
+  def self.currentEditingOne
     Page.where(edit_filter: 1).first
   end
 

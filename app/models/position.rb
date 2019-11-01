@@ -5,7 +5,35 @@ class Position < ActiveRecord::Base
   validates :name, uniqueness: true
   scope :sort_by_name, ->() { order(:name) }
 
-  def usage_count
+  def to_s
+    name
+  end
+
+  def self.create_positions(text)
+    Position.parse_positions(text).each do |position_name|
+      Position.find_or_create_by(name: position_name)
+    end
+  end
+
+  def self.filter_positions(positions = [], roll = nil)
+    return positions unless roll
+    return positions unless roll.eql? :agent
+    allowed_positions = []
+    positions.each do |position|
+      allowed_positions.push position unless position.include? "admin:"
+    end
+    allowed_positions
+  end
+
+  def self.parse_positions(text, positions = [])
+    return [] unless text&.include? '{{'
+    text_parts = text.split('{{').drop(1)
+    text_parts.each do |text_part|
+      next unless text_part.include? '}}'
+      position_name = text_part.split('}}').first
+      positions.push position_name
+    end
+    positions
   end
 
   def self.render_dropdown(element, property, selected)
@@ -24,19 +52,5 @@ class Position < ActiveRecord::Base
     end
     html_result = "#{html_result}</select>"
     html_result.html_safe
-  end
-
-  def self.create_positions(text)
-    return unless text&.include? '{{'
-    text_parts = text.split('{{').drop(1)
-    text_parts.each do |text_part|
-      next unless text_part.include? '}}'
-      position_name = text_part.split('}}').first
-      Position.find_or_create_by(name: position_name)
-    end
-  end
-
-  def to_s
-    name
   end
 end

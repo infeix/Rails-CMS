@@ -15,12 +15,42 @@ class TemplateElement < ActiveRecord::Base
 
   after_save :create_positions
 
+  def clear_blank_position(position, render_value = "")
+    return nil unless position
+    replace_pattern = "{{#{position}}}"
+
+    if render_value.include? replace_pattern
+      render_value = render_value.gsub(replace_pattern, '')
+      return render_value
+    end
+
+    render_value
+  end
+
   def create_positions
     Position.create_positions meta
   end
 
   def last_html_part
     html_parts.find_by is_last: true
+  end
+
+  def last_index_of(kind)
+    if kind.equal? :html_part
+      html_parts&.last&.index || 1
+    else
+      css_parts&.last&.index || 1
+    end
+  end
+
+  def positions(roll = nil)
+    positions = []
+    Position.parse_positions meta, positions
+    html_parts.each do |html_part|
+      Position.parse_positions html_part.to_s, positions
+    end
+    positions = Position.filter_positions positions, roll unless roll.nil?
+    positions
   end
 
   def render_head(parts = [])
@@ -91,25 +121,6 @@ class TemplateElement < ActiveRecord::Base
     render_value
   end
 
-  def clear_blank_position(position, render_value = "")
-    return nil unless position
-    replace_pattern = "{{#{position}}}"
-
-    if render_value.include? replace_pattern
-      render_value = render_value.gsub(replace_pattern, '')
-      return render_value
-    end
-
-    render_value
-  end
-
-  def last_index_of(kind)
-    if kind.equal? :html_part
-      html_parts&.last&.index || 1
-    else
-      css_parts&.last&.index || 1
-    end
-  end
 
   def self.render_dropdown(element, property, selected)
     html_result = ""
