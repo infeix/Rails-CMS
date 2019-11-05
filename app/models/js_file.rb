@@ -3,7 +3,7 @@
 class JsFile < ContentPart
   def file_data
     temp_data = ''
-    File.open(css_file.current_path, 'r') do |f|
+    File.open(js_file.current_path, 'r') do |f|
       while line = f.gets
         temp_data += line
       end
