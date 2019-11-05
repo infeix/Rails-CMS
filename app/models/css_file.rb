@@ -12,7 +12,7 @@ class CssFile < ContentPart
   end
 
   def read_data
-    self.data_text = temp_data
+    self.data_text = file_data
     save
   end
 
