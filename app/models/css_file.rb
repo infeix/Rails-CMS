@@ -1,13 +1,18 @@
 # frozen_string_literal: true
 
 class CssFile < ContentPart
-  def read_data
-    self.data_text = ''
+  def file_data
+    temp_data = ''
     File.open(css_file.current_path, 'r') do |f|
       while line = f.gets
-        self.data_text += line
+        temp_data += line
       end
     end
+    temp_data
+  end
+
+  def read_data
+    self.data_text = temp_data
     save
   end
 

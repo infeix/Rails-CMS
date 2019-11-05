@@ -11,6 +11,7 @@ class CssFilesController < ApplicationController
   end
 
   def show
+    @css_file.read_data unless @css_file.data_text.eql? @css_file.file_data
   end
 
   def new
@@ -19,6 +20,7 @@ class CssFilesController < ApplicationController
   end
 
   def edit
+    @css_file.read_data unless @css_file.data_text.eql? @css_file.file_data
   end
 
   def create

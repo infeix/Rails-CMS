@@ -11,6 +11,7 @@ class JsFilesController < ApplicationController
   end
 
   def show
+    @js_file.read_data unless @js_file.data_text.eql? @js_file.file_data
   end
 
   def new
@@ -19,6 +20,7 @@ class JsFilesController < ApplicationController
   end
 
   def edit
+    @js_file.read_data unless @js_file.data_text.eql? @js_file.file_data
   end
 
   def create
