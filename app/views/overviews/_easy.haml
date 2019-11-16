@@ -1,0 +1,96 @@
+- pages = local_assigns.fetch(:pages)
+- edit_page = local_assigns.fetch(:page)
+- content_parts = local_assigns.fetch(:content_parts)
+- edit_content_part = local_assigns.fetch(:content_part)
+
+- # Pages
+- unless Page.currentEditingOne
+
+  - # select Page
+  .pure-u-1.messages
+    %h1 Welche Seite willst du bearbeiten?
+    .pure-u-1.pure-u-md-1-3
+      .pages
+        %table
+          %thead
+            %tr
+              %th.cell ID
+              %th.cell Title
+              %th.cell Pfad
+              %th.cell
+
+          %tbody
+            - pages.each do |page|
+              - filtered_page = if page.edit_filter == 1 then "filtered-element" else "" end
+              %tr{ class: filtered_page}
+                %td.cell= page.id
+                %td.cell= page.title
+                %td.cell= link_to page.url, page.url
+                %td.cell= link_to 'wählen', "/overviews?page_id=#{page.id}#cms", 'class': 'pure-button'
+- else
+
+  - # edit selected Page
+  .pure-u-1.pure-u-md-1-3
+    .pages
+      %br
+      %h1 Seite:
+      %table
+        %tbody
+          - filtered_page = if edit_page.edit_filter == 1 then "filtered-element" else "" end
+          %tr{ class: filtered_page}
+            %td.cell= edit_page.title
+            %td.cell= link_to edit_page.url, edit_page.url
+            %td.cell= link_to 'andere Seite', "/overviews?page_id=nil#cms", 'class': 'pure-button'
+    %br
+    = form_for edit_page do |f|
+      - if edit_page.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(edit_page.errors.count, "error")} Es wurde das Speichern verhindert."
+          %ul
+            - edit_page.errors.full_messages.each do |msg|
+              %li= msg
+
+      .field
+        = f.label :title
+        = f.text_field :title, class: "page_title"
+      .field
+        = f.label :path
+        = f.text_field :path, class: "page_path"
+      .field
+        = f.label :template_element_id
+        = TemplateElement.render_dropdown("page", "template_element_id", f.object.template_element&.title)
+      .actions
+        = f.submit 'Save'
+
+  - # Content Parts
+  .pure-u-1.pure-u-md-2-3
+    - if edit_content_part&.edit_filter == 1
+      %h1 Inhalt:
+    - else
+      %h1 Welchen Inhalt willst du bearbeiten?
+    .pure-g
+      - content_positions = if edit_page.template_element then edit_page.template_element.positions(:agent) else [] end
+      - rendered_content_positions = []
+      - content_positions.each do |position_name|
+        - next if edit_content_part&.edit_filter == 1 && !edit_content_part.position.eql?(position_name)
+        - next if rendered_content_positions.include? position_name
+        - rendered_content_positions.push position_name
+        - if content_parts.where(position: position_name).any?
+          .pure-u-1.pure-u-md-1-2
+            .field
+              %h2
+                %u= "#{position_name}:"
+            %table
+              %tbody
+                - content_parts.where(position: position_name).sort_by_index.each do |content_part|
+                  - if content_part.position.eql?(position_name) || content_part.title.eql?(position_name)
+                    - filtered_content_part = if edit_content_part&.edit_filter == 1 then "filtered-element" else "" end
+                    %tr{ class: filtered_content_part}
+                      %td.cell= content_part.title
+                      - if filtered_content_part.blank?
+                        %td.cell= link_to 'wählen', "/overviews?content_part_id=#{content_part.id}#cms", 'class': 'pure-button'
+                      - else
+                        %td.cell= link_to 'anderen Inhalt wählen', "/overviews?content_part_id=nil#cms", 'class': 'pure-button'
+            %br
+            - if edit_content_part&.edit_filter == 1
+              = render 'content_part_form'
