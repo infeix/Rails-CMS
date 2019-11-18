@@ -7,7 +7,7 @@ class PagePart < ActiveRecord::Base
   after_save :create_positions
 
   def create_positions
-    Position.create_positions to_s
+    Position.create_positions to_s, page_part: self
   end
 
   def to_s

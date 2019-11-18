@@ -69,9 +69,40 @@
     - else
       %h1 Welchen Inhalt willst du bearbeiten?
     .pure-g
-      - content_positions = if edit_page.template_element then edit_page.template_element.positions(:agent) else [] end
+      - content_positions = if edit_page.template_element then edit_page.template_element.positions else [] end
       - rendered_content_positions = []
+      - next_content_positions = []
       - content_positions.each do |position_name|
+        - next if rendered_content_positions.include? position_name
+        - content_parts.where(position: position_name).sort_by_index.each do |content_part|
+          - next_content_positions += content_part.children.pluck(:position)
+
+        - next if edit_content_part&.edit_filter == 1 && !edit_content_part.position.eql?(position_name)
+        - next if position_name.include? "admin:"
+        - rendered_content_positions.push position_name
+        - if content_parts.where(position: position_name).any?
+          .pure-u-1.pure-u-md-1-2
+            .field
+              %h2
+                %u= "#{position_name}:"
+            %table
+              %tbody
+                - content_parts.where(position: position_name).sort_by_index.each do |content_part|
+                  - next_content_positions += content_part.children.pluck(:position)
+                  - next if edit_content_part&.edit_filter == 1 && content_part&.edit_filter != 1
+                  - if content_part.position.eql?(position_name)
+                    - filtered_content_part = if edit_content_part&.edit_filter == 1 then "filtered-element" else "" end
+                    %tr{ class: filtered_content_part}
+                      %td.cell= content_part.title
+                      - if filtered_content_part.blank?
+                        %td.cell= link_to 'wählen', "/overviews?content_part_id=#{content_part.id}#cms", 'class': 'pure-button'
+                      - else
+                        %td.cell= link_to 'anderen Inhalt wählen', "/overviews?content_part_id=nil#cms", 'class': 'pure-button'
+            %br
+            - if edit_content_part&.edit_filter == 1
+              = render partial: 'content_part_form'
+      - next_content_positions.uniq!
+      - next_content_positions.each do |position_name|
         - next if edit_content_part&.edit_filter == 1 && !edit_content_part.position.eql?(position_name)
         - next if rendered_content_positions.include? position_name
         - rendered_content_positions.push position_name
@@ -83,7 +114,8 @@
             %table
               %tbody
                 - content_parts.where(position: position_name).sort_by_index.each do |content_part|
-                  - if content_part.position.eql?(position_name) || content_part.title.eql?(position_name)
+                  - next if content_part&.edit_filter == 1 && !content_part.id.eql?(edit_content_part&.id)
+                  - if content_part.position.eql?(position_name)
                     - filtered_content_part = if edit_content_part&.edit_filter == 1 then "filtered-element" else "" end
                     %tr{ class: filtered_content_part}
                       %td.cell= content_part.title
@@ -93,4 +125,4 @@
                         %td.cell= link_to 'anderen Inhalt wählen', "/overviews?content_part_id=nil#cms", 'class': 'pure-button'
             %br
             - if edit_content_part&.edit_filter == 1
-              = render 'content_part_form'
+              = render partial: 'content_part_form'

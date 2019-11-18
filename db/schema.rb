@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191118085800) do
+ActiveRecord::Schema.define(version: 20191118185300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,15 @@ ActiveRecord::Schema.define(version: 20191118085800) do
     t.string "tax_nr"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "content_part_pages", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "page_id"
+    t.bigint "content_part_id"
+    t.index ["content_part_id"], name: "index_content_part_pages_on_content_part_id"
+    t.index ["page_id"], name: "index_content_part_pages_on_page_id"
   end
 
   create_table "content_parts", id: :serial, force: :cascade do |t|
@@ -131,10 +140,16 @@ ActiveRecord::Schema.define(version: 20191118085800) do
     t.index ["template_element_id"], name: "index_pages_on_template_element_id"
   end
 
-  create_table "positions", id: :serial, force: :cascade do |t|
+  create_table "positions", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "content_part_id"
+    t.bigint "page_part_id"
+    t.bigint "template_element_id"
+    t.index ["content_part_id"], name: "index_positions_on_content_part_id"
+    t.index ["page_part_id"], name: "index_positions_on_page_part_id"
+    t.index ["template_element_id"], name: "index_positions_on_template_element_id"
   end
 
   create_table "services", id: :serial, force: :cascade do |t|
@@ -199,6 +214,8 @@ ActiveRecord::Schema.define(version: 20191118085800) do
 
   add_foreign_key "articles", "pages"
   add_foreign_key "articles", "template_elements"
+  add_foreign_key "content_part_pages", "content_parts"
+  add_foreign_key "content_part_pages", "pages"
   add_foreign_key "page_parts", "template_elements"
   add_foreign_key "pages", "template_elements"
   add_foreign_key "transactions", "accounts", column: "from_id"

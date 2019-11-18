@@ -28,7 +28,7 @@ class TemplateElement < ActiveRecord::Base
   end
 
   def create_positions
-    Position.create_positions meta
+    Position.create_positions meta, template_element: self
   end
 
   def last_html_part

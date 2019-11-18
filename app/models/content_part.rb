@@ -8,7 +8,8 @@ class ContentPart < ActiveRecord::Base
   mount_uploader :js_file, JsFileUploader
 
   belongs_to :template_element, optional: true
-  has_and_belongs_to_many :pages, optional: true
+  has_many :content_part_pages
+  has_many :pages,  through: :content_part_pages
   scope :sort_by_index, -> { order(index: :asc) }
 
   before_save :create_position
@@ -20,7 +21,14 @@ class ContentPart < ActiveRecord::Base
   end
 
   def create_positions
-    Position.create_positions to_s
+    count = Position.create_positions to_s, content_part: self
+    if count > 0
+      position = Position.find_by(name: self.position)
+      if position&.content_part
+        content_part = ContentPart.find_by(id: position.content_part_id)
+        content_part.save!
+      end
+    end
   end
 
   def collect_children
@@ -33,8 +41,9 @@ class ContentPart < ActiveRecord::Base
   end
 
   def children
+    return ContentPart.none if self.children_parts.blank?
     children_array = self.children_parts.split(';')
-    ContentPart.where("id IN (?)", children_array)
+    ContentPart.where("id IN (?)", children_array).sort_by_index
   end
 
   # def render

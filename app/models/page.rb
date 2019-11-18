@@ -3,7 +3,8 @@
 class Page < ActiveRecord::Base
   belongs_to :template_element, optional: true
   has_many :articles, -> { order(index: :asc) }, dependent: :nullify
-  has_and_belongs_to_many :content_parts, -> { order(index: :asc) }, optional: true
+  has_many :content_part_pages
+  has_many :content_parts,  through: :content_part_pages # , -> { order(index: :asc) }
   scope :sort_by_id, -> { order(id: :asc) }
   validates :path, presence: true
 

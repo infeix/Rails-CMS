@@ -12,7 +12,7 @@ class OverviewsController < ApplicationController
     content_part_id = nil if content_part_id.eql?('nil')
 
     @pages = Page.all.sort_by_id
-    if(page)
+    if page
       current_edit_page = Page.currentEditingOne
       unless current_edit_page.nil?
         current_edit_page.edit_filter = 0
@@ -23,11 +23,11 @@ class OverviewsController < ApplicationController
       @page.edit_filter = 1
       @page.save
 
-      if(content_part_id)
+      if content_part_id
         @content_part = ContentPart.find_by(id: content_part_id)
         @content_part.edit_filter = 1
         @content_part.save
-        @content_parts = ContentPart.where(id: @content_part.id)
+        @content_parts = ContentPart.includes(:pages).where(pages: {id: @page.id})
       else
         @content_part = ContentPart.currentEditingOne
         unless @content_part.nil?
@@ -49,7 +49,13 @@ class OverviewsController < ApplicationController
         @content_part.edit_filter = 0
         @content_part.save
       end
-      @content_parts = ContentPart.all
+
+      missing_page = params[:missing_page]
+      if missing_page.eql? "1"
+        @content_parts = ContentPart.includes(:pages).where(pages: {id: nil})
+      else
+        @content_parts = ContentPart.all
+      end
       @templates = TemplateElement.all.sort_by_id
     end
 

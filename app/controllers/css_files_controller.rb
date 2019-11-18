@@ -59,7 +59,7 @@ class CssFilesController < ApplicationController
   def find_page
     if params[:page_id].present?
       @page = Page.find_by!(id: params[:page_id])
-      @css_file.pages << @page
+      ContetnPartPage.create_or_find_by(page_id: @page.id, content_part_id: @css_file.id)
     end
   end
 
