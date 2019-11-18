@@ -12,6 +12,7 @@ class ContentPart < ActiveRecord::Base
   scope :sort_by_index, -> { order(index: :asc) }
 
   before_save :create_position
+  before_save :collect_children
   after_save :create_positions
 
   def create_position
@@ -20,6 +21,20 @@ class ContentPart < ActiveRecord::Base
 
   def create_positions
     Position.create_positions to_s
+  end
+
+  def collect_children
+    children = []
+    positions = Position.parse_positions to_s
+    positions.each do |position|
+      children += ContentPart.where(position: position).pluck(:id)
+    end
+    self.children_parts = children.join(';')
+  end
+
+  def children
+    children_array = self.children_parts.split(';')
+    ContentPart.where("id IN (?)", children_array)
   end
 
   # def render

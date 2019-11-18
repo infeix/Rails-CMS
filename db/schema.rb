@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191101111000) do
+ActiveRecord::Schema.define(version: 20191118085800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20191101111000) do
     t.string "css_file"
     t.string "js_file"
     t.integer "edit_filter"
+    t.string "children_parts"
   end
 
   create_table "content_parts_pages", id: false, force: :cascade do |t|

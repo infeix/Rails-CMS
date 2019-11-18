@@ -84,9 +84,6 @@ class TextelementsController < ApplicationController
       :data_text,
       :remove_video,
       :page_ids => []).tap do |param|
-        if param[:page_ids].blank?
-          param[:page_ids] = []
-        end
         if param[:template_element_id].blank? || param[:template_element_id].eql?("nil")
           param[:template_element_id] = nil
         end
