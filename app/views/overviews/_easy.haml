@@ -114,7 +114,7 @@
             %table
               %tbody
                 - content_parts.where(position: position_name).sort_by_index.each do |content_part|
-                  - next if content_part&.edit_filter == 1 && !content_part.id.eql?(edit_content_part&.id)
+                  - next if edit_content_part&.edit_filter == 1 && content_part&.edit_filter != 1
                   - if content_part.position.eql?(position_name)
                     - filtered_content_part = if edit_content_part&.edit_filter == 1 then "filtered-element" else "" end
                     %tr{ class: filtered_content_part}
