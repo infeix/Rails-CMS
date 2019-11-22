@@ -1,0 +1,40 @@
+- content_positions = local_assigns.fetch(:content_positions)
+- rendered_content_positions = local_assigns.fetch(:rendered_content_positions)
+- content_parts = local_assigns.fetch(:content_parts)
+- edit_content_part = local_assigns.fetch(:edit_content_part)
+
+- next_content_positions = []
+- content_positions.each do |position_name|
+  - rendering = true
+  - rendering = false if rendered_content_positions.include? position_name
+  - current_parts = content_parts.where(position: position_name).sort_by_index
+  - if current_parts.any?
+    - current_parts.each do |content_part|
+      - next_content_positions += content_part.children.pluck(:position)
+    - rendering = false if position_name.include? "admin"
+    - rendering = false if edit_content_part&.edit_filter == 1 && !edit_content_part.position.eql?(position_name)
+    - if rendering
+      - rendered_content_positions.push position_name
+      .pure-u-1.pure-u-md-1-2
+        .field
+          %h2
+            %u= "#{position_name}:"
+        %table
+          %tbody
+            - current_parts.each do |content_part|
+              - unless edit_content_part&.edit_filter == 1 && content_part&.edit_filter != 1
+                - filtered_content_part = if edit_content_part&.edit_filter == 1 then "filtered-element" else "" end
+                %tr{ class: filtered_content_part}
+                  %td.cell= content_part.title
+                  - if filtered_content_part.blank?
+                    %td.cell= link_to 'wählen', "/overviews?content_part_id=#{content_part.id}#cms", 'class': 'pure-button'
+                  - else
+                    %td.cell= link_to 'anderen Inhalt wählen', "/overviews?content_part_id=nil#cms", 'class': 'pure-button'
+        %br
+        - if edit_content_part&.edit_filter == 1
+          = render partial: 'content_part_form'
+    - if next_content_positions.any?
+      = render partial: 'content_part_table', locals: { content_positions: next_content_positions,
+                                                      rendered_content_positions: rendered_content_positions,
+                                                      content_parts: content_parts,
+                                                      edit_content_part: edit_content_part }

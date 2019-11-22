@@ -15,20 +15,8 @@ class TemplateElement < ActiveRecord::Base
 
   after_save :create_positions
 
-  def clear_blank_position(position, render_value = "")
-    return nil unless position
-    replace_pattern = "{{#{position}}}"
-
-    if render_value.include? replace_pattern
-      render_value = render_value.gsub(replace_pattern, '')
-      return render_value
-    end
-
-    render_value
-  end
-
   def create_positions
-    Position.create_positions meta, template_element: self
+    Position.create_positions reder_meta, template_element: self
   end
 
   def last_html_part
@@ -45,7 +33,7 @@ class TemplateElement < ActiveRecord::Base
 
   def positions(roll = nil)
     positions = []
-    Position.parse_positions meta, positions
+    Position.parse_positions reder_meta, positions
     html_parts.each do |html_part|
       Position.parse_positions html_part.to_s, positions
     end
@@ -53,20 +41,23 @@ class TemplateElement < ActiveRecord::Base
     positions
   end
 
-  def render_head(parts = [])
+  def render_head(page = nil)
+    parts = page&.content_parts || []
     html = "#{render_css}#{reder_meta}\n"
 
     parts.each do |article|
       html = render_article article, html
     end
+    html = Position.replace html, 'admin_page_name', page.name.underscore.gsub(' ','_')
     Position.all.each do |position|
-      html = clear_blank_position position, html
+      html = Position.clear_blank position, html
     end
     html
   end
 
   def reder_meta
-    meta if meta.present?
+    html = meta || ''
+    html
   end
 
   def render_css
@@ -88,39 +79,26 @@ class TemplateElement < ActiveRecord::Base
     deleted
   end
 
-  def render(text_parts = [], parts = [])
+  def render(page)
+    parts = page&.content_parts&.sort_by_index || []
     html = ''
     html_parts.each do |part|
       html += part.to_s
     end
-    text_parts.each do |article|
-      html = render_article article, html
-    end
     parts.each do |article|
       html = render_article article, html
     end
+    Position.replace html, 'admin_page_name', page.name.underscore.gsub(' ','_')
     Position.all.each do |position|
-      html = clear_blank_position position, html
+      html = Position.clear_blank position, html
     end
     html
   end
 
   def render_article(article, render_value = "")
     return nil unless article
-    replace_title_pattern = "{{#{article.title}}}"
-    replace_pattern = "{{#{article.position}}}"
-
-    if render_value.include? replace_title_pattern
-      render_value = render_value.gsub(replace_title_pattern, "#{article.render}#{replace_title_pattern}")
-      return render_value
-    elsif render_value.include? replace_pattern
-      render_value = render_value.gsub(replace_pattern, "#{article.render}#{replace_pattern}")
-      return render_value
-    end
-
-    render_value
+    render_value = Position.replace render_value, article&.position, article&.render
   end
-
 
   def self.render_dropdown(element, property, selected)
     html_result = ""

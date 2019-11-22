@@ -160,14 +160,14 @@
               %tr
                 %td.cell= textelement.title
                 %td.cell= textelement.index
-                %td.cell= link_to 'Show', textelement_path(textelement), 'class': 'pure-button'
-                %td.cell= link_to 'Edit', edit_textelement_path(textelement), 'class': 'pure-button'
-                %td.cell= link_to 'Destroy', textelement_path(textelement), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+                %td.cell= link_to 'Show', content_part_path(textelement), 'class': 'pure-button'
+                %td.cell= link_to 'Edit', edit_content_part_path(textelement), 'class': 'pure-button'
+                %td.cell= link_to 'Destroy', content_part_path(textelement), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
 
 
         %br
 
-        = link_to 'Neuer Text', new_textelement_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-article-button'
+        = link_to 'Neuer Text', new_content_part_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-article-button'
 
 
       .pure-u-1.pure-u-md-1-2.pictures

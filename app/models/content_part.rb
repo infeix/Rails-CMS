@@ -8,7 +8,7 @@ class ContentPart < ActiveRecord::Base
   mount_uploader :js_file, JsFileUploader
 
   belongs_to :template_element, optional: true
-  has_many :content_part_pages
+  has_many :content_part_pages, dependent: :destroy
   has_many :pages,  through: :content_part_pages
   scope :sort_by_index, -> { order(index: :asc) }
 
@@ -33,7 +33,7 @@ class ContentPart < ActiveRecord::Base
 
   def collect_children
     children = []
-    positions = Position.parse_positions to_s
+    positions = Position.parse_positions(self.to_s)
     positions.each do |position|
       children += ContentPart.where(position: position).pluck(:id)
     end

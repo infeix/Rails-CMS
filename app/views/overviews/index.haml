@@ -27,7 +27,7 @@
                                            pictures: @content_parts.where(type: 'Picture').sort_by_index,
                                            positions: @positions,
                                            templates: @templates,
-                                           textelements: @content_parts.where(type: 'Textelement').sort_by_index,
+                                           textelements: @content_parts.where(type: ['Textelement', 'TemplateGrid']).sort_by_index,
                                            urlelements: @content_parts.where(type: 'Urlelement').sort_by_index,
                                            users: @users,
                                            videoelements: @content_parts.where(type: 'Videoelement').sort_by_index }

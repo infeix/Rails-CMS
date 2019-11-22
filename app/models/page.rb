@@ -2,14 +2,17 @@
 
 class Page < ActiveRecord::Base
   belongs_to :template_element, optional: true
-  has_many :articles, -> { order(index: :asc) }, dependent: :nullify
   has_many :content_part_pages
   has_many :content_parts,  through: :content_part_pages # , -> { order(index: :asc) }
   scope :sort_by_id, -> { order(id: :asc) }
   validates :path, presence: true
 
-  def textelements
-    content_parts.where(type: "Textelement").order(index: :asc)
+  def name
+    self.title
+  end
+
+  def name=(arg)
+    self.title = arg
   end
 
   def url
@@ -19,7 +22,7 @@ class Page < ActiveRecord::Base
   def render_head
     rendered = "<!DOCTYPE html><html lang=\"de\"><head>"
     if template_element.present?
-      rendered += template_element.render_head(content_parts)
+      rendered += template_element.render_head(self)
     end
     "#{rendered}</head>"
   end
@@ -29,7 +32,7 @@ class Page < ActiveRecord::Base
     rendered += "<body>".html_safe
     if template_element.present?
       if content_parts.any?
-        rendered += template_element.render textelements.all, content_parts.where.not(type: "Textelement")
+        rendered += template_element.render self
       else
         rendered += template_element.render
       end

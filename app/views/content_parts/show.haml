@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @content_part.title
+%p
+  %b Page id:
+  = @content_part.page_id
+%p
+  %b Text:
+  = @content_part.text
+%p
+  %b Position:
+  = @content_part.position
+%p
+  %b Code:
+  = @content_part.code
+
+= link_to 'Edit', edit_content_part_path(@content_part)
+\|
+= link_to 'Back', overviews_path

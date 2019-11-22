@@ -46,18 +46,21 @@ class Position < ActiveRecord::Base
     return positions unless roll.eql? :agent
     allowed_positions = []
     positions.each do |position|
-      allowed_positions.push position unless position.include? "admin:"
+      allowed_positions.push position unless position.include?("admin") || position.include?("default")
     end
     allowed_positions
   end
 
   def self.parse_positions(text, positions = [])
     return [] unless text&.include? '{{'
+    text = "***begin***#{text}"
     text_parts = text.split('{{').drop(1)
     text_parts.each do |text_part|
       next unless text_part.include? '}}'
       position_name = text_part.split('}}').first
-      positions.push position_name
+      unless position_name.include? 'default'
+        positions.push position_name
+      end
     end
     positions
   end
@@ -78,5 +81,51 @@ class Position < ActiveRecord::Base
     end
     html_result = "#{html_result}</select>"
     html_result.html_safe
+  end
+
+  def self.replace(render_value = "", position = "", text = "")
+    replace_pattern = "{{#{position}}}"
+    if render_value.include? replace_pattern
+      render_value = render_value.gsub(replace_pattern, "#{text}#{replace_pattern}")
+    end
+
+    default_pattern = "{{#{position}:"
+    if !text.blank? && render_value.include?(default_pattern)
+      render_value = "***begin***#{render_value}"
+      text_parts = render_value.split(default_pattern).drop(1)
+      text_parts.each do |text_part|
+        if text_part.include? '}}'
+          default = text_part.split('}}').first
+
+          remove_pattern = "{{#{position}:#{default}}}"
+          render_value.gsub(remove_pattern, '')
+        end
+      end
+    end
+
+    render_value
+  end
+
+
+  def self.clear_blank(position, render_value = "")
+    replace_pattern = "{{#{position}}}"
+    default_pattern = "{{#{position}:"
+
+    if render_value.include? replace_pattern
+      render_value = render_value.gsub(replace_pattern, '')
+    end
+    if render_value.include? default_pattern
+      temp_render_value = "***begin***#{render_value}"
+      text_parts = temp_render_value.split(default_pattern).drop(1)
+      text_parts.each do |text_part|
+        if text_part.include? '}}'
+          default = text_part.split('}}').first
+          remove_pattern = "{{#{position}:#{default}}}"
+          render_value.gsub(remove_pattern, default)
+        end
+      end
+    end
+
+    render_value
   end
 end

@@ -1,4 +1,4 @@
-= form_for [@content_part] do |f|
+= form_for(@content_part, as: :content_part, url: content_part_path(@content_part)) do |f|
   - if @content_part.errors.any?
     #error_explanation
       %h2= "#{pluralize(@content_part.errors.count, "error")} prohibited this content_part from being saved:"
@@ -9,21 +9,22 @@
   .field
     = f.label :title
     = f.text_field :title
+    = f.hidden_field :type, value: @content_part.type
   .field
     = f.label :position
-    = Position.render_dropdown(f.object.type.underscore, "position", f.object.position)
+    = Position.render_dropdown('content_part', "position", f.object.position)
   .field
     = f.label :template_element_id
-    = TemplateElement.render_dropdown(f.object.type.underscore, "template_element_id", f.object.template_element&.title)
+    = TemplateElement.render_dropdown('content_part', "template_element_id", f.object.template_element&.title)
   .field
     = f.label :page_id
     - Page.all.each do |page|
       %br
       = "#{page.title} (#{page.id})"
       - if f.object.page_ids.include? page.id
-        = check_box f.object.type.underscore, "page_ids", { multiple: true, checked: true }, page.id, nil
+        = check_box 'content_part', "page_ids", { multiple: true, checked: true }, page.id, nil
       - else
-        = check_box f.object.type.underscore, "page_ids", { multiple: true, checked: false }, page.id, nil
+        = check_box 'content_part', "page_ids", { multiple: true, checked: false }, page.id, nil
   - if @content_part.type.eql? "Picture"
     .field
       = f.label :image

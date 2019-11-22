@@ -1,0 +1,53 @@
+- current_url = if @content_part&.id then content_part_path(@content_part) else content_parts_path end
+
+= form_for(@content_part, as: :content_part, url: current_url) do |f|
+  - if @content_part.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@content_part.errors.count, "error")} prohibited this content_part from being saved:"
+      %ul
+        - @content_part.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :type
+    = f.text_field :type
+  .field
+    = f.label :position
+    = Position.render_dropdown("content_part", "position", f.object.position)
+  .field
+    = f.label :template_element_id
+    = TemplateElement.render_dropdown("content_part", "template_element_id", f.object.template_element&.title)
+  .field
+    = f.label :page_id
+    - Page.all.each do |page|
+      %br
+      = "#{page.title} (#{page.id})"
+      - if f.object.page_ids.include? page.id
+        = check_box "content_part", "page_ids", { multiple: true, checked: true }, page.id, nil
+      - else
+        = check_box "content_part", "page_ids", { multiple: true, checked: false }, page.id, nil
+
+  .field
+    = f.label :index
+    = f.text_field :index
+  .field
+    = f.label :text
+    = f.text_area :text, rows: 9, cols: 100, class: "edit_template"
+  .field
+    = f.label :image
+    = f.file_field :image
+
+    - if @content_part.image?
+      = image_tag(@content_part.image.url, alt: 'Image')
+
+      = label_tag :remove_image do
+        Remove image
+        = f.check_box :remove_image
+
+  .actions
+    - if @content_part.id
+      = f.submit 'Make A Copy', formaction: copy_content_part_path(f.object.id)
+    = f.submit 'Save'
