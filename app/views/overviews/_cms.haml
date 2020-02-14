@@ -91,14 +91,12 @@
             %th
             %th
             %th
-            %th
 
         %tbody
           - templates.each do |template|
             %tr
               %td.cell= template.id
               %td.cell= template.title
-              %td.cell= link_to 'Show', template, 'class': 'pure-button'
               %td.cell= link_to 'Edit', edit_template_element_path(template), 'class': 'pure-button'
               %td.cell= link_to 'New Html', new_template_element_html_part_path(template), 'class': 'pure-button'
               %td.cell= link_to 'New Css', new_template_element_css_part_path(template), 'class': 'pure-button'
@@ -122,7 +120,6 @@
             %th Mail
             %th
             %th
-            %th
 
         %tbody
           - users.each do |user|
@@ -130,7 +127,6 @@
               %td.cell= user.lang
               %td.cell= user.name
               %td.cell= user.email
-              %td.cell= link_to 'Show', user, 'class': 'pure-button'
               %td.cell= link_to 'Edit', edit_user_path(user), 'class': 'pure-button'
               %td.cell= link_to 'Destroy', user, :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
 
@@ -153,14 +149,12 @@
               %th Index
               %th
               %th
-              %th
 
           %tbody
             - textelements.each do |textelement|
               %tr
                 %td.cell= textelement.title
                 %td.cell= textelement.index
-                %td.cell= link_to 'Show', content_part_path(textelement), 'class': 'pure-button'
                 %td.cell= link_to 'Edit', edit_content_part_path(textelement), 'class': 'pure-button'
                 %td.cell= link_to 'Destroy', content_part_path(textelement), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
 
@@ -179,13 +173,11 @@
               %th Title
               %th
               %th
-              %th
 
           %tbody
             - pictures.each do |picture|
               %tr
                 %td.cell= picture.title
-                %td.cell= link_to 'Show', picture_path(picture), 'class': 'pure-button'
                 %td.cell= link_to 'Edit', edit_picture_path(picture), 'class': 'pure-button'
                 %td.cell= link_to 'Destroy', picture_path(picture), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
 
@@ -203,13 +195,11 @@
               %th Title
               %th
               %th
-              %th
 
           %tbody
             - videoelements.each do |videoelement|
               %tr
                 %td.cell= videoelement.title
-                %td.cell= link_to 'Show', videoelement_path(videoelement), 'class': 'pure-button'
                 %td.cell= link_to 'Edit', edit_videoelement_path(videoelement), 'class': 'pure-button'
                 %td.cell= link_to 'Destroy', videoelement_path(videoelement), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
 
@@ -228,14 +218,12 @@
               %th Index
               %th
               %th
-              %th
 
           %tbody
             - urlelements.each do |urlelement|
               %tr
                 %td.cell= urlelement.title
                 %td.cell= urlelement.index
-                %td.cell= link_to 'Show', urlelement_path(urlelement), 'class': 'pure-button'
                 %td.cell= link_to 'Edit', edit_urlelement_path(urlelement), 'class': 'pure-button'
                 %td.cell= link_to 'Destroy', urlelement_path(urlelement), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
 
@@ -254,14 +242,12 @@
               %th Index
               %th
               %th
-              %th
 
           %tbody
             - pdf_files.each do |pdf_file|
               %tr
                 %td.cell= pdf_file.title
                 %td.cell= pdf_file.index
-                %td.cell= link_to 'Show', pdf_file_path(pdf_file), 'class': 'pure-button'
                 %td.cell= link_to 'Edit', edit_pdf_file_path(pdf_file), 'class': 'pure-button'
                 %td.cell= link_to 'Destroy', pdf_file_path(pdf_file), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
 
@@ -280,14 +266,12 @@
               %th Index
               %th
               %th
-              %th
 
           %tbody
             - css_files.each do |css_file|
               %tr
                 %td.cell= css_file.title
                 %td.cell= css_file.index
-                %td.cell= link_to 'Show', css_file_path(css_file), 'class': 'pure-button'
                 %td.cell= link_to 'Edit', edit_css_file_path(css_file), 'class': 'pure-button'
                 %td.cell= link_to 'Destroy', css_file_path(css_file), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
 
@@ -306,14 +290,12 @@
               %th Index
               %th
               %th
-              %th
 
           %tbody
             - js_files.each do |js_file|
               %tr
                 %td.cell= js_file.title
                 %td.cell= js_file.index
-                %td.cell= link_to 'Show', js_file_path(js_file), 'class': 'pure-button'
                 %td.cell= link_to 'Edit', edit_js_file_path(js_file), 'class': 'pure-button'
                 %td.cell= link_to 'Destroy', js_file_path(js_file), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
 
