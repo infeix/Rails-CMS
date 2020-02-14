@@ -58,7 +58,6 @@
             %th.cell
             %th.cell
             %th.cell
-            %th.cell
 
         %tbody
           - pages.each do |page|
@@ -68,7 +67,6 @@
               %td.cell= page.title
               %td.cell= link_to page.url, page.url
               %td.cell= link_to 'Filter', "/overviews?page_id=#{page.id}#cms", 'class': 'pure-button'
-              %td.cell= link_to 'Show', page, 'class': 'pure-button'
               %td.cell= link_to 'Edit', edit_page_path(page), 'class': 'pure-button'
               %td.cell= link_to 'Destroy', page, method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
 

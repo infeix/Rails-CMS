@@ -450,6 +450,7 @@ DEPENDENCIES
   brakeman
   byebug
   capistrano
+  capistrano-bundler
   capistrano-passenger
   capistrano-rails
   capistrano-rails-console
