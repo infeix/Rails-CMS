@@ -32,5 +32,6 @@
       = f.label :text
       = f.text_area :text, rows: 9, class: "edit_template page_text"
   .actions
-    = f.submit 'Make A Copy', formaction: copy_page_path(f.object.id)
+    - if f&.object&.id
+      = f.submit 'Make A Copy', formaction: copy_page_path(f.object.id)
     = f.submit 'Save'

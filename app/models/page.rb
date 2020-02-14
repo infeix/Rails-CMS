@@ -33,8 +33,6 @@ class Page < ActiveRecord::Base
     if template_element.present?
       if content_parts.any?
         rendered += template_element.render self
-      else
-        rendered += template_element.render
       end
     elsif content_parts.any?
       rendered += render_content_parts

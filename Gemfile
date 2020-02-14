@@ -5,7 +5,7 @@ gem 'rails', '~> 5.1.4'
 gem 'passenger'
 
 gem 'good_migrations'
-gem 'pg', '~> 0.18'
+gem 'pg'
 gem 'pg_search'
 
 gem 'devise'
@@ -50,7 +50,6 @@ end
 
 group :development do
   gem 'brakeman'
-  gem 'bundler-audit'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'rails-erd'
 
@@ -70,6 +69,7 @@ group :development do
 end
 
 group :test do
+  gem 'puma'
   gem 'capybara'
   gem 'capybara-angular'
   gem 'database_cleaner'

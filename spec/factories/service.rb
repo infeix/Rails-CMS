@@ -9,7 +9,7 @@ FactoryBot.define do
     invoice
     is_admin { false }
     sequence(:email) { |n| "test_email_#{n}@example.com" }
-    password 'secret42'
-    password_confirmation 'secret42'
+    password { 'secret42' }
+    password_confirmation { 'secret42' }
   end
 end

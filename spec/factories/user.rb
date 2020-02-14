@@ -8,7 +8,7 @@ FactoryBot.define do
     name { Faker::Lorem.word }
     is_admin { true }
     email
-    password 'secret42'
-    password_confirmation 'secret42'
+    password { 'secret42' }
+    password_confirmation { 'secret42' }
   end
 end

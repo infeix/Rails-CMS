@@ -17,3 +17,4 @@ Capybara.register_driver :poltergeist do |app|
     ]
   )
 end
+
