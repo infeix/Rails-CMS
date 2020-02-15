@@ -79,9 +79,6 @@ GEM
     capistrano-rails-console (2.3.0)
       capistrano (>= 3.5.0, < 4.0.0)
       sshkit-interactive (~> 0.3.0)
-    capistrano-rvm (0.1.2)
-      capistrano (~> 3.0)
-      sshkit (~> 1.2)
     capybara (3.31.0)
       addressable
       mini_mime (>= 0.1.3)
@@ -369,6 +366,8 @@ GEM
       tty-which (~> 0.4.0)
       virtus (~> 1.0)
     rubyzip (2.2.0)
+    rvm-capistrano (1.5.0)
+      capistrano (>= 2.15.4)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -454,7 +453,6 @@ DEPENDENCIES
   capistrano-passenger
   capistrano-rails
   capistrano-rails-console
-  capistrano-rvm
   capybara
   capybara-angular
   carrierwave (~> 1.0)
@@ -496,6 +494,7 @@ DEPENDENCIES
   rspec_junit_formatter
   rubocop
   rubycritic
+  rvm-capistrano
   sass-rails (~> 5.0)
   selenium-webdriver
   shoulda

@@ -61,7 +61,7 @@ group :development do
 
   gem 'capistrano-rails-console'
   gem 'capistrano-passenger'
-  gem 'capistrano-rvm'
+  gem 'rvm-capistrano'
 
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
