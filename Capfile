@@ -6,8 +6,12 @@ require "capistrano/scm/git"
 install_plugin Capistrano::SCM::Git
 
 require 'capistrano/bundler'
-require 'capistrano/console'
-require 'capistrano/rails/console'
+require 'capistrano/puma'
+install_plugin Capistrano::Puma  # Default puma tasks
+install_plugin Capistrano::Puma::Nginx
 require 'capistrano/rails'
-require 'capistrano/passenger'
-require 'rvm1/capistrano3'
+require 'capistrano/rails/assets'
+require 'capistrano/rails/migrations'
+
+require 'capistrano/rails/console'
+require 'capistrano/console'

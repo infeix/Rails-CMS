@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.1.4'
+gem 'rails', '~> 5.2.0'
 gem 'rake'
-gem 'passenger'
+gem 'puma'
 
 gem 'good_migrations'
 gem 'pg'
@@ -14,11 +14,9 @@ gem 'font-awesome-sass'
 
 gem 'bootstrap-sass'
 
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails'
 
-gem 'uglifier', '>= 1.3.0'
-
-gem 'jbuilder', '~> 2.5'
+gem 'jbuilder'
 
 gem 'jquery-rails'
 
@@ -29,7 +27,7 @@ gem 'draper'
 gem 'pure-css-rails'
 
 gem 'rails-latex'
-gem 'carrierwave', '~> 1.0'
+gem 'carrierwave'
 
 gem 'rollbar'
 gem 'gibbon'
@@ -50,27 +48,26 @@ end
 
 group :development do
   gem 'brakeman'
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'listen'
   gem 'rails-erd'
+  gem 'capistrano3-puma'
 
-  gem 'capistrano', '~> 3.0'
-  gem 'rvm1-capistrano3'
+  gem 'capistrano'
+  gem 'capistrano-rvm'
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
   gem 'overcommit'
   gem 'rubycritic'
 
   gem 'capistrano-rails-console'
-  gem 'capistrano-passenger'
 
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-watcher-listen'
 
-  gem 'web-console', '>= 3.3.0'
+  gem 'web-console'
 end
 
 group :test do
-  gem 'puma'
   gem 'capybara'
   gem 'capybara-angular'
   gem 'database_cleaner'
