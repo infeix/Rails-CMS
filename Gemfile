@@ -54,7 +54,7 @@ group :development do
   gem 'rails-erd'
 
   gem 'capistrano', '~> 3.0'
-  gem 'capistrano-rvm'
+  gem 'rvm1-capistrano3'
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
   gem 'overcommit'
