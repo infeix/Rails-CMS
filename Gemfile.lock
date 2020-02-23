@@ -61,7 +61,7 @@ GEM
     bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
       sassc (>= 2.0.0)
-    brakeman (4.7.2)
+    brakeman (4.8.0)
     builder (3.2.4)
     byebug (11.1.1)
     capistrano (3.12.0)
@@ -79,6 +79,9 @@ GEM
     capistrano-rails-console (2.3.0)
       capistrano (>= 3.5.0, < 4.0.0)
       sshkit-interactive (~> 0.3.0)
+    capistrano-rvm (0.1.2)
+      capistrano (~> 3.0)
+      sshkit (~> 1.2)
     capybara (3.31.0)
       addressable
       mini_mime (>= 0.1.3)
@@ -110,7 +113,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.6)
     crass (1.0.6)
-    database_cleaner (1.8.2)
+    database_cleaner (1.8.3)
     debug_inspector (0.0.3)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
@@ -137,7 +140,7 @@ GEM
     factory_bot_rails (5.1.1)
       factory_bot (~> 5.1.0)
       railties (>= 4.2.0)
-    faker (2.10.1)
+    faker (2.10.2)
       i18n (>= 1.6, < 2)
     faraday (1.0.0)
       multipart-post (>= 1.2, < 3)
@@ -308,7 +311,8 @@ GEM
     responders (3.0.0)
       actionpack (>= 5.0)
       railties (>= 5.0)
-    rollbar (2.23.2)
+    rexml (3.2.4)
+    rollbar (2.24.0)
     rspec (3.9.0)
       rspec-core (~> 3.9.0)
       rspec-expectations (~> 3.9.0)
@@ -342,11 +346,12 @@ GEM
       sneaky-save
     rspec_junit_formatter (0.4.1)
       rspec-core (>= 2, < 4, != 2.12.0)
-    rubocop (0.79.0)
+    rubocop (0.80.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.7.0.1)
       rainbow (>= 2.2.2, < 4.0)
+      rexml
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
     ruby-graphviz (1.2.4)
@@ -354,7 +359,7 @@ GEM
     ruby_dep (1.5.0)
     ruby_parser (3.14.2)
       sexp_processor (~> 4.9)
-    rubycritic (4.3.3)
+    rubycritic (4.4.1)
       flay (~> 2.8)
       flog (~> 4.4)
       launchy (= 2.4.3)
@@ -366,8 +371,6 @@ GEM
       tty-which (~> 0.4.0)
       virtus (~> 1.0)
     rubyzip (2.2.0)
-    rvm-capistrano (1.5.0)
-      capistrano (>= 2.15.4)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -386,7 +389,7 @@ GEM
       rubyzip (>= 1.2.2)
     sexp_processor (4.14.1)
     shoulda (2.11.3)
-    shoulda-matchers (4.2.0)
+    shoulda-matchers (4.3.0)
       activesupport (>= 4.2.0)
     simplecov (0.18.2)
       docile (~> 1.1)
@@ -453,6 +456,7 @@ DEPENDENCIES
   capistrano-passenger
   capistrano-rails
   capistrano-rails-console
+  capistrano-rvm
   capybara
   capybara-angular
   carrierwave (~> 1.0)
@@ -485,6 +489,7 @@ DEPENDENCIES
   rails (~> 5.1.4)
   rails-erd
   rails-latex
+  rake
   rollbar
   rspec-collection_matchers
   rspec-its
@@ -494,7 +499,6 @@ DEPENDENCIES
   rspec_junit_formatter
   rubocop
   rubycritic
-  rvm-capistrano
   sass-rails (~> 5.0)
   selenium-webdriver
   shoulda

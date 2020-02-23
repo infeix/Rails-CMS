@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '~> 5.1.4'
-
+gem 'rake'
 gem 'passenger'
 
 gem 'good_migrations'
@@ -61,7 +61,7 @@ group :development do
 
   gem 'capistrano-rails-console'
   gem 'capistrano-passenger'
-  gem 'rvm-capistrano'
+  gem 'capistrano-rvm'
 
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
