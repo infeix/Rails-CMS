@@ -53,7 +53,8 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'rails-erd'
 
-  gem 'capistrano'
+  gem 'capistrano', '~> 3.0'
+  gem 'capistrano-rvm'
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
   gem 'overcommit'
@@ -61,7 +62,6 @@ group :development do
 
   gem 'capistrano-rails-console'
   gem 'capistrano-passenger'
-  gem 'capistrano-rvm'
 
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'

@@ -451,7 +451,7 @@ DEPENDENCIES
   bootstrap-sass
   brakeman
   byebug
-  capistrano
+  capistrano (~> 3.0)
   capistrano-bundler
   capistrano-passenger
   capistrano-rails
