@@ -33,7 +33,7 @@ threads 1,1
 
 
 
-bind "unix:#{shared_dir}/tmp/sockets/Rails-CMS-puma.sock"
+bind "unix:#{shared_dir}/tmp/sockets/klangvorhang.krojo.001-puma.sock"
 
 workers 1
 
