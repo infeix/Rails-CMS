@@ -4,18 +4,23 @@
 workers 1
 
 # Min and Max threads per worker
-threads 1, 1
+threads 1, 2
 
-app_dir = "/home/deploy/klangvorhang.krojo.001"
+# Default to production
+rails_env = ENV['RAILS_ENV'] || "production"
+
+if rails_env == "production"
+  app_dir = "/home/deploy/klangvorhang.krojo.001"
+else
+  app_dir = "~/git/Rails-CMS"
+end
 shared_dir = "#{app_dir}/shared"
 
-# Default to staging
-rails_env = ENV['RAILS_ENV'] || "staging"
 environment rails_env
 
 directory "#{app_dir}/current"
 rackup "#{app_dir}/current/config.ru"
-environment 'staging'
+environment 'production'
 
 tag ''
 
@@ -28,7 +33,7 @@ threads 1,1
 
 
 
-bind "unix://#{shared_dir}/tmp/sockets/Rails-CMS-puma.sock"
+bind "unix:#{shared_dir}/tmp/sockets/Rails-CMS-puma.sock"
 
 workers 1
 
