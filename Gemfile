@@ -32,6 +32,8 @@ gem 'carrierwave'
 gem 'rollbar'
 gem 'gibbon'
 
+gem 'uglifier'
+
 group :development, :test do
   gem 'byebug'
 
