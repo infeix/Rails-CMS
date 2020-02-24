@@ -26,24 +26,16 @@ if rails_env == "production"
   state_path "#{shared_dir}/tmp/pids/puma.state"
   stdout_redirect "#{app_dir}/current/log/puma.error.log", "#{app_dir}/current/log/puma.access.log", true
 
-
   bind "unix:#{shared_dir}/tmp/sockets/klangvorhang.krojo.001-puma.sock"
-
 
   restart_command 'bundle exec puma'
 
-
   preload_app!
-
-
 
   on_restart do
     puts 'Refreshing Gemfile'
     ENV["BUNDLE_GEMFILE"] = ""
   end
-
-
-
 
   # Set up socket location
   #bind "unix://#{shared_dir}/sockets/puma.sock"
