@@ -10,7 +10,6 @@ threads 1, 2
 rails_env = ENV['RAILS_ENV'] || "production"
 
 if rails_env == "production"
-  #!/usr/bin/env puma
 
   shared_dir = "#{app_dir}/shared"
 
@@ -26,7 +25,7 @@ if rails_env == "production"
   state_path "#{shared_dir}/tmp/pids/puma.state"
   stdout_redirect "#{app_dir}/current/log/puma.error.log", "#{app_dir}/current/log/puma.access.log", true
 
-  bind "unix:#{shared_dir}/tmp/sockets/klangvorhang.krojo.001-puma.sock"
+  bind "unix://#{shared_dir}/tmp/sockets/klangvorhang.krojo.001-puma.sock"
 
   restart_command 'bundle exec puma'
 
