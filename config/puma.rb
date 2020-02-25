@@ -23,10 +23,7 @@ state_path "#{shared_dir}/tmp/pids/puma.state"
 activate_control_app
 
 on_worker_boot do
-  # worker specific setup
-  ActiveSupport.on_load(:active_record) do
-    require "active_record"
-    ActiveRecord::Base.connection.disconnect! rescue ActiveRecord::ConnectionNotEstablished
-    ActiveRecord::Base.establish_connection(YAML.load_file("#{app_dir}/config/database.yml")[rails_env])
-  end
+  require "active_record"
+  ActiveRecord::Base.connection.disconnect! rescue ActiveRecord::ConnectionNotEstablished
+  ActiveRecord::Base.establish_connection(YAML.load_file("#{app_dir}/config/database.yml")[rails_env])
 end
