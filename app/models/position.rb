@@ -26,7 +26,7 @@ class Position < ActiveRecord::Base
   end
 
   def self.parse_positions(text, positions = [])
-    return [] unless text&.include? '{{'
+    return positions unless text&.include? '{{'
     text_parts = text.split('{{').drop(1)
     text_parts.each do |text_part|
       next unless text_part.include? '}}'

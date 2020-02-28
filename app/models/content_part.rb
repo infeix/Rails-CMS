@@ -33,8 +33,7 @@ class ContentPart < ActiveRecord::Base
     self.children_parts = children.join(';')
   end
 
-  def positions(roll = nil)
-    positions = []
+  def positions(roll = nil, positions = [])
     positions = Position.parse_positions to_s, positions
     positions = Position.filter_positions positions, roll unless roll.nil?
     positions
