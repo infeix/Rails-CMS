@@ -4,7 +4,7 @@ class PagesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :create, :copy, :update, :destroy]
   before_action :authenticate_agent!, only: [:new, :edit, :create, :copy, :update, :destroy]
 
-  before_action :set_page, only: [:show, :filter, :edit, :update, :destroy]
+  before_action :set_page, only: [:show, :filter, :edit, :update, :destroy, :copy]
 
 
   def index
@@ -46,13 +46,10 @@ class PagesController < ApplicationController
 
   def copy
     authenticate_admin!
-    @page = Page.new(page_params)
 
-    if @page.save
-      redirect_to overviews_path, notice: 'Page was successfully created.'
-    else
-      render :new
-    end
+    new_page = @page.make_a_copy(page_params)
+    @page = new_page
+    redirect_to overviews_path, notice: 'Page was successfully created.'
   end
 
   def filter
@@ -78,7 +75,13 @@ class PagesController < ApplicationController
 
   def destroy
     authenticate_admin!
+
     @page.destroy
+    ContentPart.all.each do |part|
+      if part.pages.count == 0
+        part.destroy
+      end
+    end
     respond_to do |format|
       format.html { redirect_to overviews_path, notice: 'Page was successfully destroyed.' }
     end

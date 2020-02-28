@@ -9,13 +9,14 @@ class ContentPart < ActiveRecord::Base
 
   belongs_to :template_element, optional: true
   has_and_belongs_to_many :pages, optional: true
+
   scope :sort_by_index, -> { order(index: :asc) }
 
-  before_save :create_position
+  before_save :define_position
   before_save :collect_children
   after_save :create_positions
 
-  def create_position
+  def define_position
     self.position = title if self.position.eql? "no_position"
   end
 
@@ -33,13 +34,34 @@ class ContentPart < ActiveRecord::Base
   end
 
   def children
-    children_array = self.children_parts.split(';')
+    children_array = self.children_parts&.split(';') || []
     ContentPart.where("id IN (?)", children_array)
   end
 
-  # def render
-  #   template.present? ? "#{template.html_begin} #{text} #{template.html_end}" : text
-  # end
+  def make_a_copy(page)
+    new_part = ContentPart.new
+    new_part.template_element = template_element
+    new_part.position = position
+    new_part.text= text
+    new_part.title= title
+    new_part.code= code
+    new_part.index= index
+    new_part.image= image
+    new_part.pdf= pdf
+    new_part.css_file= css_file
+    new_part.js_file= js_file
+    new_part.video= video
+    new_part.type= type
+    new_part.target_path= target_path
+    new_part.data_text= data_text
+    new_part.children_parts= children_parts
+    new_part.save!
+    new_part.pages << page
+    children.each do |child|
+      child.make_a_copy(page)
+    end
+    new_part
+  end
 
   def render
     to_s
@@ -49,7 +71,7 @@ class ContentPart < ActiveRecord::Base
     text
   end
 
-  def self.currentEditingOne
+  def self.current_editing_one
     ContentPart.where(edit_filter: 1).first
   end
 end

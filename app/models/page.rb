@@ -2,10 +2,10 @@
 
 class Page < ActiveRecord::Base
   belongs_to :template_element, optional: true
-  has_many :articles, -> { order(index: :asc) }, dependent: :nullify
   has_and_belongs_to_many :content_parts, -> { order(index: :asc) }, optional: true
   scope :sort_by_id, -> { order(id: :asc) }
   validates :path, presence: true
+  validates :path, uniqueness: true
 
   def textelements
     content_parts.where(type: "Textelement").order(index: :asc)
@@ -62,7 +62,24 @@ class Page < ActiveRecord::Base
     path
   end
 
-  def self.currentEditingOne
+  def make_a_copy(page_params)
+    editing = Page.current_editing_one
+    if editing.present?
+      editing.edit_filter = 0
+      editing.save!
+    end
+
+    new_page = Page.new(page_params)
+    new_page.path = "#{new_page.path}_copy"
+    new_page.edit_filter = 1
+    new_page.save!
+    content_parts.each do |part|
+      new_page.content_parts << part.make_a_copy(new_page)
+    end
+    new_page
+  end
+
+  def self.current_editing_one
     Page.where(edit_filter: 1).first
   end
 

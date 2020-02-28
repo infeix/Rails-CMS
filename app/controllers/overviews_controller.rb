@@ -6,14 +6,14 @@ class OverviewsController < ApplicationController
 
   def index
     year = params[:year]
-    page = params[:page_id] || Page.currentEditingOne&.id
+    page = params[:page_id] || Page.current_editing_one&.id
     page = nil if page.eql?('nil')
-    content_part_id = params[:content_part_id] || ContentPart.currentEditingOne&.id
+    content_part_id = params[:content_part_id] || ContentPart.current_editing_one&.id
     content_part_id = nil if content_part_id.eql?('nil')
 
     @pages = Page.all.sort_by_id
     if(page)
-      current_edit_page = Page.currentEditingOne
+      current_edit_page = Page.current_editing_one
       unless current_edit_page.nil?
         current_edit_page.edit_filter = 0
         current_edit_page.save
@@ -29,7 +29,7 @@ class OverviewsController < ApplicationController
         @content_part.save
         @content_parts = ContentPart.where(id: @content_part.id)
       else
-        @content_part = ContentPart.currentEditingOne
+        @content_part = ContentPart.current_editing_one
         unless @content_part.nil?
           @content_part.edit_filter = 0
           @content_part.save
@@ -38,13 +38,13 @@ class OverviewsController < ApplicationController
       end
       @templates = TemplateElement.where(id: @page.template_element_id).sort_by_id
     else
-      page = Page.currentEditingOne
+      page = Page.current_editing_one
       unless page.nil?
         page.edit_filter = 0
         page.save
       end
 
-      @content_part = ContentPart.currentEditingOne
+      @content_part = ContentPart.current_editing_one
       unless @content_part.nil?
         @content_part.edit_filter = 0
         @content_part.save
