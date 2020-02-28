@@ -4,12 +4,8 @@
 !/log/.keep
 /tmp
 config/database.yml
-config/deploy.rb
-config/secrets.yml
 config/environments/production.rb
-config/deploy/productionp.rb
-config/deploy/productiond.rb
-config/deploy/productionj.rb
+config/deploy/production*.rb
 db/seeds.rb.secret
 coverage/*
 spec/examples.txt
