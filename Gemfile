@@ -29,6 +29,10 @@ gem 'draper'
 gem 'pure-css-rails'
 
 gem 'rails-latex'
+gem 'carrierwave', '~> 1.0'
+
+gem 'rollbar'
+gem 'gibbon'
 
 group :development, :test do
   gem 'byebug'
@@ -57,7 +61,7 @@ group :development do
 
   gem 'capistrano-rails-console'
   gem 'capistrano-passenger'
-  gem 'capistrano-rvm'
+  gem 'capistrano-rbenv', '~> 2.1'
 
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
