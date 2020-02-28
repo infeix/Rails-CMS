@@ -4,9 +4,6 @@
 !/log/.keep
 /tmp
 config/database.yml
-config/deploy.rb
-config/secrets.yml
-config/initializers/devise.rb
 config/environments/production.rb
 config/deploy/productionphysio.rb
 config/deploy/productionklang.rb
