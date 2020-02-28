@@ -1,65 +1,75 @@
-= form_for [@content_part] do |f|
-  - if @content_part.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@content_part.errors.count, "error")} prohibited this content_part from being saved:"
-      %ul
-        - @content_part.errors.full_messages.each do |msg|
-          %li= msg
-
+.pure-u-1.pure-u-md-1-2
   .field
-    = f.label :title
-    = f.text_field :title
-  .field
-    = f.label :position
-    = Position.render_dropdown(f.object.type.underscore, "position", f.object.position)
-  .field
-    = f.label :template_element_id
-    = TemplateElement.render_dropdown(f.object.type.underscore, "template_element_id", f.object.template_element&.title)
-  .field
-    = f.label :page_id
-    - Page.all.each do |page|
-      %br
-      = "#{page.title} (#{page.id})"
-      - if f.object.page_ids.include? page.id
-        = check_box f.object.type.underscore, "page_ids", { multiple: true, checked: true }, page.id, nil
-      - else
-        = check_box f.object.type.underscore, "page_ids", { multiple: true, checked: false }, page.id, nil
-  - if @content_part.type.eql? "Picture"
-    .field
-      = f.label :image
-      = f.file_field :image
+    %h2
+      %u= "#{@content_part.position}:"
+  %table
+    %tbody
+      %tr{ class: "filtered-element"}
+        %td.cell= @content_part.title
+        %td.cell= link_to 'anderen Inhalt wählen', "/overviews?content_part_id=nil#cms", 'class': 'pure-button'
+  %br
+  = form_for [@content_part] do |f|
+    - if @content_part.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@content_part.errors.count, "error")} prohibited this content_part from being saved:"
+        %ul
+          - @content_part.errors.full_messages.each do |msg|
+            %li= msg
 
-      - if @content_part.image?
-        = image_tag(@content_part.image.url, alt: 'Image', class: 'width-70')
+    .field
+      = f.label :title
+      = f.text_field :title
+    .field
+      = f.label :position
+      = Position.render_dropdown(f.object.type.underscore, "position", f.object.position)
+    .field
+      = f.label :template_element_id
+      = TemplateElement.render_dropdown(f.object.type.underscore, "template_element_id", f.object.template_element&.title)
+    .field
+      = f.label :page_id
+      - Page.all.each do |page|
+        %br
+        = "#{page.title} (#{page.id})"
+        - if f.object.page_ids.include? page.id
+          = check_box f.object.type.underscore, "page_ids", { multiple: true, checked: true }, page.id, nil
+        - else
+          = check_box f.object.type.underscore, "page_ids", { multiple: true, checked: false }, page.id, nil
+    - if @content_part.type.eql? "Picture"
+      .field
+        = f.label :image
+        = f.file_field :image
 
-        = label_tag :remove_image do
-          Remove image
-          = f.check_box :remove_image
-  - if @content_part.type.eql? "PdfFile"
-    .field
-    = f.label :pdf
-    = f.file_field :pdf
+        - if @content_part.image?
+          = image_tag(@content_part.image.url, alt: 'Image', class: 'width-70')
 
-    - if @content_part.pdf?
-      = @content_part.render
+          = label_tag :remove_image do
+            Remove image
+            = f.check_box :remove_image
+    - if @content_part.type.eql? "PdfFile"
+      .field
+      = f.label :pdf
+      = f.file_field :pdf
 
-      = label_tag :remove_pdf do
-        Remove Pdf
-        = f.check_box :remove_pdf
-  - if @content_part.type.eql? "Textelement"
-    .field
-      = f.label :text
-      = f.text_area :text, rows: 9, cols: 100, class: "edit_template"
-  - if @content_part.type.eql? "Urlelement"
-    .field
-      = f.label :text
-      = f.text_area :text, rows: 5, cols: 100, class: "edit_template"
-    .field
-      = f.label :target_path
-      = f.text_field :target_path
-    .field
-      = f.label :data_text
-      = f.text_area :data_text, rows: 5, cols: 100, class: "edit_template"
+      - if @content_part.pdf?
+        = @content_part.render
 
-  .actions
-    = f.submit 'Save'
+        = label_tag :remove_pdf do
+          Remove Pdf
+          = f.check_box :remove_pdf
+    - if @content_part.type.eql? "Textelement"
+      .field
+        = f.label :text
+        = f.text_area :text, rows: 9, cols: 100, class: "edit_template"
+    - if @content_part.type.eql? "Urlelement"
+      .field
+        = f.label :text
+        = f.text_area :text, rows: 5, cols: 100, class: "edit_template"
+      .field
+        = f.label :target_path
+        = f.text_field :target_path
+      .field
+        = f.label :data_text
+        = f.text_area :data_text, rows: 5, cols: 100, class: "edit_template"
+
+    .actions
+      = f.submit 'Save'

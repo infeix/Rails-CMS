@@ -45,9 +45,9 @@ class TemplateElement < ActiveRecord::Base
 
   def positions(roll = nil)
     positions = []
-    Position.parse_positions meta, positions
+    positions = Position.parse_positions meta, positions
     html_parts.each do |html_part|
-      Position.parse_positions html_part.to_s, positions
+      positions = Position.parse_positions html_part.to_s, positions
     end
     positions = Position.filter_positions positions, roll unless roll.nil?
     positions

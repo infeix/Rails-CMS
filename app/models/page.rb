@@ -74,7 +74,7 @@ class Page < ActiveRecord::Base
     new_page.edit_filter = 1
     new_page.save!
     content_parts.each do |part|
-      part.make_a_copy(new_page)
+      part.make_a_copy(new_page, false)
     end
     new_page
   end

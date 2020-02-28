@@ -33,12 +33,19 @@ class ContentPart < ActiveRecord::Base
     self.children_parts = children.join(';')
   end
 
+  def positions(roll = nil)
+    positions = []
+    positions = Position.parse_positions to_s, positions
+    positions = Position.filter_positions positions, roll unless roll.nil?
+    positions
+  end
+
   def children
     children_array = self.children_parts&.split(';') || []
     ContentPart.where("id IN (?)", children_array)
   end
 
-  def make_a_copy(page)
+  def make_a_copy(page, recursion = true)
     new_part = ContentPart.new
     new_part.template_element = template_element
     new_part.position = position
@@ -57,8 +64,10 @@ class ContentPart < ActiveRecord::Base
     new_part.children_parts= children_parts
     new_part.save!
     new_part.pages << page
-    children.each do |child|
-      child.make_a_copy(page)
+    if recursion
+      children.each do |child|
+        child.make_a_copy(page)
+      end
     end
     new_part
   end

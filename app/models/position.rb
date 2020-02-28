@@ -31,7 +31,7 @@ class Position < ActiveRecord::Base
     text_parts.each do |text_part|
       next unless text_part.include? '}}'
       position_name = text_part.split('}}').first
-      positions.push position_name
+      positions.push position_name unless positions.include? position_name
     end
     positions
   end
