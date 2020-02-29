@@ -9,8 +9,6 @@ if ENV['CIRCLE_ARTIFACTS']
 end
 SimpleCov.start 'rails'
 
-require 'rspec-pretty_fail_formatter'
-
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
@@ -46,6 +44,4 @@ RSpec.configure do |config|
   # test failures related to randomization by passing the same `--seed` value
   # as the one that triggered the failure.
   Kernel.srand config.seed
-
-  config.add_formatter PrettyFailFormatter
 end
