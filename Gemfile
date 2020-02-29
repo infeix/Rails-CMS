@@ -10,11 +10,10 @@ gem 'pg_search'
 
 gem 'devise'
 
-gem 'font-awesome-sass'
+gem 'font-awesome-sass', '~> 5.12.0'
 
-gem 'bootstrap-sass'
-
-gem 'sass-rails', '~> 5.0'
+gem 'bootstrap-sass', '~> 3.4.1'
+gem 'sassc-rails', '>= 2.1.0'
 
 gem 'uglifier', '>= 1.3.0'
 
@@ -76,7 +75,7 @@ group :test do
   gem 'poltergeist'
   gem 'rspec-collection_matchers'
   gem 'rspec-its'
-  gem 'rspec-pretty_fail_formatter'
+
   gem 'rspec-rails'
   gem 'rspec_candy'
   gem 'rspec_junit_formatter'
