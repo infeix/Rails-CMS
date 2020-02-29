@@ -21,9 +21,9 @@ $( document ).ready(function() {
         openTab(null, 'invoice');
     }
 
-    if(hash.eqals("#cms")){
+    if(hash == "#cms"){
         openTab(null, 'cms')
     }
 
-    console.log( "ready! " + hash );
+    //console.log( "ready! " + hash );
 });
