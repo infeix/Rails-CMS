@@ -6,6 +6,6 @@ FactoryBot.define do
     index { Faker::Number.number(10) }
     text { Faker::Lorem.word }
     is_last { false }
-    template
+    template_element
   end
 end

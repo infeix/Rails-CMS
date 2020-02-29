@@ -5,6 +5,6 @@ FactoryBot.define do
     title { Faker::Lorem.word }
     path  { Faker::Lorem.word }
     text { Faker::Lorem.word }
-    template
+    template_element
   end
 end

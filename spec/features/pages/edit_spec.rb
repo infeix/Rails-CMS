@@ -5,8 +5,8 @@ require 'uri'
 
 RSpec.feature 'Page edit page' do
   let!(:user) { create :user }
-  let!(:template) { create :template }
-  let!(:index_page) { create :page, path: 'index', template: template }
+  let!(:template_element) { create :template_element }
+  let!(:index_page) { create :page, path: 'index', template_element: template_element }
 
   scenario 'get to login page when not logged in' do
     visit new_page_path
@@ -29,14 +29,13 @@ RSpec.feature 'Page edit page' do
 
     find('.page_title').set 'blub_title'
     find('#page_path').set 'blub_path'
-    find('#page_template_element_id').set template.id
-    find('#page_text').set 'blub_text'
+    find('#page_template_element_id').set template_element.id
 
     page.find("input[type='submit']").click
     expect(page.current_path).to eq overviews_path
 
     page_element = Page.where('"pages"."path" != ?', 'index').first
-    expect(page_element.text).to eq 'blub_text'
+    expect(page_element.path).to eq 'blub_path'
   end
 
 #    scenario 'navigating to the edit page via show' do
