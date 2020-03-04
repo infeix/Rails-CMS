@@ -33,5 +33,10 @@ de:
   activerecord:
     attributes:
       page:
-        path: Path
-        template_element_id: Layout
+        title: Name
+        path: Pfad
+        template_element: Layout
+    models:
+      page:
+        one: Seite
+        other: Seiten

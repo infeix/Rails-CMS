@@ -94,12 +94,22 @@ class PagesController < ApplicationController
   end
 
   def page_params
-    params.require(:page).permit(
-      :title,
-      :text,
-      :path,
-      :template_element_id,
-      :code,
-      :edit_filter)
+    unless params[:action].eql?('copy')
+      params.require(:page).permit(
+        :title,
+        :text,
+        :path,
+        :template_element_id,
+        :code,
+        :edit_filter)
+    else
+      params.permit(:page).permit(
+        :title,
+        :text,
+        :path,
+        :template_element_id,
+        :code,
+        :edit_filter)
+    end
   end
 end

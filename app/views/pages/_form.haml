@@ -1,7 +1,7 @@
 = form_for @page do |f|
   - if @page.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@page.errors.count, "error")} prohibited this page from being saved:"
+      %h2= "#{pluralize(@page.errors.count, "error")} hat verhindert das die Seite nicht gespeichert werden konnte:"
       %ul
         - @page.errors.full_messages.each do |msg|
           %li= msg
@@ -13,8 +13,8 @@
     = f.label :path
     = f.text_field :path, class: "page_path"
   .field
-    = f.label :template_element_id
-    = f.text_field :template_element_id, class: "page_template_element_id"
+    = f.label :template_element
+    = TemplateElement.render_dropdown(f.object.type.underscore, "template_element_id", f.object.template_element&.title)
   - if false
     .field
       = f.label :content_parts
@@ -33,5 +33,5 @@
       = f.text_area :text, rows: 9, class: "edit_template page_text"
   .actions
     - unless f.object.path.nil?
-      = f.submit 'Make A Copy', formaction: copy_page_path(f.object.path)
-    = f.submit 'Save'
+      = f.submit 'Seite kopieren', 'class': 'pure-button copy-page-button', formaction: copy_page_path(f.object.path)
+    = f.submit 'Speichern', 'class': 'pure-button save-page-button'

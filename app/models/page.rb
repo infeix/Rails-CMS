@@ -11,6 +11,10 @@ class Page < ActiveRecord::Base
     content_parts.where(type: "Textelement").order(index: :asc)
   end
 
+  def type
+    "Page"
+  end
+
   def url
     "/pages/#{path}"
   end
@@ -69,7 +73,10 @@ class Page < ActiveRecord::Base
       editing.save!
     end
 
-    new_page = Page.new(page_params)
+    new_page = Page.new
+    new_page.attributes = self.attributes
+    new_page.id = nil
+    new_page.assign_attributes(page_params)
     new_page.path = "#{new_page.path}_copy"
     new_page.edit_filter = 1
     new_page.save!

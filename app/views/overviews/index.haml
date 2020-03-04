@@ -3,6 +3,7 @@
   = link_to('Logout', destroy_user_session_path, method: :delete, 'class': 'pure-button')
   - if current_user.is_admin?
     %button.tablink.cms-tablink.pure-button.pure-button-primary{ onclick: "openTab(event, 'cms')" }= 'CMS'
+    %button.tablink.admin-tablink.pure-button{ onclick: "openTab(event, 'admin')" }= 'ERWEITERT'
     %button.tablink.invoice-tablink.pure-button{ onclick: "openTab(event, 'invoice')" }= 'INVOICE'
 
   .tab-set
@@ -13,25 +14,25 @@
                                             content_parts: @content_parts,
                                             content_part: @content_part }
 
-        .invoice-tab.tab-element
-          = render partial: 'cms', locals: { articles: @articles,
-                                             content_part: @content_part,
-                                             content_parts: @content_parts,
-                                             css_files: @content_parts.where(type: 'CssFile').sort_by_index,
-                                             css_parts: @css_parts,
-                                             html_parts: @html_parts,
-                                             js_files: @content_parts.where(type: 'JsFile').sort_by_index,
-                                             messages: @messages,
-                                             page: @page,
-                                             pages: @pages,
-                                             pdf_files: @content_parts.where(type: 'PdfFile').sort_by_index,
-                                             pictures: @content_parts.where(type: 'Picture').sort_by_index,
-                                             positions: @positions,
-                                             templates: @templates,
-                                             textelements: @content_parts.where(type: 'Textelement').sort_by_index,
-                                             urlelements: @content_parts.where(type: 'Urlelement').sort_by_index,
-                                             users: @users,
-                                             videoelements: @content_parts.where(type: 'Videoelement').sort_by_index }
+    .admin-tab.tab-element
+      = render partial: 'cms', locals: { articles: @articles,
+                                         content_part: @content_part,
+                                         content_parts: @content_parts,
+                                         css_files: @content_parts.where(type: 'CssFile').sort_by_index,
+                                         css_parts: @css_parts,
+                                         html_parts: @html_parts,
+                                         js_files: @content_parts.where(type: 'JsFile').sort_by_index,
+                                         messages: @messages,
+                                         page: @page,
+                                         pages: @pages,
+                                         pdf_files: @content_parts.where(type: 'PdfFile').sort_by_index,
+                                         pictures: @content_parts.where(type: 'Picture').sort_by_index,
+                                         positions: @positions,
+                                         templates: @templates,
+                                         textelements: @content_parts.where(type: 'Textelement').sort_by_index,
+                                         urlelements: @content_parts.where(type: 'Urlelement').sort_by_index,
+                                         users: @users,
+                                         videoelements: @content_parts.where(type: 'Videoelement').sort_by_index }
 
     - if current_user.is_admin?
       .invoice-tab.tab-element

@@ -17,13 +17,13 @@ function openTab(evt, name) {
 $( document ).ready(function() {
 
     var hash = window.location.hash;
-    if(hash == "#invoice"){
-        openTab(null, 'invoice');
+    var temp = hash.replace('#','');
+    if(temp.length > 0)
+    {
+      openTab(null, temp);
     }
-
-    if(hash == "#cms"){
-        openTab(null, 'cms')
+    else
+    {
+      openTab(null, 'cms');
     }
-
-    //console.log( "ready! " + hash );
 });
