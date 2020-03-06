@@ -36,7 +36,13 @@ de:
         title: Name
         path: Pfad
         template_element: Layout
+      user:
+        email: E-Mail-Adresse
+        password: Passwort
     models:
       page:
         one: Seite
         other: Seiten
+      user:
+        one: Benutzer
+        other: Benutzer

@@ -1,0 +1,31 @@
+#wpcom.wpcom-site
+  .layout.is-section-login.focus-content.has-no-sidebar
+    #content.layout__content
+      #primary.layout__primary
+        %div
+          %main.wp-login__main.main{ role: "main" }
+            %div
+              .wp-login__container
+                .login
+                  .login__form-header-wrapper
+                    .login__form-header= "Melde dich bei deinem Konto an."
+                  = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+                    .card.login__form
+                      .login__form-userdata
+                        = f.label :email
+                        = f.email_field :email, autofocus: true
+
+                        .login__form-password.is-hidden
+                          = f.label :password
+                          .form-password-input
+                            = f.password_field :password, autocomplete: "off"
+
+                        - if devise_mapping.rememberable?
+                          .field
+                            = f.check_box :remember_me
+                            = f.label :remember_me
+
+                      .login__form-action
+                        = f.submit "Anmelden", class: "button form-button is-primary"
+              .wp-login__links
+                = render "devise/shared/links"
