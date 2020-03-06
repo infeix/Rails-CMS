@@ -13,13 +13,21 @@ class PagesController < ApplicationController
   end
 
   def show
-    if @page.present? && current_user.blank?
-      view = View.new
-      view.page = @page
-      view.ref = request.referrer.presence
-      view.save!
+    if @page.nil?
+      if Page.exists?(path: "index")
+        redirect_to root_path
+      else
+        redirect_to "/404"
+      end
+    else
+      if @page.present? && current_user.blank?
+        view = View.new
+        view.page = @page
+        view.ref = request.referrer.presence
+        view.save!
+      end
+      render layout: "custompage"
     end
-    render layout: "custompage"
   end
 
   def new
