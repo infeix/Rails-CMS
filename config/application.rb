@@ -11,8 +11,6 @@ module RailsCms
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 
-    config.exceptions_app = self.routes
-
     config.i18n.load_path += Dir[Rails.root.join('locales', '*.{rb,yml}')]
     config.i18n.default_locale = :de
 
