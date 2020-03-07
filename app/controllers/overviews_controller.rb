@@ -6,13 +6,18 @@ class OverviewsController < ApplicationController
 
   def index
     year = params[:year]
+    content_part_type = params[:content_part_type]
+    content_part_position = params[:content_part_position]
     page = params[:page_id] || Page.current_editing_one&.id
     page = nil if page.eql?('nil')
     content_part_id = params[:content_part_id] || ContentPart.current_editing_one&.id
+
+
     content_part_id = nil if content_part_id.eql?('nil')
 
     @pages = Page.all.sort_by_id
-    if(page)
+
+    if page
       current_edit_page = Page.current_editing_one
       unless current_edit_page.nil?
         current_edit_page.edit_filter = 0
@@ -23,7 +28,13 @@ class OverviewsController < ApplicationController
       @page.edit_filter = 1
       @page.save
 
-      if(content_part_id)
+      if content_part_id.eql? "new"
+        @content_part = ContentPart.new
+        @content_part.edit_filter = 1
+        @content_part.type = content_part_type
+        @content_part.position = content_part_position
+        @content_parts = ContentPart.none
+      elsif content_part_id
         @content_part = ContentPart.find_by(id: content_part_id)
         @content_part.edit_filter = 1
         @content_part.save

@@ -16,10 +16,14 @@ Rails.application.routes.draw do
     end
   end
   resources :articles, controller: 'articles'
-  resources :content_parts, controller: 'content_parts'
   resources :pictures, controller: 'pictures'
   resources :videoelements, controller: 'videoelements'
   resources :textelements, controller: 'textelements' do
+    member do
+      patch 'copy'
+    end
+  end
+  resources :content_parts, controller: 'content_parts' do
     member do
       patch 'copy'
     end

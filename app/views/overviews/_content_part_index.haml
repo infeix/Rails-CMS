@@ -1,26 +1,33 @@
 - content_positions = local_assigns.fetch(:content_positions)
 - rendered_content_positions = local_assigns.fetch(:rendered_content_positions)
 - content_parts = local_assigns.fetch(:content_parts)
+- edit_filter_page = local_assigns.fetch(:edit_filter_page)
 
 
 - content_positions.each do |position_name|
-  - next if rendered_content_positions.include? position_name
-  - next unless content_parts.where(position: position_name).any?
-  - rendered_content_positions.push position_name
-  .pure-u-1.pure-u-md-1-2
-    %table
-      %tbody.field
-        %h2
-          %u= "#{position_name}:"
-        - content_parts.where(position: position_name).sort_by_index.each do |content_part|
-          %tr
-            %td.cell= content_part.title
-            %td.cell= link_to 'wählen', "/overviews?content_part_id=#{content_part.id}#cms", 'class': 'pure-button'
+  - unless rendered_content_positions.include? position_name
+    .pure-u-1.pure-u-md-1-2
+      %h4
+        = "{{#{position_name}}}"
+        .dropdown
+          %span.pure-button="Neu"
+          .dropdown-content
+            = link_to 'neuer Text', "/overviews?content_part_id=new&content_part_type=Textelement&content_part_position=#{position_name}#cms", 'class': 'pure-button'
+            = link_to 'neues Bild', "/overviews?content_part_id=new&content_part_type=Picture&content_part_position=#{position_name}#cms", 'class': 'pure-button'
+      - if content_parts.where(position: position_name).any?
+        - rendered_content_positions.push position_name
+        %table
+          %tbody.field
+            - content_parts.where(position: position_name).sort_by_index.each do |content_part|
+              %tr
+                %td.cell= content_part.title
+                %td.cell= link_to 'wählen', "/overviews?content_part_id=#{content_part.id}#cms", 'class': 'pure-button'
 
-          - content_positions = content_part.positions(:agent)
-          - if content_positions.any?
-            %td{ colspan: 3 }
-              .pure-g
-                = render partial: 'content_part_index', locals: { content_positions: content_positions,
-                                                                  rendered_content_positions: rendered_content_positions,
-                                                                  content_parts: content_parts }
+              - content_positions = content_part.positions(:agent)
+              - if content_positions.any?
+                %td{ colspan: 3 }
+                  .pure-g
+                    = render partial: 'content_part_index', locals: { content_positions: content_positions,
+                                                                      rendered_content_positions: rendered_content_positions,
+                                                                      content_parts: content_parts,
+                                                                      edit_filter_page: edit_filter_page}

@@ -7,6 +7,9 @@
           %li= msg
 
   .field
+    = f.label :type
+    = ContentPart.render_type_dropdown("content_part", "type", f.object.type)
+  .field
     = f.label :title
     = f.text_field :title
   .field

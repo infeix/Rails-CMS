@@ -9,7 +9,7 @@
   - # select Page
   .pure-u-1.messages
     %h1 Welche Seite willst du bearbeiten?
-    .pure-u-1.pure-u-md-1-3
+    .pure-u-1.pure-u-md-1-4
       .pages
         %table
           %thead
@@ -37,7 +37,7 @@
 - else
 
   - # edit selected Page
-  .pure-u-1.pure-u-md-1-3
+  .pure-u-1.pure-u-md-1-4
     .pages
       %br
       %h1 Seite:
@@ -85,4 +85,5 @@
         - rendered_content_positions = []
         = render partial: 'content_part_index', locals: { content_positions: content_positions,
                                                           rendered_content_positions: rendered_content_positions,
-                                                          content_parts: content_parts }
+                                                          content_parts: content_parts,
+                                                          edit_filter_page: edit_page}

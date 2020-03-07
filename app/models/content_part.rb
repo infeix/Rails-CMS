@@ -12,6 +12,8 @@ class ContentPart < ActiveRecord::Base
 
   scope :sort_by_index, -> { order(index: :asc) }
 
+  validates :type, presence: true
+
   before_save :define_position
   before_save :collect_children
   after_save :create_positions
