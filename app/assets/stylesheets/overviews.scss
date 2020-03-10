@@ -43,4 +43,19 @@
   .dropdown:hover .dropdown-content {
     display: block;
   }
+
+  .content_title {
+    display: inline-block;
+    min-width:100px;
+  }
+
+  input[type="text"] {
+    display: inline-block;
+    min-width:300px;
+  }
+
+  h4 {
+    margin-top: 14pt;
+    margin-bottom: 1pt;
+  }
 }

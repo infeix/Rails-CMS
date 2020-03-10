@@ -28,25 +28,23 @@ class OverviewsController < ApplicationController
       @page.edit_filter = 1
       @page.save
 
-      if content_part_id.eql? "new"
+      if content_part_id.eql? 'new'
         @content_part = ContentPart.new
         @content_part.edit_filter = 1
         @content_part.type = content_part_type
         @content_part.position = content_part_position
-        @content_parts = ContentPart.none
       elsif content_part_id
         @content_part = ContentPart.find_by(id: content_part_id)
         @content_part.edit_filter = 1
         @content_part.save
-        @content_parts = ContentPart.where(id: @content_part.id)
       else
         @content_part = ContentPart.current_editing_one
         unless @content_part.nil?
           @content_part.edit_filter = 0
           @content_part.save
         end
-        @content_parts = ContentPart.includes(:pages).where(pages: {id: @page.id})
       end
+      @content_parts = ContentPart.includes(:pages).where(pages: {id: @page.id})
       @templates = TemplateElement.where(id: @page.template_element_id).sort_by_id
     else
       page = Page.current_editing_one

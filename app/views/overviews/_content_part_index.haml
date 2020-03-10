@@ -6,28 +6,57 @@
 
 - content_positions.each do |position_name|
   - unless rendered_content_positions.include? position_name
-    .pure-u-1.pure-u-md-1-2
-      %h4
-        = "{{#{position_name}}}"
-        .dropdown
-          %span.pure-button="Neu"
-          .dropdown-content
-            = link_to 'neuer Text', "/overviews?content_part_id=new&content_part_type=Textelement&content_part_position=#{position_name}#cms", 'class': 'pure-button'
-            = link_to 'neues Bild', "/overviews?content_part_id=new&content_part_type=Picture&content_part_position=#{position_name}#cms", 'class': 'pure-button'
-      - if content_parts.where(position: position_name).any?
-        - rendered_content_positions.push position_name
-        %table
-          %tbody.field
-            - content_parts.where(position: position_name).sort_by_index.each do |content_part|
-              %tr
-                %td.cell= content_part.title
-                %td.cell= link_to 'wählen', "/overviews?content_part_id=#{content_part.id}#cms", 'class': 'pure-button'
+    - position_content_parts = content_parts.where(position: position_name).sort_by_index
+    .pure-u-1.pure-u-md-1-1
+      - first_content_part = position_content_parts.first
+      - world_content_part = @content_part
+      - world_content_part = first_content_part if !first_content_part.nil? && (@content_part.nil? || !@content_part.position.eql?(position_name))
+      - if world_content_part&.position.eql?(position_name) && world_content_part&.type.eql?("Wordelement")
+        -if world_content_part.id
+          - form_url = content_part_path(world_content_part)
+        - else
+          - form_url = content_parts_path
 
-              - content_positions = content_part.positions(:agent)
-              - if content_positions.any?
-                %td{ colspan: 3 }
-                  .pure-g
-                    = render partial: 'content_part_index', locals: { content_positions: content_positions,
-                                                                      rendered_content_positions: rendered_content_positions,
-                                                                      content_parts: content_parts,
-                                                                      edit_filter_page: edit_filter_page}
+        = form_for world_content_part, url: form_url do |f|
+          %h4
+            = "{{#{position_name}}}"
+            = f.text_field :text
+            = f.hidden_field :title, value: position_name
+            = f.hidden_field :position, value: position_name
+            = f.hidden_field :type, value: 'Wordelement'
+            = f.hidden_field :page_ids, multiple: true, value: edit_filter_page.id
+            = f.submit 'Save', 'class': 'pure-button'
+            - if world_content_part.id
+              = link_to 'Löschen', content_part_path(world_content_part), method: :delete, data: { :confirm => 'Bist du sicher?' }, 'class': 'pure-button'
+            - else
+              = link_to 'Abbrechen', '/overviews?content_part_id=nil#cms', 'class': 'pure-button'
+      - else
+        %h4
+          = "{{#{position_name}}}"
+          .dropdown
+            %span.pure-button Neu
+            .dropdown-content
+              - unless first_content_part
+                = link_to 'neues Wort', "/overviews?content_part_id=new&content_part_type=Wordelement&content_part_position=#{position_name}#cms", 'class': 'pure-button'
+              = link_to 'neuer Link', "/overviews?content_part_id=new&content_part_type=Urlelement&content_part_position=#{position_name}#cms", 'class': 'pure-button'
+              = link_to 'neuer Text', "/overviews?content_part_id=new&content_part_type=Textelement&content_part_position=#{position_name}#cms", 'class': 'pure-button'
+              = link_to 'neues Bild', "/overviews?content_part_id=new&content_part_type=Picture&content_part_position=#{position_name}#cms", 'class': 'pure-button'
+      - if position_content_parts.any?
+        - rendered_content_positions.push position_name
+        .pure-g
+          .pure-u-1.pure-u-md-1-1
+            - position_content_parts.each do |content_part|
+              - unless content_part.type.eql?("Wordelement")
+                %label.content_title= content_part.title
+                = link_to 'wählen', "/overviews?content_part_id=#{content_part.id}#cms", 'class': 'pure-button'
+                = link_to 'Löschen', content_part_path(content_part), method: :delete, data: { :confirm => 'Bist du sicher?' }, 'class': 'pure-button'
+                %br
+
+                - content_positions = content_part.positions(:agent)
+                - if content_positions.any?
+                  %td{ colspan: 3 }
+                    .pure-g
+                      = render partial: 'content_part_index', locals: { content_positions: content_positions,
+                                                                        rendered_content_positions: rendered_content_positions,
+                                                                        content_parts: content_parts,
+                                                                        edit_filter_page: edit_filter_page}

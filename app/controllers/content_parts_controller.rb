@@ -22,12 +22,14 @@ class ContentPartsController < ApplicationController
   end
 
   def create
-    @content_part = ContentPart.new(content_part_params)
+    type = content_part_params[:type]
+    @content_part = ContentPart.new(content_part_params.except(:type))
+    @content_part.type = type
 
     if @content_part.save
       redirect_to overviews_path, notice: 'ContentPart was successfully created.'
     else
-      render :new
+      redirect_to overviews_path, alert: 'ContentPart was not created.'
     end
   end
 
@@ -37,7 +39,7 @@ class ContentPartsController < ApplicationController
     if @content_part.save
       redirect_to overviews_path, notice: 'ContentPart was successfully created.'
     else
-      render :new
+      redirect_to overviews_path, alert: 'ContentPart was not created.'
     end
   end
 
