@@ -22,7 +22,7 @@ class Page < ActiveRecord::Base
   def render_head
     rendered = "<!DOCTYPE html><html lang=\"de\"><head>"
     if template_element.present?
-      rendered += template_element.render_head(content_parts)
+      rendered += template_element.render_head(self, content_parts)
     end
     "#{rendered}</head>"
   end
@@ -32,9 +32,9 @@ class Page < ActiveRecord::Base
     rendered += "<body>".html_safe
     if template_element.present?
       if content_parts.any?
-        rendered += template_element.render textelements.all, content_parts.where.not(type: "Textelement")
+        rendered += template_element.render(self, content_parts)
       else
-        rendered += template_element.render
+        rendered += template_element.render(self)
       end
     elsif content_parts.any?
       rendered += render_content_parts

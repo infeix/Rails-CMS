@@ -41,40 +41,58 @@ class ContentPart < ActiveRecord::Base
     positions
   end
 
-  def children
+  def children(page)
     children_array = self.children_parts&.split(';') || []
-    ContentPart.where("id IN (?)", children_array)
+    return ContentPart.none unless children_array.any?
+    content_parts = ContentPart.includes(:pages).where(pages: {id: page.id})
+    content_parts.where('"content_parts"."id" IN (?)', children_array)
   end
 
   def make_a_copy(page, recursion = true)
-    new_part = ContentPart.new
-    new_part.template_element = template_element
-    new_part.position = position
-    new_part.text= text
-    new_part.title= title
-    new_part.code= code
-    new_part.index= index
-    new_part.image= image
-    new_part.pdf= pdf
-    new_part.css_file= css_file
-    new_part.js_file= js_file
-    new_part.video= video
-    new_part.type= type
-    new_part.target_path= target_path
-    new_part.data_text= data_text
-    new_part.children_parts= children_parts
-    new_part.save!
-    new_part.pages << page
-    if recursion
-      children.each do |child|
-        child.make_a_copy(page)
+    non_copy = ["PdfFile", "JsFile", "CssFile", "VideoElement", "Picture"]
+    unless non_copy.include?(type)
+      new_part = ContentPart.new
+      new_part.template_element = template_element
+      new_part.position = position
+      new_part.text= text
+      new_part.title= title
+      new_part.code= code
+      new_part.index= index
+      new_part.type= type
+      new_part.target_path= target_path
+      new_part.data_text= data_text
+      new_part.children_parts= children_parts
+      new_part.save!
+      new_part.pages << page
+      if recursion
+        children(page).each do |child|
+          child.make_a_copy(page)
+        end
       end
+      return new_part
+    else
+      unless pages.include?(page)
+        pages << page
+      end
+      return self
     end
-    new_part
   end
 
-  def render
-    to_s
+  def render(page, html)
+    replace_title_pattern = "{{#{title}}}"
+    replace_pattern = "{{#{position}}}"
+
+    if html.include? replace_title_pattern
+      html = html.gsub(replace_title_pattern, "#{to_s}#{replace_title_pattern}")
+    elsif html.include? replace_pattern
+      html = html.gsub(replace_pattern, "#{to_s}#{replace_pattern}")
+    end
+
+    children(page).each do |child|
+      html = child.render(page, html)
+    end
+
+    html
   end
 
   def to_s

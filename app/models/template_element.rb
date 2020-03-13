@@ -52,11 +52,11 @@ class TemplateElement < ActiveRecord::Base
     positions
   end
 
-  def render_head(parts = [])
+  def render_head(page, parts = [])
     html = "#{render_css}#{reder_meta}\n"
 
-    parts.each do |article|
-      html = render_article article, html
+    parts.each do |part|
+      html = part.render(page, html)
     end
     Position.all.each do |position|
       html = clear_blank_position position, html
@@ -87,39 +87,23 @@ class TemplateElement < ActiveRecord::Base
     deleted
   end
 
-  def render(text_parts = [], parts = [])
+  def render(page, parts = ContentPart.none)
     html = ''
     html_parts.each do |part|
       html += part.to_s
     end
-    text_parts.each do |article|
-      html = render_article article, html
-    end
-    parts.each do |article|
-      html = render_article article, html
+    positions = Position.parse_positions(html)
+    positions.each do |position|
+      position_parts = parts.where(position: position)
+      position_parts.each do |part|
+        html = part.render(page, html)
+      end
     end
     Position.all.each do |position|
       html = clear_blank_position position, html
     end
     html
   end
-
-  def render_article(article, render_value = "")
-    return nil unless article
-    replace_title_pattern = "{{#{article.title}}}"
-    replace_pattern = "{{#{article.position}}}"
-
-    if render_value.include? replace_title_pattern
-      render_value = render_value.gsub(replace_title_pattern, "#{article.render}#{replace_title_pattern}")
-      return render_value
-    elsif render_value.include? replace_pattern
-      render_value = render_value.gsub(replace_pattern, "#{article.render}#{replace_pattern}")
-      return render_value
-    end
-
-    render_value
-  end
-
 
   def self.render_dropdown(element, property, selected)
     html_result = ""
