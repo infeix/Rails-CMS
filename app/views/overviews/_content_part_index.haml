@@ -7,8 +7,9 @@
 - content_positions.each do |position_name|
   - unless rendered_content_positions.include? position_name
     - position_content_parts = content_parts.where(position: position_name).sort_by_index
-    .pure-u-1.pure-u-md-1-1
-      - first_content_part = position_content_parts.first
+    - first_content_part = position_content_parts.first
+    - border = "container-border" if first_content_part&.type.eql?("Textelement") && first_content_part&.children.any?
+    .pure-u-1.pure-u-md-1-1{ "class": border }
       - world_content_part = @content_part
       - world_content_part = first_content_part if !first_content_part.nil? && (@content_part.nil? || !@content_part.position.eql?(position_name))
       - if world_content_part&.position.eql?(position_name) && world_content_part&.type.eql?("Wordelement")

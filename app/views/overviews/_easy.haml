@@ -39,14 +39,10 @@
   - # edit selected Page
   .pure-u-1.pure-u-md-1-4
     .pages
-      %h1 Seite:
-      %table
-        %tbody
-          - filtered_page = if edit_page.edit_filter == 1 then "filtered-element" else "" end
-          %tr{ class: filtered_page}
-            %td.cell= edit_page.title
-            %td.cell= link_to edit_page.url, edit_page.url
-            %td.cell= link_to 'andere Seite', "/overviews?page_id=nil#cms", 'class': 'pure-button'
+      %h1
+        = "Seite: "
+        = edit_page.title
+      = link_to 'andere Seite', "/overviews?page_id=nil#cms", 'class': 'pure-button'
     %br
     = form_for edit_page do |f|
       - if edit_page.errors.any?
@@ -61,15 +57,20 @@
         = f.text_field :title, class: "page_title"
       .field
         = f.label :path
+        = ": /pages/ "
         = f.text_field :path, class: "page_path"
+        = link_to edit_page.url, edit_page.url, 'class': 'pure-button'
       .field
         = f.label :template_element
         = TemplateElement.render_dropdown("page", "template_element_id", f.object.template_element&.title)
       .actions
         = f.submit 'Speichern', 'class': 'pure-button save-page-button'
         - unless f.object.path.nil?
-          = f.submit 'Seite clonen', 'class': 'pure-button copy-page-button', formaction: copy_page_path(f.object.path)
           = link_to 'Löschen', page, method: :delete, data: { :confirm => 'Bist du sicher?' }, 'class': 'pure-button'
+          %br
+          %br
+          = f.submit 'Seite clonen', 'class': 'pure-button copy-page-button', formaction: copy_page_path(f.object.path)
+          = link_to 'andere Seite', "/overviews?page_id=nil#cms", 'class': 'pure-button'
 
   - # Content Parts
   .pure-u-1.pure-u-md-2-3
