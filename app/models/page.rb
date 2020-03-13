@@ -16,7 +16,7 @@ class Page < ActiveRecord::Base
   end
 
   def url
-    path
+    "/pages/#{path}"
   end
 
   def render_head

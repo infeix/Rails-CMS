@@ -12,7 +12,12 @@
         %ul
           - @content_part.errors.full_messages.each do |msg|
             %li= msg
-    = f.hidden_field :title, value: @content_part.position
+    - if @content_part.type.eql?("Wordelement")
+      = f.hidden_field :title, value: @content_part.position
+    - else
+      .field
+        = f.label :title
+        = f.text_field :title
     = f.hidden_field :type, value: f.object.type
     = f.hidden_field :position, value: @content_part.position
     = f.hidden_field :page_ids, multiple: true, value: @page.id

@@ -19,7 +19,7 @@
 
         = form_for world_content_part, url: form_url do |f|
           %h4
-            = "{{#{position_name}}}"
+            = "#{position_name}:"
             = f.text_field :text
             = f.hidden_field :title, value: position_name
             = f.hidden_field :position, value: position_name
