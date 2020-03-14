@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191118085800) do
+ActiveRecord::Schema.define(version: 20200314082900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,6 +135,12 @@ ActiveRecord::Schema.define(version: 20191118085800) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "content_part_id"
+    t.bigint "page_part_id"
+    t.bigint "template_element_id"
+    t.index ["content_part_id"], name: "index_positions_on_content_part_id"
+    t.index ["page_part_id"], name: "index_positions_on_page_part_id"
+    t.index ["template_element_id"], name: "index_positions_on_template_element_id"
   end
 
   create_table "services", id: :serial, force: :cascade do |t|

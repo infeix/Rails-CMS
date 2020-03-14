@@ -9,10 +9,15 @@ class ContentPart < ActiveRecord::Base
 
   belongs_to :template_element, optional: true
   has_and_belongs_to_many :pages, optional: true
+  before_destroy do
+    pages.clear
+  end
 
   scope :sort_by_index, -> { order(index: :asc) }
+  scope :sort_by_title, -> { order(title: :asc) }
 
   validates :type, presence: true
+  validates :title, uniqueness: true
 
   before_save :define_position
   before_save :collect_children

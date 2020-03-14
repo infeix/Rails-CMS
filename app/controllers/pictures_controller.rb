@@ -24,12 +24,10 @@ class PicturesController < ApplicationController
   def create
     @picture = Picture.new(picture_params)
 
-    respond_to do |format|
-      if @picture.save
-        format.html { redirect_to overviews_path, notice: 'Picture was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    if @picture.save
+      redirect_to overviews_path, notice: 'Picture was successfully created.'
+    else
+      render :new
     end
   end
 
@@ -45,9 +43,7 @@ class PicturesController < ApplicationController
 
   def destroy
     @picture.destroy
-    respond_to do |format|
-      format.html { redirect_to overviews_path, notice: 'Picture was successfully destroyed.' }
-    end
+    redirect_to overviews_path, notice: 'Picture was successfully destroyed.'
   end
 
   private
