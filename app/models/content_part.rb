@@ -27,12 +27,12 @@ class ContentPart < ActiveRecord::Base
   end
 
   def collect_children
-    children = []
+    collected_children = []
     positions = Position.parse_positions to_s
     positions.each do |position|
-      children += ContentPart.where(position: position).pluck(:id)
+      collected_children += ContentPart.where(position: position).pluck(:id)
     end
-    self.children_parts = children.join(';')
+    self.children_parts = collected_children.join(';')
   end
 
   def positions(roll = nil, positions = [])
