@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ContentPart < ActiveRecord::Base
+  FILES = ["PdfFile", "JsFile", "CssFile", "VideoElement", "Picture"]
+
   mount_uploader :image, ImageUploader
   mount_uploader :video, VideoUploader
   mount_uploader :pdf, PdfUploader
@@ -15,12 +17,13 @@ class ContentPart < ActiveRecord::Base
 
   scope :sort_by_index, -> { order(index: :asc) }
   scope :sort_by_title, -> { order(title: :asc) }
+  scope :files, -> { where('"content_parts"."type" IN (?)', FILES) }
 
   validates :type, presence: true
-  validates :title, uniqueness: true
 
   before_save :define_position
   before_save :collect_children
+  after_save :collect_pages
   after_save :create_positions
 
   def define_position
@@ -38,6 +41,15 @@ class ContentPart < ActiveRecord::Base
       collected_children += ContentPart.where(position: position).pluck(:id)
     end
     self.children_parts = collected_children.join(';')
+  end
+
+  def collect_pages
+    return true unless FILES.include?(type)
+    Page.all.each do |page|
+      unless pages.include?(page)
+        pages << page
+     end
+    end
   end
 
   def positions(roll = nil, positions = [])
@@ -98,6 +110,38 @@ class ContentPart < ActiveRecord::Base
     end
 
     html
+  end
+
+  def url
+    if image.file
+      image.url
+    elsif pdf.file
+      pdf.url
+    elsif video.file
+      video.url
+    elsif css_file.file
+      css_file.url
+    elsif js_file.file
+      js_file.url
+    end
+  end
+
+  def path
+    if image.file
+      image.file.file
+    elsif pdf.file
+      pdf.file.file
+    elsif video.file
+      video.file.file
+    elsif css_file.file
+      css_file.file.file
+    elsif js_file.file
+      js_file.file.file
+    end
+  end
+
+  def is_file?
+    FILES.include?(type)
   end
 
   def to_s

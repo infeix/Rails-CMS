@@ -9,7 +9,12 @@
   .tab-set
     .cms-tab.tab-element.selected-tab
       .pure-g
-        = render partial: 'easy', locals: { pages: @pages,
+        = render partial: 'easy_pages', locals: { pages: @pages,
+                                            page: @page,
+                                            content_parts: @content_parts,
+                                            content_part: @content_part }
+
+        = render partial: 'easy_content_parts', locals: { files: @files,
                                             page: @page,
                                             content_parts: @content_parts,
                                             content_part: @content_part }

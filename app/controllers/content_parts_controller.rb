@@ -89,6 +89,9 @@ class ContentPartsController < ApplicationController
         if param[:template_element_id].blank? || param[:template_element_id].eql?("nil")
           param[:template_element_id] = nil
         end
+        if param[:page_ids] && ContentPart::FILES.include?(param[:type])
+          param.delete(:page_ids)
+        end
       end
   end
 end

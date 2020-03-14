@@ -1,0 +1,58 @@
+- files = local_assigns.fetch(:files)
+- content_parts = local_assigns.fetch(:content_parts)
+- edit_content_part = local_assigns.fetch(:content_part)
+
+
+
+
+- unless ContentPart.current_editing_one
+  - if Page.current_editing_one
+
+    - # select Content Parts
+    .pure-u-1.pure-u-md-2-3
+      %h1 Welchen Inhalt willst du bearbeiten?
+      .pure-g
+        - content_positions = if @page.template_element then @page.template_element.positions(:agent) else [] end
+        - rendered_content_positions = []
+        = render partial: 'content_part_index', locals: { content_positions: content_positions,
+                                                          rendered_content_positions: rendered_content_positions,
+                                                          content_parts: content_parts,
+                                                          edit_filter_page: @page}
+
+    - # select File
+    .pure-u-1.pure-u-md-1-2.messages
+      %h1 Welche Datei willst du bearbeiten?
+      .files
+        .dropdown
+          %span.pure-button Neue Datei
+          .dropdown-content
+            = link_to 'neues Bild', "/overviews?content_part_id=new&content_part_type=Picture#cms", 'class': 'pure-button'
+            = link_to 'neue PDF-Datei', "/overviews?content_part_id=new&content_part_type=Picture#cnms", 'class': 'pure-button'
+            = link_to 'neue Css-Datei', "/overviews?content_part_id=new&content_part_type=CssFile#cms", 'class': 'pure-button'
+            = link_to 'neue JavaScript-Datei', "/overviews?content_part_id=new&content_part_type=JsFile#cms", 'class': 'pure-button'
+        %br
+        %table
+          %thead
+            %tr
+              %th.cell Title
+              %th.cell Pfad
+              %th.cell
+              %th.cell
+
+          %tbody
+            - files.each do |content_part|
+              %tr
+                %td.cell= content_part.title
+                %td.cell
+                  - if content_part&.path && File.exist?(content_part.path)
+                    = link_to content_part.url, content_part.url
+                  - else
+                    = "Not Found #{content_part&.url}"
+                %td.cell= link_to 'Wählen', "/overviews?content_part_id=#{content_part.id}#cms", 'class': 'pure-button'
+                %td.cell= link_to 'Löschen', content_part, method: :delete, data: { :confirm => 'Bist du sicher?' }, 'class': 'pure-button'
+
+- else
+
+  - # edit selected File / Content Part
+  .pure-u-1.pure-u-md-1-4
+    = render 'content_part_form'

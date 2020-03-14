@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200314082900) do
+ActiveRecord::Schema.define(version: 20200314164600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,26 +20,6 @@ ActiveRecord::Schema.define(version: 20200314082900) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "articles", id: :serial, force: :cascade do |t|
-    t.string "title"
-    t.text "text"
-    t.text "code"
-    t.integer "index"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "page_id"
-    t.integer "template_element_id"
-    t.string "position"
-    t.string "image"
-    t.string "video"
-    t.string "type"
-    t.string "target_path"
-    t.string "data_text"
-    t.string "pdf"
-    t.index ["page_id"], name: "index_articles_on_page_id"
-    t.index ["template_element_id"], name: "index_articles_on_template_element_id"
   end
 
   create_table "contacts", id: :serial, force: :cascade do |t|
@@ -203,8 +183,6 @@ ActiveRecord::Schema.define(version: 20200314082900) do
     t.index ["page_id"], name: "index_views_on_page_id"
   end
 
-  add_foreign_key "articles", "pages"
-  add_foreign_key "articles", "template_elements"
   add_foreign_key "page_parts", "template_elements"
   add_foreign_key "pages", "template_elements"
   add_foreign_key "transactions", "accounts", column: "from_id"
