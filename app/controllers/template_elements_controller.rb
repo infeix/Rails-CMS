@@ -4,7 +4,7 @@ class TemplateElementsController < ApplicationController
   before_action :authenticate_user!
   before_action :authenticate_agent!
 
-  before_action :set_template, only: [:show, :edit, :update, :destroy]
+  before_action :set_template, only: [:show, :edit, :update, :destroy, :copy]
 
   # GET /templates
   # GET /templates.json
@@ -49,6 +49,12 @@ class TemplateElementsController < ApplicationController
     end
   end
 
+  def copy
+    new_template_element = @template.make_a_copy
+    @template = new_template_element
+    redirect_to edit_template_element_path(@template), notice: 'Template was successfully copied.'
+  end
+
   # DELETE /templates/1
   # DELETE /templates/1.json
   def destroy
@@ -60,17 +66,26 @@ class TemplateElementsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_template
-      @template = TemplateElement.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def template_element_params
+  # Use callbacks to share common setup or constraints between actions.
+  def set_template
+    @template = TemplateElement.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def template_element_params
+    unless params[:action].eql?('copy')
       params.require(:template_element).permit(
+          :title,
+          :meta,
+          html_parts_attributes: [:id, :index, :text, :is_last],
+          css_parts_attributes: [:id, :index, :text])
+    else
+      params.permit(:template_element).permit(
         :title,
         :meta,
         html_parts_attributes: [:id, :index, :text, :is_last],
         css_parts_attributes: [:id, :index, :text])
     end
+  end
 end

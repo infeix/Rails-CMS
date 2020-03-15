@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users
   resources :template_elements, controller: 'template_elements' do
+    member do
+      patch 'copy'
+    end
     resources :css_parts, controller: 'template_elements/css_parts'
     resources :html_parts, controller: 'template_elements/html_parts'
   end

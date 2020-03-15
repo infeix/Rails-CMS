@@ -45,6 +45,40 @@
 
     %br
 
+  .templates
+    %h1 Vorlagen
+
+    %table
+      %thead
+        %tr
+          %th ID
+          %th Title
+          %th
+          %th
+          %th
+          %th
+
+      %tbody
+        - templates.each do |template|
+          %tr
+            %td.cell= template.id
+            %td.cell= template.title
+            %td.cell= link_to 'Show', template, 'class': 'pure-button'
+            %td.cell= link_to 'Edit', edit_template_element_path(template), 'class': 'pure-button'
+            - #%td.cell= link_to 'New Html', new_template_element_html_part_path(template), 'class': 'pure-button'
+            - #%td.cell= link_to 'New Css', new_template_element_css_part_path(template), 'class': 'pure-button'
+            %td.cell
+              = form_for template do |f|
+                = f.submit 'Clonen', 'class': 'pure-button copy-template-element-button', formaction: copy_template_element_path(f.object.id)
+            %td.cell= link_to 'Destroy', template, :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
+
+    %br
+
+    = link_to 'Neue Vorlage', new_template_element_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-template-button'
+
+  %br
+  %br
+
   .pure-u-1.pure-u-md-1-3
     .pages
       %h1 Seiten
@@ -76,37 +110,6 @@
 
       = link_to 'Neue Seite', new_page_path, 'class': 'pure-button new-page-button'
       = link_to 'Reset Filter', "/overviews?page_id=nil#cms", 'class': 'pure-button'
-
-    %br
-    %br
-    .templates
-      %h1 Vorlagen
-
-      %table
-        %thead
-          %tr
-            %th ID
-            %th Title
-            %th
-            %th
-            %th
-            %th
-            %th
-
-        %tbody
-          - templates.each do |template|
-            %tr
-              %td.cell= template.id
-              %td.cell= template.title
-              %td.cell= link_to 'Show', template, 'class': 'pure-button'
-              %td.cell= link_to 'Edit', edit_template_element_path(template), 'class': 'pure-button'
-              %td.cell= link_to 'New Html', new_template_element_html_part_path(template), 'class': 'pure-button'
-              %td.cell= link_to 'New Css', new_template_element_css_part_path(template), 'class': 'pure-button'
-              %td.cell= link_to 'Destroy', template, :method => :delete, :data => { :confirm => 'Are you sure?' }, 'class': 'pure-button'
-
-      %br
-
-      = link_to 'Neue Vorlage', new_template_element_path(page_id: edit_filter_page&.id), 'class': 'pure-button new-template-button'
 
     %br
     %br

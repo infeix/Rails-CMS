@@ -2,7 +2,6 @@
 
 class TemplateElement < ActiveRecord::Base
   has_many :pages, dependent: :nullify
-  has_many :articles, dependent: :nullify
   has_many :content_parts, dependent: :nullify
   has_many :page_parts, -> { sort_by_index }, dependent: :destroy
   has_many :html_parts, -> { sort_by_index }, dependent: :destroy
@@ -53,7 +52,7 @@ class TemplateElement < ActiveRecord::Base
   end
 
   def render_head(page, parts = [])
-    html = "#{render_css}#{reder_meta}\n"
+    html = "#{render_css}#{render_meta}\n"
 
     parts.each do |part|
       html = part.render(page, html)
@@ -64,7 +63,7 @@ class TemplateElement < ActiveRecord::Base
     html
   end
 
-  def reder_meta
+  def render_meta
     meta if meta.present?
   end
 
@@ -74,6 +73,21 @@ class TemplateElement < ActiveRecord::Base
       html += "<style>\n#{css}\n</style>"
     end
     html
+  end
+
+  def make_a_copy
+    new_template_element = TemplateElement.new
+    new_template_element.title = "#{title}_copy"
+    new_template_element.meta = meta
+    new_template_element.save!
+
+    html_parts.each do |part|
+      part.make_a_copy(new_template_element)
+    end
+    css_parts.each do |part|
+      part.make_a_copy(new_template_element)
+    end
+    new_template_element
   end
 
   def remove_empty_css
