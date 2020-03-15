@@ -10,7 +10,10 @@
     background-color: yellow;
     font-weight: bold;
   }
-  margin: 3vh;
+  margin-top: 3vmin;
+  margin-right: 3vmin;
+  margin-left: 3vmin;
+  margin-bottom: 90px;
 
   .filtered-element {
     background-color: lightgreen;
@@ -61,5 +64,6 @@
 
   .container-border {
     border: 1px solid black;
+    padding: 4px;
   }
 }

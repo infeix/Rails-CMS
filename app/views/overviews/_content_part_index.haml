@@ -8,8 +8,8 @@
   - unless rendered_content_positions.include? position_name
     - position_content_parts = content_parts.where(position: position_name).sort_by_index
     - first_content_part = position_content_parts.first
-    - border = "container-border" if first_content_part&.type.eql?("Textelement") && first_content_part&.children(edit_filter_page).any?
-    .pure-u-1.pure-u-md-1-1{ "class": border }
+
+    .pure-u-1.pure-u-md-1-1.container-border
       - world_content_part = @content_part
       - world_content_part = first_content_part if !first_content_part.nil? && (@content_part.nil? || !@content_part.position.eql?(position_name))
       - if world_content_part&.position.eql?(position_name) && world_content_part&.type.eql?("Wordelement")
@@ -18,7 +18,7 @@
         - else
           - form_url = content_parts_path
 
-        = form_for world_content_part, url: form_url do |f|
+        = form_for world_content_part, as: :content_part, url: form_url do |f|
           %h4
             = "#{position_name}:"
             = f.text_field :text

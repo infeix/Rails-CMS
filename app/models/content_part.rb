@@ -44,7 +44,7 @@ class ContentPart < ActiveRecord::Base
   end
 
   def collect_pages
-    return true unless FILES.include?(type)
+    return true unless ContentPart::FILES.include?(type)
     Page.all.each do |page|
       unless pages.include?(page)
         pages << page
@@ -101,10 +101,15 @@ class ContentPart < ActiveRecord::Base
 
     if html.include? replace_title_pattern
       html = html.gsub(replace_title_pattern, "#{to_s}#{replace_title_pattern}")
+      html = render_children(page, html)
     elsif html.include? replace_pattern
       html = html.gsub(replace_pattern, "#{to_s}#{replace_pattern}")
+      html = render_children(page, html)
     end
+    html
+  end
 
+  def render_children(page, html)
     children(page).each do |child|
       html = child.render(page, html)
     end
