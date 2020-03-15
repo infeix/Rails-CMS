@@ -14,7 +14,7 @@
     = f.text_field :path, class: "page_path"
   .field
     = f.label :template_element
-    = TemplateElement.render_dropdown(f.object.type.underscore, "template_element_id", f.object.template_element&.title)
+    = TemplateElement.render_dropdown(f.object.type.underscore, "template_element_id", f.object.template_element&.title, @page.type)
   - if false
     .field
       = f.label :content_parts

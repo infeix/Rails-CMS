@@ -38,7 +38,7 @@
       - unless @content_part.type.eql?("Wordelement") || ContentPart::FILES.include?(@content_part.type)
         .field
           = f.label :template_element_id
-          = TemplateElement.render_dropdown("content_part", "template_element_id", f.object.template_element&.title)
+          = TemplateElement.render_dropdown("content_part", "template_element_id", f.object.template_element&.title, @content_part.type)
       - if @content_part.type.eql? "Picture"
         .field
           = f.label :image

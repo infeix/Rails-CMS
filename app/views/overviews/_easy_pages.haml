@@ -60,7 +60,7 @@
         = link_to edit_page.url, edit_page.url, 'class': 'pure-button'
       .field
         = f.label :template_element
-        = TemplateElement.render_dropdown("page", "template_element_id", f.object.template_element&.title)
+        = TemplateElement.render_dropdown("page", "template_element_id", f.object.template_element&.title, edit_page.type)
       .actions
         = f.submit 'Speichern', 'class': 'pure-button save-page-button'
         - unless f.object.path.nil?

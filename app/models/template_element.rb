@@ -119,11 +119,12 @@ class TemplateElement < ActiveRecord::Base
     html
   end
 
-  def self.render_dropdown(element, property, selected)
+  def self.render_dropdown(element, property, selected, target_type)
     html_result = ""
     is_selected = false
     TemplateElement.sort_by_title.each do |template|
       next if template&.title.blank?
+      next unless template&.target_type.blank? || template&.target_type.include?(target_type)
       if selected && selected.eql?(template.title)
         html_result = "#{html_result}<option  value=\"#{template.id}\" selected>#{template.title}</option>"
         is_selected = true

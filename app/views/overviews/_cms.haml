@@ -53,6 +53,7 @@
         %tr
           %th ID
           %th Title
+          %th Target
           %th
           %th
           %th
@@ -63,6 +64,7 @@
           %tr
             %td.cell= template.id
             %td.cell= template.title
+            %td.cell= template.target_type
             %td.cell= link_to 'Show', template, 'class': 'pure-button'
             %td.cell= link_to 'Edit', edit_template_element_path(template), 'class': 'pure-button'
             - #%td.cell= link_to 'New Html', new_template_element_html_part_path(template), 'class': 'pure-button'

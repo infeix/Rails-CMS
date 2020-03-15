@@ -32,7 +32,7 @@ class TemplateElementsController < ApplicationController
     @template = TemplateElement.new(template_element_params)
 
     if @template.save
-      redirect_to overviews_path, notice: 'Template was successfully created.'
+      redirect_to overviews_path(:anchor => "admin"), notice: 'Template was successfully created.'
     else
       render :new
     end
@@ -43,7 +43,7 @@ class TemplateElementsController < ApplicationController
   def update
     if @template.update(template_element_params)
       @template.reload if @template.remove_empty_css
-      render :edit, notice: 'Template was successfully updated.'
+      redirect_to overviews_path(:anchor => "admin"), notice: 'Template was successfully updated.'
     else
       render :edit
     end
@@ -59,10 +59,7 @@ class TemplateElementsController < ApplicationController
   # DELETE /templates/1.json
   def destroy
     @template.destroy
-    respond_to do |format|
-      format.html { redirect_to overviews_path, notice: 'Template was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to overviews_path(:anchor => "admin"), notice: 'Template was successfully destroyed.'
   end
 
   private
@@ -78,14 +75,16 @@ class TemplateElementsController < ApplicationController
       params.require(:template_element).permit(
           :title,
           :meta,
+          :target_type,
           html_parts_attributes: [:id, :index, :text, :is_last],
           css_parts_attributes: [:id, :index, :text])
     else
       params.permit(:template_element).permit(
-        :title,
-        :meta,
-        html_parts_attributes: [:id, :index, :text, :is_last],
-        css_parts_attributes: [:id, :index, :text])
+          :title,
+          :meta,
+          :target_type,
+          html_parts_attributes: [:id, :index, :text, :is_last],
+          css_parts_attributes: [:id, :index, :text])
     end
   end
 end

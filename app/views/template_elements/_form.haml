@@ -16,6 +16,12 @@
         = f.label :title
         = f.text_field :title
 
+  .pure-g
+    .field.pure-u-1.pure-u-md-1-4
+      %br
+      %b
+        = f.label :target_type
+        = f.text_field :target_type
   = f.fields_for :css_parts do |ff|
     - if ff.object.id.present?
       = ff.hidden_field :id
