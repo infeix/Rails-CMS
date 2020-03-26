@@ -33,6 +33,9 @@
           = f.text_field :title
       = f.hidden_field :type, value: f.object.type
       = f.hidden_field :position, value: @content_part.position
+      .field
+        = f.label :index
+        = f.text_field :index, style: 'width: 40px; min-width: 40px;'
       - unless ContentPart::FILES.include?(@content_part.type)
         - @page = @content_part.pages.first if @content_part.pages.count == 1 && @page.nil?
         - if @page
@@ -52,13 +55,15 @@
           = f.label :template_element_id
           = TemplateElement.render_dropdown("content_part", "template_element_id", f.object.template_element&.title, @content_part.type)
       - if @content_part.type.eql? "Picture"
+        - if @content_part.image?
+          = image_tag(@content_part.image.url, alt: 'Image', class: 'width-70')
+          %br
         .field
           = f.label :image
           = f.file_field :image
 
-          - if @content_part.image?
-            = image_tag(@content_part.image.url, alt: 'Image', class: 'width-70')
-
+        - if @content_part.image?
+          .field
             = label_tag :remove_image do
               Remove image
               = f.check_box :remove_image
