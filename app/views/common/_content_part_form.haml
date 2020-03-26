@@ -31,11 +31,11 @@
         .field
           = f.label :title
           = f.text_field :title
+        .field
+          = f.label :index
+          = f.text_field :index, style: 'width: 40px; min-width: 40px;'
       = f.hidden_field :type, value: f.object.type
       = f.hidden_field :position, value: @content_part.position
-      .field
-        = f.label :index
-        = f.text_field :index, style: 'width: 40px; min-width: 40px;'
       - unless ContentPart::FILES.include?(@content_part.type)
         - @page = @content_part.pages.first if @content_part.pages.count == 1 && @page.nil?
         - if @page

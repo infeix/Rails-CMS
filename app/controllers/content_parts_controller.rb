@@ -88,6 +88,7 @@ class ContentPartsController < ApplicationController
       :remove_image,
       :type,
       :video,
+      :target_path,
       :data_text,
       :remove_video,
       :page_ids => []).tap do |param|
