@@ -30,7 +30,11 @@ Rails.application.routes.draw do
       patch 'copy'
     end
   end
-  resources :urlelements, controller: 'content_parts', type: "Urlelement"
+  resources :urlelements, controller: 'content_parts', type: "Urlelement" do
+    member do
+      patch 'copy'
+    end
+  end
   resources :pdf_files, controller: 'content_parts', type: "PdfFile"
   resources :css_files, controller: 'content_parts', type: "CssFile"
   resources :js_files, controller: 'content_parts', type: "JsFile"

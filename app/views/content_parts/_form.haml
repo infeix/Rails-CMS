@@ -106,7 +106,7 @@
       - if @content_part.type.eql?("Wordelement")
         .field
           = f.text_field :text
-          = f.submit 'Save', 'class': 'pure-button'
+          = f.submit 'Speichern', 'class': 'pure-button'
           = link_to 'Abbrechen', "/overviews?content_part_id=nil#cms", 'class': 'pure-button'
       - if @content_part.type.eql?("Textelement")
         .field
@@ -124,7 +124,9 @@
           = f.text_area :data_text, rows: 5, cols: 100, class: "edit_template"
       - unless @content_part.type.eql?("Wordelement")
         .actions
-          = f.submit 'Save', 'class': 'pure-button'
+          = f.submit 'Speichern', 'class': 'pure-button'
+          - unless f.object.id.nil? || ContentPart::FILES.include?(f.object.type)
+            = f.submit 'Kopieren', 'class': 'pure-button copy-content-part-button', formaction: copy_content_part_path(f.object.id)
           = link_to 'Abbrechen', "/overviews?content_part_id=nil#cms", 'class': 'pure-button'
           - if @content_part.id
             = link_to 'Destroy', content_part_path(@content_part), method: :delete, data: { :confirm => 'Sind sie sicher?' }, 'class': 'pure-button'
