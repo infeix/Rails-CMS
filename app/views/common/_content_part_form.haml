@@ -34,7 +34,19 @@
       = f.hidden_field :type, value: f.object.type
       = f.hidden_field :position, value: @content_part.position
       - unless ContentPart::FILES.include?(@content_part.type)
-        = f.hidden_field :page_ids, multiple: true, value: @page.id
+        - @page = @content_part.pages.first if @content_part.pages.count == 1 && @page.nil?
+        - if @page
+          = f.hidden_field :page_ids, multiple: true, value: @page.id
+        - else
+          .field
+            = f.label :page_id
+            - Page.all.each do |page|
+              %br
+              = "#{page.title} (#{page.id})"
+              - if f.object.page_ids.include? page.id
+                = check_box "content_part", "page_ids", { multiple: true, checked: true }, page.id, nil
+              - else
+                = check_box "content_part", "page_ids", { multiple: true, checked: false }, page.id, nil
       - unless @content_part.type.eql?("Wordelement") || ["PdfFile", "JsFile", "CssFile"].include?(@content_part.type)
         .field
           = f.label :template_element_id
