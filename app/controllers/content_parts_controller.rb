@@ -15,6 +15,7 @@ class ContentPartsController < ApplicationController
 
   def new
     @content_part = ContentPart.new
+    @content_part.type = new_content_part_params[:type]
     find_page
   end
 
@@ -71,6 +72,10 @@ class ContentPartsController < ApplicationController
 
   def set_content_part
     @content_part = ContentPart.find(params[:id])
+  end
+
+  def new_content_part_params
+    params.permit(:type)
   end
 
   def content_part_params
