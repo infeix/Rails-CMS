@@ -10,9 +10,12 @@ class Position < ActiveRecord::Base
   end
 
   def self.create_positions(text)
+    positions = []
     Position.parse_positions(text).each do |position_name|
       Position.find_or_create_by(name: position_name)
+      positions.push position_name
     end
+    positions
   end
 
   def self.filter_positions(positions = [], roll = nil)

@@ -24,30 +24,24 @@ class UrlelementsController < ApplicationController
   def create
     @urlelement = Urlelement.new(urlelement_params)
 
-    respond_to do |format|
-      if @urlelement.save
-        format.html { redirect_to overviews_path, notice: 'Urlelement was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    if @urlelement.save
+      redirect_to overviews_path, notice: 'Urlelement was successfully created.'
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @urlelement.update(urlelement_params)
-        format.html { redirect_to overviews_path, notice: 'Urlelement was successfully updated.' }
-      else
-        format.html { render :edit }
-      end
+    if @urlelement.update(urlelement_params)
+      redirect_to overviews_path, notice: 'Urlelement was successfully updated.'
+    else
+      render :edit
     end
   end
 
   def destroy
     @urlelement.destroy
-    respond_to do |format|
-      format.html { redirect_to overviews_path, notice: 'Urlelement was successfully destroyed.' }
-    end
+    redirect_to overviews_path, notice: 'Urlelement was successfully destroyed.'
   end
 
   private

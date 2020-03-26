@@ -53,7 +53,7 @@
                 = link_to 'Löschen', content_part_path(content_part), method: :delete, data: { :confirm => 'Bist du sicher?' }, 'class': 'pure-button'
                 %br
 
-                - content_positions = content_part.positions(:agent)
+                - content_positions = content_part.filtered_positions(:agent)
                 - if content_positions.any?
                   %td{ colspan: 3 }
                     .pure-g

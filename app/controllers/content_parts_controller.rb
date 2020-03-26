@@ -44,12 +44,10 @@ class ContentPartsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @content_part.update(content_part_params)
-        format.html { redirect_to overviews_path, notice: 'ContentPart was successfully updated.' }
-      else
-        format.html { render :edit }
-      end
+    if @content_part.update(content_part_params)
+      redirect_to overviews_path, notice: 'ContentPart was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -84,6 +82,7 @@ class ContentPartsController < ApplicationController
       :type,
       :video,
       :data_text,
+      :target_path,
       :remove_video,
       :page_ids => []).tap do |param|
         if param[:template_element_id].blank? || param[:template_element_id].eql?("nil")

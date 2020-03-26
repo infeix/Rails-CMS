@@ -18,10 +18,9 @@ Rails.application.routes.draw do
       patch 'filter'
     end
   end
-  resources :articles, controller: 'articles'
-  resources :pictures, controller: 'pictures'
-  resources :videoelements, controller: 'videoelements'
-  resources :textelements, controller: 'textelements' do
+  resources :pictures, controller: 'content_parts'
+  resources :videoelements, controller: 'content_parts'
+  resources :textelements, controller: 'content_parts' do
     member do
       patch 'copy'
     end
@@ -31,10 +30,10 @@ Rails.application.routes.draw do
       patch 'copy'
     end
   end
-  resources :urlelements, controller: 'urlelements'
-  resources :pdf_files, controller: 'pdf_files'
-  resources :css_files, controller: 'css_files'
-  resources :js_files, controller: 'js_files'
+  resources :urlelements, controller: 'content_parts'
+  resources :pdf_files, controller: 'content_parts'
+  resources :css_files, controller: 'content_parts'
+  resources :js_files, controller: 'content_parts'
   resources :positions, controller: 'positions', only: [:new, :destroy]
   resources :overviews, only: [:index]
   resources :transactions

@@ -4,15 +4,14 @@
 
 
 
-
-- unless ContentPart.current_editing_one
+- unless edit_content_part&.edit_filter.eql?(1)
   - if Page.current_editing_one
 
     - # select Content Parts
     .pure-u-1.pure-u-md-2-3
       %h1 Welchen Inhalt willst du bearbeiten?
       .pure-g
-        - content_positions = if @page.template_element then @page.template_element.positions(:agent) else [] end
+        - content_positions = if @page.template_element then @page.template_element.filtered_positions(:agent) else [] end
         - rendered_content_positions = []
         = render partial: 'content_part_index', locals: { content_positions: content_positions,
                                                           rendered_content_positions: rendered_content_positions,
