@@ -17,7 +17,7 @@ class ContentPart < ActiveRecord::Base
 
   scope :sort_by_index, -> { order(index: :asc) }
   scope :sort_by_title, -> { order(title: :asc) }
-  scope :files, -> { where('"content_parts"."type" IN (?)', FILES) }
+  scope :files, -> { where('"content_parts"."type" IN (?)', ContentPart::FILES) }
 
   validates :type, presence: true
 

@@ -17,7 +17,6 @@ class OverviewsController < ApplicationController
     @pages = Page.all.sort_by_id
     @files = ContentPart.files.sort_by_title
 
-
     if content_part_id.eql? 'new'
       @content_part = ContentPart.new
       @content_part.edit_filter = 1

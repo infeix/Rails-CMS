@@ -3,9 +3,7 @@
 - edit_content_part = local_assigns.fetch(:content_part)
 
 
-
-
-- unless ContentPart.current_editing_one
+- unless @content_part&.edit_filter == 1 || ContentPart.current_editing_one
   - if Page.current_editing_one
 
     - # select Content Parts
