@@ -27,7 +27,7 @@ class ContentPart < ActiveRecord::Base
   after_save :create_positions
 
   def define_position
-    self.position = title if self.position.eql? "no_position"
+    self.position = self.title if self.position.blank? || self.position.eql?("no_position")
   end
 
   def create_positions
