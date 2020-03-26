@@ -38,7 +38,7 @@ class ContentPart < ActiveRecord::Base
     collected_children = []
     positions = Position.parse_positions to_s
     positions.each do |position|
-      collected_children += ContentPart.where(position: position).pluck(:id)
+      collected_children += ContentPart.where(position: position).sort_by_index.pluck(:id)
     end
     self.children_parts = collected_children.join(';')
   end
