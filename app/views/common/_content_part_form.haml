@@ -35,7 +35,7 @@
       = f.hidden_field :position, value: @content_part.position
       - unless ContentPart::FILES.include?(@content_part.type)
         = f.hidden_field :page_ids, multiple: true, value: @page.id
-      - unless @content_part.type.eql?("Wordelement") || ContentPart::FILES.include?(@content_part.type)
+      - unless @content_part.type.eql?("Wordelement") || ["PdfFile", "JsFile", "CssFile"].include?(@content_part.type)
         .field
           = f.label :template_element_id
           = TemplateElement.render_dropdown("content_part", "template_element_id", f.object.template_element&.title, @content_part.type)
