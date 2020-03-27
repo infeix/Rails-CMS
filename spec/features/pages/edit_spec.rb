@@ -29,7 +29,7 @@ RSpec.feature 'Page edit page' do
 
     find('.page_title').set 'blub_title'
     find('#page_path').set 'blub_path'
-    find('#page_template_element_id').set template_element.id
+    find('#page_template_element_id').find(:option, template_element.title).select_option
 
     page.find("input[type='submit']").click
     expect(page.current_path).to eq overviews_path
