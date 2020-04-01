@@ -15,6 +15,8 @@ end
 
 class ContentPart < ActiveRecord::Base
 
+  has_and_belongs_to_many :pages, optional: true
+
   before_save :collect_children
   after_save :collect_pages
 
@@ -28,7 +30,7 @@ class ContentPart < ActiveRecord::Base
   end
 
   def collect_pages
-    return true unless ContentPart::FILES.include?(type)
+    return true unless ["PdfFile", "JsFile", "CssFile", "VideoElement", "Picture"].include?(type)
     Page.all.each do |page|
       unless pages.include?(page)
         pages << page

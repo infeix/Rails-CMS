@@ -166,7 +166,7 @@
               %tr
                 %td.cell= textelement.title
                 %td.cell= textelement.index
-                %td.cell= textelement.pages.count
+                %td.cell= if textelement.pages.count == 1 then textelement&.page&.title else textelement.pages.count end
                 %td.cell= link_to 'Show', textelement_path(textelement), 'class': 'pure-button'
                 %td.cell= link_to 'Edit', edit_textelement_path(textelement), 'class': 'pure-button'
                 %td.cell= link_to 'Destroy', textelement_path(textelement), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'
@@ -243,7 +243,7 @@
               %tr
                 %td.cell= urlelement.title
                 %td.cell= urlelement.index
-                %td.cell= urlelement.pages.count
+                %td.cell= if urlelement.pages.count == 1 then urlelement&.page&.title else urlelement.pages.count end
                 %td.cell= link_to 'Show', urlelement_path(urlelement), 'class': 'pure-button'
                 %td.cell= link_to 'Edit', edit_urlelement_path(urlelement), 'class': 'pure-button'
                 %td.cell= link_to 'Destroy', urlelement_path(urlelement), method: :delete, data: { :confirm => 'Are you sure?' }, 'class': 'pure-button'

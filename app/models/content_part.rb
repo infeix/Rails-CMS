@@ -10,6 +10,7 @@ class ContentPart < ActiveRecord::Base
   mount_uploader :js_file, JsFileUploader
 
   belongs_to :template_element, optional: true
+  belongs_to :page, optional: true
   has_and_belongs_to_many :pages, optional: true
   before_destroy do
     pages.clear
@@ -24,10 +25,18 @@ class ContentPart < ActiveRecord::Base
   before_save :define_position
   before_save :collect_children
   before_save :create_positions
+  before_save :select_page
+
   after_save :collect_pages
 
   def define_position
     self.position = self.title if self.position.blank? || self.position.eql?("no_position")
+  end
+
+  def select_page
+    if self.pages.count == 1
+      self.page = self.pages.first
+    end
   end
 
   def create_positions

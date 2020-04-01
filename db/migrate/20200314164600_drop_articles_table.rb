@@ -2,6 +2,18 @@
 class Article < ActiveRecord::Base
 end
 
+class Textelement < Article
+end
+
+class Urlelement < Article
+end
+
+class Picture < Article
+end
+
+class PdfFile < Article
+end
+
 class DropArticlesTable < ActiveRecord::Migration[5.0]
   def change
     reversible do |dir|
