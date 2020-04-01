@@ -23,15 +23,16 @@ class ContentPart < ActiveRecord::Base
 
   before_save :define_position
   before_save :collect_children
+  before_save :create_positions
   after_save :collect_pages
-  after_save :create_positions
 
   def define_position
     self.position = self.title if self.position.blank? || self.position.eql?("no_position")
   end
 
   def create_positions
-    Position.create_positions to_s
+    positions_array = Position.create_positions(self.to_s)
+    self.positions = positions_array.join(';')
   end
 
   def collect_children

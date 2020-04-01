@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_15_202900) do
+ActiveRecord::Schema.define(version: 2020_25_03_154800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2020_03_15_202900) do
     t.string "js_file"
     t.integer "edit_filter"
     t.string "children_parts"
+    t.string "positions"
   end
 
   create_table "content_parts_pages", id: false, force: :cascade do |t|

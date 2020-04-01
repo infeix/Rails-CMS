@@ -14,7 +14,6 @@ class Position < ActiveRecord::Base
 end
 
 class ContentPart < ActiveRecord::Base
-  FILES = ["PdfFile", "JsFile", "CssFile", "VideoElement", "Picture"]
 
   before_save :collect_children
   after_save :collect_pages
@@ -42,7 +41,7 @@ class ContentPart < ActiveRecord::Base
   end
 end
 
-class Page < ContentPart
+class Page < ActiveRecord::Base
 end
 
 class Textelement < ContentPart

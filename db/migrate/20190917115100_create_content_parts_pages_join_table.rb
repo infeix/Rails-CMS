@@ -6,18 +6,6 @@ class ContentPart < ActiveRecord::Base
   has_and_belongs_to_many :pages, optional: true
 end
 
-class Textelement < Article
-end
-
-class Urlelement < Article
-end
-
-class PdfFile < Article
-end
-
-class Picture < Article
-end
-
 class Page < ActiveRecord::Base
   has_and_belongs_to_many :content_parts, optional: true
 end
