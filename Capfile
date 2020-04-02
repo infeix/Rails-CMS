@@ -15,3 +15,5 @@ require 'capistrano/passenger'
 require 'capistrano/rbenv'
 set :rbenv_type, :user
 set :rbenv_ruby, '2.5.7'
+
+require 'rollbar/capistrano3'
