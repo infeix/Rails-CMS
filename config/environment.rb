@@ -5,7 +5,7 @@ require File.expand_path('../application', __FILE__)
 require File.expand_path('../rollbar', __FILE__)
 
 # staging if staging.txt file exists
-Rails.env = "staging" if File.exists?(File.expand_path('staging.txt', __dir__))# Load the Rails application.
+Rails.env = "staging" if File.exists?(File.expand_path('staging.txt', __dir__))
 
 notify = ->(e) do
   begin
