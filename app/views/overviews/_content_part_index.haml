@@ -25,7 +25,7 @@
             = f.hidden_field :title, value: position_name
             = f.hidden_field :position, value: position_name
             = f.hidden_field :type, value: 'Wordelement'
-            = f.hidden_field :page_ids, multiple: true, value: edit_filter_page.id
+            = f.hidden_field :page_id, value: edit_filter_page.id
             = f.submit 'Save', 'class': 'pure-button'
             - if world_content_part.id
               = link_to 'Löschen', content_part_path(world_content_part), method: :delete, data: { :confirm => 'Bist du sicher?' }, 'class': 'pure-button'

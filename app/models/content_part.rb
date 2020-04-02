@@ -11,10 +11,6 @@ class ContentPart < ActiveRecord::Base
 
   belongs_to :template_element, optional: true
   belongs_to :page, optional: true
-  has_and_belongs_to_many :pages, optional: true
-  before_destroy do
-    pages.clear
-  end
 
   scope :sort_by_index, -> { order(index: :asc) }
   scope :sort_by_title, -> { order(title: :asc) }
@@ -25,18 +21,9 @@ class ContentPart < ActiveRecord::Base
   before_save :define_position
   before_save :collect_children
   before_save :create_positions
-  before_save :select_page
-
-  after_save :collect_pages
 
   def define_position
     self.position = self.title if self.position.blank? || self.position.eql?("no_position")
-  end
-
-  def select_page
-    if self.pages.count == 1
-      self.page = self.pages.first
-    end
   end
 
   def create_positions
@@ -48,18 +35,11 @@ class ContentPart < ActiveRecord::Base
     collected_children = []
     positions = Position.parse_positions to_s
     positions.each do |position|
-      collected_children += ContentPart.where(position: position).sort_by_index.pluck(:id)
+      collected_children += ContentPart.where(page: page, position: position)
+                                       .or(ContentPart.where(page: nil, position: position))
+                                       .sort_by_index.pluck(:id)
     end
     self.children_parts = collected_children.join(';')
-  end
-
-  def collect_pages
-    return true unless ContentPart::FILES.include?(type)
-    Page.all.each do |page|
-      unless pages.include?(page)
-        pages << page
-     end
-    end
   end
 
   def positions(roll = nil, positions = [])
@@ -71,7 +51,7 @@ class ContentPart < ActiveRecord::Base
   def children(page)
     children_array = self.children_parts&.split(';') || []
     return ContentPart.none unless children_array.any?
-    content_parts = ContentPart.includes(:pages).where(pages: {id: page.id})
+    content_parts = ContentPart.where(page: page).or(ContentPart.where(page: nil))
     content_parts.where('"content_parts"."id" IN (?)', children_array)
   end
 
@@ -90,7 +70,6 @@ class ContentPart < ActiveRecord::Base
       new_part.data_text= data_text
       new_part.children_parts= children_parts
       new_part.save!
-      new_part.pages << page
       if recursion
         children(page).each do |child|
           child.make_a_copy(page)
@@ -98,9 +77,6 @@ class ContentPart < ActiveRecord::Base
       end
       return new_part
     else
-      unless pages.include?(page)
-        pages << page
-      end
       return self
     end
   end

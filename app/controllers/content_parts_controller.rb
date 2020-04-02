@@ -66,7 +66,7 @@ class ContentPartsController < ApplicationController
   def find_page
     if params[:page_id].present?
       @page = Page.find_by!(id: params[:page_id])
-      @content_part.pages << @page
+      @content_part.page = @page
     end
   end
 
@@ -91,12 +91,9 @@ class ContentPartsController < ApplicationController
       :target_path,
       :data_text,
       :remove_video,
-      :page_ids => []).tap do |param|
+      :page_id).tap do |param|
         if param[:template_element_id].blank? || param[:template_element_id].eql?("nil")
           param[:template_element_id] = nil
-        end
-        if param[:page_ids] && ContentPart::FILES.include?(param[:type])
-          param.delete(:page_ids)
         end
       end
   end

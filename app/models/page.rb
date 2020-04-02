@@ -2,13 +2,13 @@
 
 class Page < ActiveRecord::Base
   belongs_to :template_element, optional: true
-  has_and_belongs_to_many :content_parts, -> { order(index: :asc) }, optional: true
+  has_many :content_parts
   scope :sort_by_id, -> { order(id: :asc) }
   validates :path, presence: true
   validates :path, uniqueness: true
 
-  def textelements
-    content_parts.where(type: "Textelement").order(index: :asc)
+  def all_content_parts
+    ContentPart.where(page: self).or(ContentPart.where(page: nil)).order(index: :asc)
   end
 
   def type
@@ -22,7 +22,7 @@ class Page < ActiveRecord::Base
   def render_head
     rendered = "<!DOCTYPE html><html lang=\"de\"><head>"
     if template_element.present?
-      rendered += template_element.render_head(self, content_parts)
+      rendered += template_element.render_head(self, all_content_parts)
     end
     "#{rendered}</head>"
   end
@@ -31,12 +31,12 @@ class Page < ActiveRecord::Base
     rendered = render_head
     rendered += "<body>".html_safe
     if template_element.present?
-      if content_parts.any?
-        rendered += template_element.render(self, content_parts)
+      if all_content_parts.any?
+        rendered += template_element.render(self, all_content_parts)
       else
         rendered += template_element.render(self)
       end
-    elsif content_parts.any?
+    elsif all_content_parts.any?
       rendered += render_content_parts
     else
       rendered += text
@@ -52,7 +52,7 @@ class Page < ActiveRecord::Base
 
   def render_content_parts
     html = ''
-    content_parts.each do |content_part|
+    all_content_parts.each do |content_part|
       html += content_part.to_s
     end
     html
@@ -80,7 +80,7 @@ class Page < ActiveRecord::Base
     new_page.path = "#{new_page.path}_copy"
     new_page.edit_filter = 1
     new_page.save!
-    content_parts.each do |part|
+    all_content_parts.each do |part|
       part.make_a_copy(new_page, false)
     end
     new_page

@@ -85,14 +85,7 @@ class PagesController < ApplicationController
     authenticate_admin!
 
     @page.destroy
-    ContentPart.all.each do |part|
-      if part.pages.count == 0
-        part.destroy
-      end
-    end
-    respond_to do |format|
-      format.html { redirect_to overviews_path, notice: 'Page was successfully destroyed.' }
-    end
+    redirect_to overviews_path, notice: 'Page was successfully destroyed.'
   end
 
   private

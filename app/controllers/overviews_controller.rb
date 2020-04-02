@@ -45,7 +45,7 @@ class OverviewsController < ApplicationController
       @page.edit_filter = 1
       @page.save
 
-      @content_parts = ContentPart.includes(:pages).where(pages: {id: @page.id})
+      @content_parts = ContentPart.where(page: @page).or(ContentPart.where(page: nil))
       @templates = TemplateElement.where(id: @page.template_element_id).sort_by_id
     elsif page_id.nil?
       page = Page.current_editing_one
