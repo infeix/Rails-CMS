@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get '404', :to => 'application#page_not_found'
   resources :messages
   devise_for :users
   resources :users
