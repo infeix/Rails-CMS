@@ -76,7 +76,7 @@ class ContentPart < ActiveRecord::Base
   end
 
   def make_a_copy(page, recursion = true)
-    non_copy = ["PdfFile", "JsFile", "CssFile", "VideoElement", "Picture"]
+    non_copy = ContentPart::FILES
     unless non_copy.include?(type)
       new_part = ContentPart.new
       new_part.template_element = template_element

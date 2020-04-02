@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_01_185000) do
+ActiveRecord::Schema.define(version: 2020_04_02_093000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,15 +33,6 @@ ActiveRecord::Schema.define(version: 2020_04_01_185000) do
     t.string "tax_nr"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "content_part_pages", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "page_id"
-    t.bigint "content_part_id"
-    t.index ["content_part_id"], name: "index_content_part_pages_on_content_part_id"
-    t.index ["page_id"], name: "index_content_part_pages_on_page_id"
   end
 
   create_table "content_parts", id: :serial, force: :cascade do |t|
@@ -196,8 +187,6 @@ ActiveRecord::Schema.define(version: 2020_04_01_185000) do
     t.index ["page_id"], name: "index_views_on_page_id"
   end
 
-  add_foreign_key "content_part_pages", "content_parts"
-  add_foreign_key "content_part_pages", "pages"
   add_foreign_key "page_parts", "template_elements"
   add_foreign_key "pages", "template_elements"
   add_foreign_key "transactions", "accounts", column: "from_id"
