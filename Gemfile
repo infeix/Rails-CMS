@@ -29,7 +29,7 @@ gem 'draper'
 gem 'pure-css-rails'
 
 gem 'rails-latex'
-gem 'carrierwave', '~> 1.0'
+gem 'carrierwave', '~> 1.3'
 
 gem 'rollbar'
 
